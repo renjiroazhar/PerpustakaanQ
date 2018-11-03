@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import LoginPage from "./Loginpage/LoginPage";
 import MobileApp from './Routes/MobileApp';
-import WebApp from './Routes/MobileApp';
+import WebApp from './Routes/WebApp';
 import { isMobile } from "react-device-detect";
+
 class App extends Component {
   state = {
     login: null
@@ -22,7 +23,7 @@ class App extends Component {
 
   render() {
 
-    if (!(sessionStorage.getItem('loginState'))) {
+    if (!this.state.login) {
       return <LoginPage updateLogin={
         this.updateLogin
       }
