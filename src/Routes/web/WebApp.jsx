@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Layout, Row, Col, Button, List } from "antd";
 import { Input, Modal } from "antd";
-import { Link, Route } from "react-router-dom";
-import SideBar from '../../Views/Web/Components/SideBar';
+import { Link, Route, Switch } from "react-router-dom";
+import SideBar from '../../views/Web/Components/SideBar';
 import Loadable from "react-loadable";
 import axios from "axios";
 
@@ -19,58 +19,38 @@ const loading = () => (
 );
 
 const Home = Loadable({
-  loader: () => import("../../Views/Web/Containers/Home"),
+  loader: () => import("../../views/Web/Containers/Home"),
   loading: loading
 });
 
 
 const Account = Loadable({
-  loader: () => import("../../Views/Web/Containers/Account"),
+  loader: () => import("../../views/Web/Containers/Account"),
   loading: loading
 });
 
 const OrderEdit = Loadable({
-  loader: () => import("../../Views/Web/Containers/OrderDetail/OrderEdit"),
+  loader: () => import("../../views/Web/Containers/OrderDetail/OrderEdit"),
   loading: loading
 });
 
 const OrderDetailForEdit = Loadable({
-  loader: () => import("../../Views/Web/Containers/OrderDetail/OrderDetailForEdit"),
+  loader: () => import("../../views/Web/Containers/OrderDetail/OrderDetailForEdit"),
   loading: loading
 });
 
 const DetailOrder = Loadable({
-  loader: () => import("../../Views/Web/Containers/OrderDetail/DetailOrder"),
+  loader: () => import("../../views/Web/Containers/OrderDetail/DetailOrder"),
   loading: loading
 });
 
 const TambahBarang = Loadable({
-  loader: () => import("../../Views/Web/Containers/OrderDetail/TambahBarang"),
-  loading: loading
-});
-
-const Anggaran = Loadable({
-  loader: () => import("../../Views/Web/Containers/Master/AnggaranContainer"),
-  loading: loading
-});
-
-const Bagian = Loadable({
-  loader: () => import("../../Views/Web/Containers/Master/BagianContainer"),
-  loading: loading
-});
-
-const Divisi = Loadable({
-  loader: () => import("../../Views/Web/Containers/Master/DivisiContainer"),
+  loader: () => import("../../views/Web/Containers/OrderDetail/TambahBarang"),
   loading: loading
 });
 
 const Users = Loadable({
-  loader: () => import("../../Views/Web/Containers/Master/UsersContainer"),
-  loading: loading
-});
-
-const UsersUpdate = Loadable({
-  loader: () => import("../../Views/Web/Containers/Master/UsersUpdate"),
+  loader: () => import("../../views/Web/Containers/Master/UsersContainer"),
   loading: loading
 });
 
@@ -161,6 +141,7 @@ export default class WebApp extends Component {
     let userRole = sessionStorage.getItem("role");
     console.log(userRole);
     return (
+      <div>
       <Layout style={{ background: "#fff", minHeight: "100vh" }}>
         <SideBar />
         <Layout>
@@ -276,93 +257,21 @@ export default class WebApp extends Component {
                 minHeight: 360
               }}
             >
+            <Switch>
               <Route exact path="/" component={Home} />
-             
-
               <Route exact path="/account" component={Account} />
-              <Route
-                exact
-                path="/master/users"
-                render={props => {
-                  if (userRole === 3 || userRole === 4) {
-                    return <Users />;
-                  } else {
-                    return <PageNotFound />;
-                  }
-                }}
-              />
-              <Route
-                exact
-                path="/master/anggaran"
-                render={props => {
-                  if (userRole === 3 || userRole === 4) {
-                    return <Anggaran />;
-                  } else {
-                    return <PageNotFound />;
-                  }
-                }}
-              />
-
-              <Route
-                exact
-                path="/master/divisi"
-                render={props => {
-                  if (userRole === 3 || userRole === 4) {
-                    return <Divisi />;
-                  } else {
-                    return <PageNotFound />;
-                  }
-                }}
-              />
-
-              <Route
-                exact
-                path="/master/bagian"
-                render={props => {
-                  if (userRole === 3 || userRole === 4) {
-                    return <Bagian />;
-                  } else {
-                    return <PageNotFound />;
-                  }
-                }}
-              />
-
               <Route exact path="/orderdetail/:id" component={DetailOrder} />
-
-              <Route
-                exact
-                path="/orderdetail/update/:id"
-                component={OrderEdit}
-              />
-
-              <Route
-                exact
-                path="/orderdetail/:id/update"
-                component={OrderDetailForEdit}
-              />
-
-              <Route
-                exact
-                path="/orderdetail/update/addnewbarang/:id"
-                component={TambahBarang}
-              />
-
-              <Route
-                exact
-                path="/users"
-                render={props => {
-                  if (userRole === 3 || userRole === 4) {
-                    return <Users />;
-                  } else {
-                    return <PageNotFound />;
-                  }
-                }}
-              />
-              <Route exact path="/master/users/:id" component={UsersUpdate} />
+              <Route exact path="/orderdetail/update/:id" component={OrderEdit} />
+              <Route exact path="/orderdetail/:id/update" component={OrderDetailForEdit} />
+              <Route exact path="/orderdetail/update/addnewbarang/:id" component={TambahBarang} />
+              <Route exact path="/users" render={() => { return <Users />; }} />
+              <Route component={PageNotFound} />
+              </Switch>
             </div>
           </Content>
         </Layout>
       </Layout>
+      </div>
     );
   }
 }

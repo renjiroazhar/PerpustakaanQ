@@ -238,7 +238,7 @@ class HomeContainer extends Component {
         title: "Pemesan",
         dataIndex: "people.name",
         defaultSortOrder: "descend",
-        sorter: (a, b) => a.name - b.name
+        sorter: (a, b) => a.name.length - b.name.length,
       },
       {
         title: "Total",

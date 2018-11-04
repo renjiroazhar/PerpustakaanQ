@@ -1,5 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster+Two');
+
 :enterButton {
     background-color: blueviolet
+}
+
+.judul {
+  font-family: 'Lobster Two', cursive;
 }
 
 .loading-bro {

@@ -18,7 +18,7 @@ export default class PageNotFound extends Component {
               height="100px"
               width="100px"
               alt="Currency free icon"
-            />Sorry, Your Account is Limited!
+            />Page Not Found ,Bruh
           </h1>
         </Row>
       </div>

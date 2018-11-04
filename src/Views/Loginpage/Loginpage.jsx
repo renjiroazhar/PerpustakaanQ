@@ -12,13 +12,6 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import axios from "axios";
-import { message } from "antd";
-
-const errorog = () => {
-  message.error('Password/Username Salah', 3);
-};
-
 
 const styles = theme => ({
   layout: {
@@ -62,38 +55,20 @@ class Loginpage extends Component {
     password: ""
   };
 
-  login = () => {
-    axios
-      .post(
-        'https://purchasing-stagging.herokuapp.com/api/People/login?include=["user"]',
-        {
-          email: this.state.email,
-          password: this.state.password
-        }
-      )
-      .then(res => {
-        sessionStorage.setItem("accessToken", res.data.id);
-        sessionStorage.setItem("userId", res.data.userId);
-        sessionStorage.setItem("role", res.data.user.role);
-        
-        this.setState({
-          email: "",
-          password: ""
-        });
+  saveDataUser = () => {
+    let accessToken = "123456789"
+    sessionStorage.setItem("accessToken", accessToken);
+    sessionStorage.setItem("username", this.state.email);
+    sessionStorage.setItem("role", 3);
+  }
 
-        if (res.status >= 200 && res.status < 300) {
-          console.log("Sukses");
-          this.props.updateLogin();
-          return res;
-        }
-      })
-      .catch(error => {
-        console.log(error.response)
-        this.setState({
-          error : true
-        })
-        errorog();
-    });
+  login = () => {
+    if(this.state.email === 'admin' || this.state.password === "admin"){
+      this.saveDataUser();
+      this.props.updateLogin();
+    } else {
+      alert("Error Authentication");
+    }
   };
 
   handleChange = e => {

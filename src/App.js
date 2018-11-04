@@ -11,8 +11,8 @@ import {
 import {
   MobileApp,
   WebApp
-} from './Routes';
-import WrappedNormalLoginForm from './Views/Loginpage';
+} from './routes';
+import Loginpage from './views/Loginpage';
 
 const openNotificationWithIcon = (type) => {
   notification[type]({
@@ -37,7 +37,6 @@ class App extends Component {
     openNotificationWithIcon('success')
   }
 
- 
   updateLogoutState = () => {
     sessionStorage.clear();
     console.log("Logout...")
@@ -45,14 +44,11 @@ class App extends Component {
       login: false
     })
   }
-
- 
   
-
   render() {
   
     if (!(sessionStorage.getItem('loginState'))) {
-      return <WrappedNormalLoginForm updateLogin = {
+      return <Loginpage updateLogin = {
         this.updateLoginState
       }
       />;
