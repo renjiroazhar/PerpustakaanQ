@@ -2,13 +2,28 @@ import React, { Component } from "react";
 import { Layout, Menu, Icon, Button } from "antd";
 import "./style/style.css";
 import { Link } from "react-router-dom";
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
-
 class SideBar extends Component {
   state = {
-    collapsed: false
+    collapsed: false,
+    open: false,
+  };
+  
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
   };
   onCollapse = collapsed => {
     console.log(collapsed);
@@ -17,6 +32,7 @@ class SideBar extends Component {
 
   render() {
     return (
+      <div>
       <Sider
         style={{
           background: "#f7f7f7"
@@ -32,7 +48,7 @@ class SideBar extends Component {
             PA
           </h3>
         )}
-        <Link to="/add_order">
+       
             <Button
             style={{
                 margin: 16,
@@ -44,10 +60,11 @@ class SideBar extends Component {
             type="primary"
             icon="plus"
             size="large"
+            onClick={this.handleClickOpen}
             >
             Pinjam Buku
             </Button>
-        </Link>
+      
 
         <Menu
           theme="light"
@@ -91,6 +108,111 @@ class SideBar extends Component {
           </Menu.Item>
         </Menu>
       </Sider>
+
+            <div>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Biodata Peminjam</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              To subscribe to this website, please enter your email address here. We will send
+              updates occasionally.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Email Address"
+              type="email"
+              fullWidth
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Email Address"
+              type="email"
+              fullWidth
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Email Address"
+              type="email"
+              fullWidth
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Email Address"
+              type="email"
+              fullWidth
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Email Address"
+              type="email"
+              fullWidth
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Email Address"
+              type="email"
+              fullWidth
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Email Address"
+              type="email"
+              fullWidth
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Email Address"
+              type="email"
+              fullWidth
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Email Address"
+              type="email"
+              fullWidth
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Email Address"
+              type="email"
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} type="danger">
+              Batal
+            </Button>
+            <Button onClick={this.handleClose} type="primary">
+              Tambahkan
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+      </div>
     );    
   }
 }

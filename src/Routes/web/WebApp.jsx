@@ -55,7 +55,7 @@ const Users = Loadable({
 });
 
 const PageNotFound = Loadable({
-  loader: () => import("../PageNotFound"),
+  loader: () => import("../pagenotfound"),
   loading: loading
 });
 
