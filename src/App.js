@@ -1,46 +1,75 @@
-import React, { Component } from 'react';
-import LoginPage from "./Loginpage/LoginPage";
-import MobileApp from './Routes/MobileApp';
-import WebApp from './Routes/WebApp';
-import { isMobile } from "react-device-detect";
+import React, {
+  Component
+} from 'react';
+import './App.css';
+import {
+  notification
+} from "antd";
+import {
+  isMobile
+} from "react-device-detect";
+import {
+  MobileApp,
+  WebApp
+} from './Routes';
+import WrappedNormalLoginForm from './Views/Loginpage';
+
+const openNotificationWithIcon = (type) => {
+  notification[type]({
+    message: 'Login Berhasil',
+    // description: '',
+  });
+};
 
 class App extends Component {
+
   state = {
-    login: null
+    login: null,
+    hasToken : null
+    // isLoading: true
   }
 
-  updateLogin = () => {
+  updateLoginState = () => {
+    sessionStorage.setItem('loginState', true)
     this.setState({
       login: true
     })
+    openNotificationWithIcon('success')
   }
 
-  updateLogout = () => {
+ 
+  updateLogoutState = () => {
+    sessionStorage.clear();
+    console.log("Logout...")
     this.setState({
       login: false
     })
   }
 
-  render() {
+ 
+  
 
-    if (!this.state.login) {
-      return <LoginPage updateLogin={
-        this.updateLogin
+  render() {
+  
+    if (!(sessionStorage.getItem('loginState'))) {
+      return <WrappedNormalLoginForm updateLogin = {
+        this.updateLoginState
       }
       />;
     }
 
     if (isMobile) {
-      return <MobileApp updateLogout={
-        this.updateLogout
+      return <MobileApp updateLogout = {
+        this.updateLogoutState
       }
       />;
     }
 
-    return <WebApp updateLogout={
-      this.updateLogout
+    return <WebApp updateLogout = {
+      this.updateLogoutState
     }
     />;
+
   }
 }
 
