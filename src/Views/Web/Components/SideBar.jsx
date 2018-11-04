@@ -8,9 +8,35 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 
 const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;
+const styles = theme => ({
+  root: {
+    display: 'flex',
+    flexWrap : 'wrap'
+  },
+  formControl: {
+    minWidth: 120,
+    marginRight : "30px" 
+  },
+  selectEmptyOne: {
+    marginTop: theme.spacing.unit * 2,
+    width : "100%",
+    justifyContent : 'flex-start'
+  },
+  selectEmptyTwo: {
+    marginTop: theme.spacing.unit * 2,
+    width : "100%",
+    justifyContent : 'flex-end'
+  },
+});
 
 class SideBar extends Component {
   state = {
@@ -31,6 +57,7 @@ class SideBar extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
       <div>
       <Sider
@@ -121,86 +148,100 @@ class SideBar extends Component {
               To subscribe to this website, please enter your email address here. We will send
               updates occasionally.
             </DialogContentText>
+            <FormControl required className={classes.formControl}>
+        
             <TextField
               autoFocus
               margin="dense"
               id="name"
-              label="Email Address"
-              type="email"
+              label="Nama Siswa"
+              type="name"
               fullWidth
             />
+            </FormControl>
+            <FormControl required className={classes.formControl}>
+        
             <TextField
               autoFocus
               margin="dense"
               id="name"
-              label="Email Address"
-              type="email"
+              label="NIS"
+              type="number"
               fullWidth
             />
+            </FormControl>
+        <FormControl required className={classes.formControl}>
+          <InputLabel htmlFor="age-required">Kelas</InputLabel>
+          <Select
+            value={this.state.age}
+            onChange={this.handleChange}
+            name="age"
+            inputProps={{
+              id: 'age-required',
+            }}
+            className={classes.selectEmptyOne}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl required className={classes.formControl}>
+          <InputLabel htmlFor="age-required">Jurusan</InputLabel>
+          <Select
+            value={this.state.age}
+            onChange={this.handleChange}
+            name="age"
+            inputProps={{
+              id: 'age-required',
+            }}
+            className={classes.selectEmptyTwo}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
+    
+        <FormControl required className={classes.formControl}>
+        
             <TextField
               autoFocus
               margin="dense"
               id="name"
-              label="Email Address"
-              type="email"
+              label="Judul Buku"
+              type="text"
               fullWidth
             />
+        </FormControl>
+        <FormControl required className={classes.formControl}>
+        
             <TextField
               autoFocus
               margin="dense"
               id="name"
-              label="Email Address"
-              type="email"
+              label="Penerbit"
+              type="text"
               fullWidth
             />
+        </FormControl>
+        <FormControl required className={classes.formControl}>
+        
             <TextField
               autoFocus
               margin="dense"
               id="name"
-              label="Email Address"
-              type="email"
+              label="Tahun Terbit"
+              type="number"
               fullWidth
             />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Email Address"
-              type="email"
-              fullWidth
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Email Address"
-              type="email"
-              fullWidth
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Email Address"
-              type="email"
-              fullWidth
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Email Address"
-              type="email"
-              fullWidth
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Email Address"
-              type="email"
-              fullWidth
-            />
+        </FormControl>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} type="danger">
@@ -217,4 +258,8 @@ class SideBar extends Component {
   }
 }
 
-export default SideBar;
+SideBar.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(SideBar);
