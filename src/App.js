@@ -11,8 +11,8 @@ import {
 import {
   MobileApp,
   WebApp
-} from './routes';
-import Loginpage from './views/Loginpage';
+} from './Routes';
+import Loginpage from './Views/Loginpage';
 
 const openNotificationWithIcon = (type) => {
   notification[type]({
