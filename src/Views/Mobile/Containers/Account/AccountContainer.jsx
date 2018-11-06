@@ -14,11 +14,11 @@ const alert = Modal.alert;
 class AccountContainer extends Component {
   state = {
     dataUser: [],
-    role : 0,
-    name : "",
-    username  : "",
-    password : "",
-    email : ""
+    role: 0,
+    name: "",
+    username: "",
+    password: "",
+    email: ""
 
   };
 
@@ -39,7 +39,7 @@ class AccountContainer extends Component {
           username: res.data.username,
           email: res.data.email,
           password: res.data.password,
-          dataUser : res.data
+          dataUser: res.data
         });
       });
   };
@@ -48,7 +48,7 @@ class AccountContainer extends Component {
     this.props.updateLogout();
   };
 
-  componentDidMount(){
+  componentDidMount() {
     this.getDataEdit();
   }
 
@@ -84,23 +84,10 @@ class AccountContainer extends Component {
             <Item
               thumb={<Icon type="lock" theme="outlined" />}
               key="reset_password"
-              // selected={this.props.selectedTab === "reset_password"}
-              // onClick={() => { this.props.onChangeTab('reset_password') }}
+            // selected={this.props.selectedTab === "reset_password"}
+            // onClick={() => { this.props.onChangeTab('reset_password') }}
             >
               Ganti Kata Sandi
-            </Item>
-          </Link>
-        </List>
-
-        <List>
-          <Link to={`/account/input_anggaran`}>
-            <Item
-              thumb={<Icon type="wallet" theme="outlined" />}
-              key="input_anggaran"
-              // selected={this.props.selectedTab === "input_anggaran"}
-              // onClick={() => { this.props.onChangeTab('input_anggaran') }}
-            >
-              Input Anggaran
             </Item>
           </Link>
         </List>
@@ -109,7 +96,7 @@ class AccountContainer extends Component {
           <Item
             thumb={<Icon type="logout" theme="outlined" />}
             style={{ color: "red" }}
-            
+
             onClick={() =>
               alert("Logout", "Logout Akun?", [
                 { text: "Cancel", onPress: () => console.log("cancel") },

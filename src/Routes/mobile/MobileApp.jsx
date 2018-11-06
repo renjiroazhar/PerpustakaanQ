@@ -20,11 +20,6 @@ const ResetPassword = Loadable({
   loading: loading
 });
 
-const InputAnggaran = Loadable({
-  loader: () => import("../../Views/Mobile/Containers/Account/InputAnggaran"),
-  loading: loading
-});
-
 const AddOrder = Loadable({
   loader: () => import("../../Views/Mobile/Containers/AddOrder"),
   loading: loading
@@ -165,8 +160,7 @@ class MobileApp extends Component {
               <Route exact path="/orderdetail/:id/update" component={OrderDetail} />
               <Route exact path="/account" render={() => <AccountContainer updateLogout={this.logout} />} />
               <Route exact path="/account/reset_password" component={ResetPassword} />
-              <Route exact path="/account/input_anggaran" component={InputAnggaran} />
-
+              
               <Route
                 exact
                 path="/orderdetail/update/:id"

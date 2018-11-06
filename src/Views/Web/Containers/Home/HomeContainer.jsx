@@ -3,16 +3,13 @@ import {
   Table,
   Row,
   Col,
-  Card,
   Icon,
   Button,
   Divider,
   Select,
   Popconfirm,
- 
+
 } from "antd";
-import logoCoin from "./svg/currency.svg";
-import logoCard from "./svg/credit-card.svg";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -43,13 +40,11 @@ class HomeContainer extends Component {
     purchasePrice: 0,
     id: "",
     orderId: "",
-    dataAnggaran: [],
-    dataEstimasi: [],
     dataUser: [],
     filter: "",
     visible: false,
     totalHarga: 0,
-    buttonEnable : false,
+    buttonEnable: false,
     visiblePending: false,
     filteredInfo: null,
     sortedInfo: null
@@ -74,33 +69,8 @@ class HomeContainer extends Component {
     console.log("params", pagination, filters, sorter);
   };
 
-  getDataAnggaran = () => {
-    axios
-      .get(
-        "https://purchasing-stagging.herokuapp.com/api/Anggarans/getTotalAnggaran"
-      )
-      .then(res => {
-        this.setState({
-          dataAnggaran: res.data
-        });
-        console.log(res);
-      });
-  };
-
-  getTotalEstimasi = () => {
-    axios
-      .get(
-        "https://purchasing-stagging.herokuapp.com/api/Anggarans/getTotalEstimasi"
-      )
-      .then(res => {
-        this.setState({
-          dataEstimasi: res.data
-        });
-      });
-  };
-
   //Ganti Status 1. Purchased , 2. Waiting , 3. ACC1 , 4. Pending , 5. Rejected
- 
+
 
   handleChange = (pagination, filters, sorter) => {
     console.log("Various parameters", pagination, filters, sorter);
@@ -144,7 +114,6 @@ class HomeContainer extends Component {
     });
   };
 
-
   setTerbaru = () => {
     this.setState({
       sortedInfo: {
@@ -154,12 +123,8 @@ class HomeContainer extends Component {
     });
   };
 
-
-
   componentDidMount() {
     this.getDataHome();
-    this.getDataAnggaran();
-    this.getTotalEstimasi();
   }
 
   render() {
@@ -169,22 +134,9 @@ class HomeContainer extends Component {
     const pending = 4;
     const rejected = 5;
 
-    let estimasiSemua = this.state.dataEstimasi.totalEstimasi;
-    var formattednum_estimasi = Number(estimasiSemua).toLocaleString("in-ID", {
-      style: "currency",
-      currency: "IDR"
-    });
-
-    let anggaranSemua = this.state.dataAnggaran.totalAnggaran;
-    var formated_num = Number(anggaranSemua).toLocaleString("in-ID", {
-      style: "currency",
-      currency: "IDR"
-    });
-
-
     let { sortedInfo, } = this.state;
     sortedInfo = sortedInfo || {};
-  
+
     const columns = [
       {
         title: "Kode Order",
@@ -379,25 +331,25 @@ class HomeContainer extends Component {
               title="Anda yakin?"
               onConfirm={() => {
                 this.statusRejected(record.id);
-                
+
               }}
-              
+
               okText="Yes"
               cancelText="No"
             >
-            <Button
-            
-              style={{
-                backgroundColor: "#f0555a",
-                borderColor: "transparent",
-                borderRadius: "3px"
-              }}
-              type="primary"
-              size="small"
-            >
-              <Icon type="minus-circle" theme="outlined" />
-            </Button>
-            
+              <Button
+
+                style={{
+                  backgroundColor: "#f0555a",
+                  borderColor: "transparent",
+                  borderRadius: "3px"
+                }}
+                type="primary"
+                size="small"
+              >
+                <Icon type="minus-circle" theme="outlined" />
+              </Button>
+
             </Popconfirm>
             <Divider type="vertical" />
             <Popconfirm
@@ -405,12 +357,12 @@ class HomeContainer extends Component {
               onConfirm={() => {
                 this.statusPending(record.id);
               }}
-             
+
               okText="Yes"
               cancelText="No"
             >
-            <Button
-            
+              <Button
+
                 style={{
                   backgroundColor: "#FEBB01",
                   borderColor: "transparent",
@@ -421,7 +373,7 @@ class HomeContainer extends Component {
               >
                 <Icon type="clock-circle" theme="twoTone" />
               </Button>
-             
+
             </Popconfirm>
             <Divider type="vertical" />
             <Popconfirm
@@ -489,68 +441,6 @@ class HomeContainer extends Component {
 
     return (
       <div>
-        <Row gutter={16}>
-          <Col span={8}>
-            <Card
-              style={{
-                backgroundColor: "#00ae69",
-                height: "100px",
-                borderRadius: "7px"
-              }}
-            >
-              <Row style={{ marginBottom: "20px" }}>
-                <Col span={8}>
-                  <img
-                    src={logoCoin}
-                    height="50px"
-                    width="50px"
-                    alt="Currency free icon"
-                    title="Currency free icon"
-                  />
-                </Col>
-                <Col span={16}>
-                  <h4 style={{ color: "white" }} align="right">
-                    Sisa Budget
-                  </h4>
-                  <h2 style={{ color: "white" }} align="right">
-                    {formated_num}
-                  </h2>
-                </Col>
-              </Row>
-            </Card>
-          </Col>
-          <Col span={8}>
-            <Card
-              style={{
-                backgroundColor: "#f0555a",
-                height: "100px",
-                borderRadius: "7px"
-              }}
-            >
-              <Row style={{ marginBottom: "20px" }}>
-                <Col span={8}>
-                  <img
-                    src={logoCard}
-                    height="50px"
-                    width="50px"
-                    alt="Currency free icon"
-                    title="Currency free icon"
-                  />
-                </Col>
-                <Col span={16}>
-                  <h4 style={{ color: "white" }} align="right">
-                    Total Estimasi
-                  </h4>
-                  <h2 style={{ color: "white" }} align="right">
-                    {formattednum_estimasi}
-                  </h2>
-                </Col>
-              </Row>
-            </Card>
-          </Col>
-        </Row>
-        <br />
-
         <Row>
           <Col span={3}>
             <Select
@@ -563,7 +453,7 @@ class HomeContainer extends Component {
               onDeselect={this.clearAll}
             >
               <Option value="">
-                All Order  <Icon type="down" />
+                All Order
               </Option>
               <Option value="1">Bagian</Option>
               <Option value="2">Divisi</Option>
