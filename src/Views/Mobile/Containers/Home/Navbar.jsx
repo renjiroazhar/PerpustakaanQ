@@ -44,7 +44,7 @@ class Navbar extends Component {
       <div>
         <NavBar
           style={{
-            backgroundColor: "#872ef5",
+            backgroundColor: "#0088aaff",
             zIndex: "-100",
             padding: "30px 0px 30px 0px"
           }}
@@ -59,7 +59,7 @@ class Navbar extends Component {
               marginTop: "20px",
               width: "250px",
               border: "none",
-              backgroundColor: "#872ef5"
+              backgroundColor: "#0088aaff"
             }}
             placeholder="Search"
             maxLength={20}

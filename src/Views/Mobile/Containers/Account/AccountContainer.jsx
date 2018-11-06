@@ -57,7 +57,7 @@ class AccountContainer extends Component {
       <div>
         <NavBar
           style={{
-            backgroundColor: "#872ef5",
+            backgroundColor: "#0088aaff",
             height: "60px",
             zIndex: "-100"
           }}

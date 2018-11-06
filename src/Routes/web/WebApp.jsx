@@ -162,7 +162,7 @@ export default class WebApp extends Component {
                       }}
                       style={{
                         textAlign: "center",
-                        backgroundColor: "#872ef5",
+                        backgroundColor: "#0088aaff",
                         width: "100%",
                         color: "#fff",
                         borderColor: "transparent",

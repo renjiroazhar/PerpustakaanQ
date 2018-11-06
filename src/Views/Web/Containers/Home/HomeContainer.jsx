@@ -422,7 +422,7 @@ class HomeContainer extends Component {
             >
               <Button
                 style={{
-                  backgroundColor: "#872ef5",
+                  backgroundColor: "#0088aaff",
                   borderColor: "transparent",
                   borderRadius: "3px",
                   color: "#fff"

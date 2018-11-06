@@ -277,7 +277,7 @@ class OrderDetail extends Component {
             ]}
             onClick={() => console.log("")}
             style={{
-              backgroundColor: "#872ef5",
+              backgroundColor: "#0088aaff",
               padding: "25px 0px 25px 0px"
             }}
           >
@@ -780,7 +780,7 @@ class OrderDetail extends Component {
             ]}
             onClick={() => console.log("")}
             style={{
-              backgroundColor: "#872ef5",
+              backgroundColor: "#0088aaff",
               padding: "25px 0px 25px 0px"
             }}
           >

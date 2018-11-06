@@ -12,6 +12,7 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import logoPerpus from './logo/logoPerpustakaanQ.png';
 
 const styles = theme => ({
   layout: {
@@ -42,6 +43,7 @@ const styles = theme => ({
   },
   submit: {
     marginTop: theme.spacing.unit * 3,
+    backgroundColor: '#0088aaff',
   },
 });
 
@@ -87,9 +89,7 @@ class Loginpage extends Component {
             <Avatar className={classes.avatar}>
               <LockIcon />
             </Avatar>
-            <Typography component="h1" variant="h5" style={{textAlign:'center'}}>
-              SMKN 8 Semarang
-            </Typography>
+            <img height="25px" width="200px" src={logoPerpus} alt="PerpustakaanQ Logo" style={{ margin: '5px 0 10px 0' }} />
             <form className={classes.form}>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="email">Nama</InputLabel>

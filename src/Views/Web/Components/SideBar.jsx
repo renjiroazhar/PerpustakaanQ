@@ -14,27 +14,28 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import logoPerpus from './logo/logoPerpustakaanQ.png';
 
 const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 const styles = theme => ({
   root: {
     display: 'flex',
-    flexWrap : 'wrap'
+    flexWrap: 'wrap'
   },
   formControl: {
     minWidth: 120,
-    marginRight : "30px" 
+    marginRight: "30px"
   },
   selectEmptyOne: {
     marginTop: theme.spacing.unit * 2,
-    width : "100%",
-    justifyContent : 'flex-start'
+    width: "100%",
+    justifyContent: 'flex-start'
   },
   selectEmptyTwo: {
     marginTop: theme.spacing.unit * 2,
-    width : "100%",
-    justifyContent : 'flex-end'
+    width: "100%",
+    justifyContent: 'flex-end'
   },
 });
 
@@ -43,7 +44,7 @@ class SideBar extends Component {
     collapsed: false,
     open: false,
   };
-  
+
   handleClickOpen = () => {
     this.setState({ open: true });
   };
@@ -60,201 +61,202 @@ class SideBar extends Component {
     const { classes } = this.props;
     return (
       <div>
-      <Sider
-        style={{
-          background: "#f7f7f7"
-        }}
-      >
-        {!this.state.collapsed && (
-          <h2 align="center" className="judul" style={{ margin: 16, color: "#872ef5", fontWeight: 'bold' }}>
-           PerpustakaanQ
-          </h2>
-        )}
-        {this.state.collapsed && (
-          <h3 align="center" style={{ margin: 16, color: "#872ef5" }}>
-            PA
+        <Sider
+          style={{
+            background: "#f7f7f7",
+            height: "100%"
+          }}
+        >
+          {!this.state.collapsed && (
+            <div style={{ textAlign: 'center', margin: '17px' }}>
+              <img height="20px" width="150px" src={logoPerpus} alt="PerpustakaanQ Logo" />
+            </div>
+          )}
+          {this.state.collapsed && (
+            <h3 align="center" style={{ margin: 16, color: "#872ef5" }}>
+              PA
           </h3>
-        )}
-       
-            <Button
+          )}
+
+          <Button
             style={{
-                margin: 16,
-                backgroundColor: "#00ae69",
-                width: "80%",
-                borderColor: "transparent",
-                borderRadius : '3px'
+              margin: 16,
+              backgroundColor: "#00ae69",
+              width: "80%",
+              borderColor: "transparent",
+              borderRadius: '3px'
             }}
             type="primary"
             icon="plus"
             size="large"
             onClick={this.handleClickOpen}
-            >
+          >
             Pinjam Buku
             </Button>
-      
 
-        <Menu
-          theme="light"
-          style={{
-            background: "#f7f7f7"
-          }}
-          defaultSelectedKeys={["1"]}
-          mode="inline"
-        >
-          <Menu.Item key="1">
-            <Link to="/">
-            <Icon type="bars" theme="outlined" />
-                <span>Beranda</span>
-            </Link>
-          </Menu.Item>
-          <SubMenu
-            key="sub1"
-            title={
-              <span>
-                <Icon type="clock-circle" />
-                <span>Riwayat Pinjam</span>
-              </span>
-            }
+
+          <Menu
+            theme="light"
+            style={{
+              background: "#f7f7f7"
+            }}
+            defaultSelectedKeys={["1"]}
+            mode="inline"
           >
-            <Menu.Item key="3">
+            <Menu.Item key="1">
+              <Link to="/">
+                <Icon type="bars" theme="outlined" />
+                <span>Beranda</span>
+              </Link>
+            </Menu.Item>
+            <SubMenu
+              key="sub1"
+              title={
+                <span>
+                  <Icon type="clock-circle" />
+                  <span>Riwayat Pinjam</span>
+                </span>
+              }
+            >
+              <Menu.Item key="3">
                 <Link to="/borrow_history/monthly">
-                    Bulanan
+                  Bulanan
                 </Link>
-            </Menu.Item>
-            <Menu.Item key="4">
+              </Menu.Item>
+              <Menu.Item key="4">
                 <Link to="/borrow_history/yearly">
-                    Tahunan
+                  Tahunan
                 </Link>
-            </Menu.Item>
-          </SubMenu>
-          <Menu.Item key="5">
-            <Link to={"/account"}>
+              </Menu.Item>
+            </SubMenu>
+            <Menu.Item key="5">
+              <Link to={"/account"}>
                 <Icon type="user" />
                 <span>Akun</span>
-            </Link>
-          </Menu.Item>
-        </Menu>
-      </Sider>
+              </Link>
+            </Menu.Item>
+          </Menu>
+        </Sider>
 
-            <div>
-        <Dialog
-          open={this.state.open}
-          onClose={this.handleClose}
-          aria-labelledby="form-dialog-title"
-        >
-          <DialogTitle id="form-dialog-title">Biodata Peminjam</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              To subscribe to this website, please enter your email address here. We will send
-              updates occasionally.
+        <div>
+          <Dialog
+            open={this.state.open}
+            onClose={this.handleClose}
+            aria-labelledby="form-dialog-title"
+          >
+            <DialogTitle id="form-dialog-title">Biodata Peminjam</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                To subscribe to this website, please enter your email address here. We will send
+                updates occasionally.
             </DialogContentText>
-            <FormControl required className={classes.formControl}>
-        
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Nama Siswa"
-              type="name"
-              fullWidth
-            />
-            </FormControl>
-            <FormControl required className={classes.formControl}>
-        
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="NIS"
-              type="number"
-              fullWidth
-            />
-            </FormControl>
-        <FormControl required className={classes.formControl}>
-          <InputLabel htmlFor="age-required">Kelas</InputLabel>
-          <Select
-            value={this.state.age}
-            onChange={this.handleChange}
-            name="age"
-            inputProps={{
-              id: 'age-required',
-            }}
-            className={classes.selectEmptyOne}
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl required className={classes.formControl}>
-          <InputLabel htmlFor="age-required">Jurusan</InputLabel>
-          <Select
-            value={this.state.age}
-            onChange={this.handleChange}
-            name="age"
-            inputProps={{
-              id: 'age-required',
-            }}
-            className={classes.selectEmptyTwo}
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-        </FormControl>
-    
-        <FormControl required className={classes.formControl}>
-        
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Judul Buku"
-              type="text"
-              fullWidth
-            />
-        </FormControl>
-        <FormControl required className={classes.formControl}>
-        
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Penerbit"
-              type="text"
-              fullWidth
-            />
-        </FormControl>
-        <FormControl required className={classes.formControl}>
-        
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Tahun Terbit"
-              type="number"
-              fullWidth
-            />
-        </FormControl>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} type="danger">
-              Batal
+              <FormControl required className={classes.formControl}>
+
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Nama Siswa"
+                  type="name"
+                  fullWidth
+                />
+              </FormControl>
+              <FormControl required className={classes.formControl}>
+
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="NIS"
+                  type="number"
+                  fullWidth
+                />
+              </FormControl>
+              <FormControl required className={classes.formControl}>
+                <InputLabel htmlFor="age-required">Kelas</InputLabel>
+                <Select
+                  value={this.state.age}
+                  onChange={this.handleChange}
+                  name="age"
+                  inputProps={{
+                    id: 'age-required',
+                  }}
+                  className={classes.selectEmptyOne}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl required className={classes.formControl}>
+                <InputLabel htmlFor="age-required">Jurusan</InputLabel>
+                <Select
+                  value={this.state.age}
+                  onChange={this.handleChange}
+                  name="age"
+                  inputProps={{
+                    id: 'age-required',
+                  }}
+                  className={classes.selectEmptyTwo}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem>
+                </Select>
+              </FormControl>
+
+              <FormControl required className={classes.formControl}>
+
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Judul Buku"
+                  type="text"
+                  fullWidth
+                />
+              </FormControl>
+              <FormControl required className={classes.formControl}>
+
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Penerbit"
+                  type="text"
+                  fullWidth
+                />
+              </FormControl>
+              <FormControl required className={classes.formControl}>
+
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Tahun Terbit"
+                  type="number"
+                  fullWidth
+                />
+              </FormControl>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleClose} type="danger">
+                Batal
             </Button>
-            <Button onClick={this.handleClose} type="primary">
-              Tambahkan
+              <Button onClick={this.handleClose} type="primary">
+                Tambahkan
             </Button>
-          </DialogActions>
-        </Dialog>
+            </DialogActions>
+          </Dialog>
+        </div>
       </div>
-      </div>
-    );    
+    );
   }
 }
 

@@ -314,7 +314,7 @@ class OrderDetailForEdit extends Component {
             >
               <Button
                 style={{
-                  backgroundColor: "#872ef5",
+                  backgroundColor: "#0088aaff",
                   borderColor: "transparent",
                   borderRadius: "3px"
                 }}
@@ -422,7 +422,7 @@ class OrderDetailForEdit extends Component {
                       width: "100%",
                       borderColor: "transparent",
                       borderRadius: "3px",
-                      backgroundColor: "#872ef5",
+                      backgroundColor: "#0088aaff",
                       color: "#fff"
                     }}
                     type="primary"
@@ -550,7 +550,7 @@ class OrderDetailForEdit extends Component {
             <Row>
               <Button
                 style={{
-                  backgroundColor: "#872ef5",
+                  backgroundColor: "#0088aaff",
                   borderColor: "transparent",
                   borderRadius: "3px",
                   float: "right"
