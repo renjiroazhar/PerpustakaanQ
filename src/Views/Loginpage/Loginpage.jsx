@@ -13,6 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import logoPerpus from './logo/logoPerpustakaanQ.png';
+import axios from 'axios';
 
 const styles = theme => ({
   layout: {
@@ -54,23 +55,38 @@ class Loginpage extends Component {
   state = {
     error: false,
     email: "",
-    password: ""
+    password: "",
+    role : 0
   };
 
   saveDataUser = () => {
     let accessToken = "123456789"
     sessionStorage.setItem("accessToken", accessToken);
     sessionStorage.setItem("username", this.state.email);
-    sessionStorage.setItem("role", 3);
+    sessionStorage.setItem("role", this.state.role);
   }
 
   login = () => {
+    const { email, password } = this.state;
+    axios.post(`http://localhost:8000/api/People/login`,
+    {
+      email : email,
+      password : password
+    }).then(res => {
+      this.saveDataUser();
+      sessionStorage.setItem('accessToken', res.data.id);
+      this.props.updateLogin();
+      console.log(res);
+
+      if(res.status === 401) {
+        return(alert("Error Auth"));
+      }
+    })
+
     if(this.state.email === 'admin' || this.state.password === "admin"){
       this.saveDataUser();
       this.props.updateLogin();
-    } else {
-      alert("Error Authentication");
-    }
+    } 
   };
 
   handleChange = e => {
