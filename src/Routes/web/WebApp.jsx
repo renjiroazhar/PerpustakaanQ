@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Layout, Row, Col, Button, List } from "antd";
 import { Input, Modal } from "antd";
 import { Link, Route, Switch } from "react-router-dom";
-import SideBar from '../../views/Web/Components/SideBar';
+import SideBar from '../../Views/Web/Components/SideBar';
 import Loadable from "react-loadable";
 import axios from "axios";
 
@@ -19,38 +19,38 @@ const loading = () => (
 );
 
 const Home = Loadable({
-  loader: () => import("../../views/Web/Containers/Home"),
+  loader: () => import("../../Views/Web/Containers/Home"),
   loading: loading
 });
 
 
 const Account = Loadable({
-  loader: () => import("../../views/Web/Containers/Account"),
+  loader: () => import("../../Views/Web/Containers/Account"),
   loading: loading
 });
 
 const OrderEdit = Loadable({
-  loader: () => import("../../views/Web/Containers/OrderDetail/OrderEdit"),
+  loader: () => import("../../Views/Web/Containers/OrderDetail/OrderEdit"),
   loading: loading
 });
 
 const OrderDetailForEdit = Loadable({
-  loader: () => import("../../views/Web/Containers/OrderDetail/OrderDetailForEdit"),
+  loader: () => import("../../Views/Web/Containers/OrderDetail/OrderDetailForEdit"),
   loading: loading
 });
 
 const DetailOrder = Loadable({
-  loader: () => import("../../views/Web/Containers/OrderDetail/DetailOrder"),
+  loader: () => import("../../Views/Web/Containers/OrderDetail/DetailOrder"),
   loading: loading
 });
 
 const TambahBarang = Loadable({
-  loader: () => import("../../views/Web/Containers/OrderDetail/TambahBarang"),
+  loader: () => import("../../Views/Web/Containers/OrderDetail/TambahBarang"),
   loading: loading
 });
 
 const Users = Loadable({
-  loader: () => import("../../views/Web/Containers/Master/UsersContainer"),
+  loader: () => import("../../Views/Web/Containers/Master/UsersContainer"),
   loading: loading
 });
 

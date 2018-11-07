@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import BottomNavbar from "../../views/Mobile/Components/BottomNavbar";
-import AccountContainer from "../../views/Mobile/Containers/Account/AccountContainer";
+import BottomNavbar from "../../Views/Mobile/Components/BottomNavbar";
+import AccountContainer from "../../Views/Mobile/Containers/Account/AccountContainer";
 import Loadable from "react-loadable";
 import { Route, Switch } from "react-router";
 import { ActivityIndicator } from "antd-mobile";
@@ -11,72 +11,72 @@ import axios from "axios";
 const loading = () => <ActivityIndicator />;
 
 const Home = Loadable({
-  loader: () => import("../../views/Mobile/Containers/Home"),
+  loader: () => import("../../Views/Mobile/Containers/Home"),
   loading: loading
 });
 
 const ResetPassword = Loadable({
-  loader: () => import("../../views/Mobile/Containers/Account/ResetPassword"),
+  loader: () => import("../../Views/Mobile/Containers/Account/ResetPassword"),
   loading: loading
 });
 
 const AddOrder = Loadable({
-  loader: () => import("../../views/Mobile/Containers/AddOrder"),
+  loader: () => import("../../Views/Mobile/Containers/AddOrder"),
   loading: loading
 });
 
 const OrderDetail = Loadable({
-  loader: () => import("../../views/Mobile/Containers/OrderDetail/OrderDetail"),
+  loader: () => import("../../Views/Mobile/Containers/OrderDetail/OrderDetail"),
   loading: loading
 });
 
 const DetailACC1 = Loadable({
-  loader: () => import("../../views/Mobile/Containers/OrderDetail/DetailACC1"),
+  loader: () => import("../../Views/Mobile/Containers/OrderDetail/DetailACC1"),
   loading: loading
 });
 
 const DetailPending = Loadable({
-  loader: () => import("../../views/Mobile/Containers/OrderDetail/DetailPending"),
+  loader: () => import("../../Views/Mobile/Containers/OrderDetail/DetailPending"),
   loading: loading
 });
 
 const DetailWaiting = Loadable({
-  loader: () => import("../../views/Mobile/Containers/OrderDetail/DetailWaiting"),
+  loader: () => import("../../Views/Mobile/Containers/OrderDetail/DetailWaiting"),
   loading: loading
 });
 
 const DetailRejected = Loadable({
-  loader: () => import("../../views/Mobile/Containers/OrderDetail/DetailRejected"),
+  loader: () => import("../../Views/Mobile/Containers/OrderDetail/DetailRejected"),
   loading: loading
 });
 
 const DetailPurchased = Loadable({
-  loader: () => import("../../views/Mobile/Containers/OrderDetail/DetailPurchased"),
+  loader: () => import("../../Views/Mobile/Containers/OrderDetail/DetailPurchased"),
   loading: loading
 });
 
 const MyOrderDetail = Loadable({
-  loader: () => import("../../views/Mobile/Containers/OrderDetail/MyOrderDetail"),
+  loader: () => import("../../Views/Mobile/Containers/OrderDetail/MyOrderDetail"),
   loading: loading
 });
 
 const OrderEdit = Loadable({
-  loader: () => import("../../views/Mobile/Containers/OrderDetail/OrderEdit"),
+  loader: () => import("../../Views/Mobile/Containers/OrderDetail/OrderEdit"),
   loading: loading
 });
 
 const DetailHistory = Loadable({
-  loader: () => import("../../views/Mobile/Containers/OrderDetail/DetailHistory"),
+  loader: () => import("../../Views/Mobile/Containers/OrderDetail/DetailHistory"),
   loading: loading
 });
 
 const DetailMyOrder = Loadable({
-  loader: () => import("../../views/Mobile/Containers/OrderDetail/DetailMyOrder"),
+  loader: () => import("../../Views/Mobile/Containers/OrderDetail/DetailMyOrder"),
   loading: loading
 });
 
 const TambahBarang = Loadable({
-  loader: () => import("../../views/Mobile/Containers/OrderDetail/TambahBarang"),
+  loader: () => import("../../Views/Mobile/Containers/OrderDetail/TambahBarang"),
   loading: loading
 });
 
