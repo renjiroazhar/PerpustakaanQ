@@ -1,5 +1,5 @@
-import MobileApp from '../Routes/mobile/MobileApp'
-import WebApp from '../Routes/web/WebApp'
+import MobileApp from '../routes/mobile/MobileApp'
+import WebApp from '../routes/web/WebApp'
 
 export {
     MobileApp,
