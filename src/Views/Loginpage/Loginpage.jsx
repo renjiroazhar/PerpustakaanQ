@@ -8,7 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import LockIcon from '@material-ui/icons/LockOutlined';
+import LogoBuku from './logo/buku.png';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -36,7 +36,9 @@ const styles = theme => ({
   },
   avatar: {
     margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: "white",
+    width: "50px",
+    height: "50px",
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -83,11 +85,17 @@ class Loginpage extends Component {
       }
     })
 
-    if(this.state.email === 'admin' || this.state.password === "admin"){
+    if(this.state.email === 'admin' && this.state.password === "admin"){
       this.saveDataUser();
       this.props.updateLogin();
     } 
   };
+
+  handleKeyPress = (e) => {
+    if(e.key === "Enter"){
+      this.login();
+    } 
+  }
 
   handleChange = e => {
     this.setState({
@@ -103,12 +111,12 @@ class Loginpage extends Component {
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Avatar className={classes.avatar}>
-              <LockIcon />
+              <img src={LogoBuku} width="40px" alt=""/>
             </Avatar>
             <img height="25px" width="200px" src={logoPerpus} alt="PerpustakaanQ Logo" style={{ margin: '5px 0 10px 0' }} />
             <form className={classes.form}>
               <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="email">Nama</InputLabel>
+                <InputLabel htmlFor="email">Email</InputLabel>
                 <Input id="email" name="email" value={this.state.email} onChange={this.handleChange} autoComplete="email" autoFocus />
               </FormControl>
               <FormControl margin="normal" required fullWidth>
@@ -120,6 +128,7 @@ class Loginpage extends Component {
                   autoComplete="current-password"
                   value={this.state.password} 
                   onChange={this.handleChange}
+                  onKeyPress={this.handleChange}
                 />
               </FormControl>
               <FormControlLabel

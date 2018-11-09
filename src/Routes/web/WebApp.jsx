@@ -151,7 +151,7 @@ export default class WebApp extends Component {
             <Row>
               <Col span={20}>
                 <Search
-                  placeholder="Cari 982 Barang"
+                  placeholder="Cari Peminjam"
                   name="searchItem"
                   value={this.state.searchItem}
                   onChange={this.handleChange}
