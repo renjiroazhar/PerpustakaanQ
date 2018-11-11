@@ -29,6 +29,16 @@ const Account = Loadable({
   loading: loading
 });
 
+const HistoryBulanan = Loadable({
+  loader: () => import("../../Views/Web/Containers/History/HistoryBulanan"),
+  loading: loading
+});
+
+const HistoryTahunan = Loadable({
+  loader: () => import("../../Views/Web/Containers/History/HistoryTahunan"),
+  loading: loading
+});
+
 const OrderEdit = Loadable({
   loader: () => import("../../Views/Web/Containers/OrderDetail/OrderEdit"),
   loading: loading
@@ -260,6 +270,8 @@ export default class WebApp extends Component {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/account" component={Account} />
+              <Route exact path="/borrow_history/monthly" component={HistoryBulanan} />
+              <Route exact path="/borrow_history/yearly" component={HistoryTahunan} />
               <Route exact path="/orderdetail/:id" component={DetailOrder} />
               <Route exact path="/orderdetail/update/:id" component={OrderEdit} />
               <Route exact path="/orderdetail/:id/update" component={OrderDetailForEdit} />
