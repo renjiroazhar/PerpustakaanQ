@@ -184,11 +184,11 @@ class SideBar extends Component {
                   className={classes.selectEmptyOne}
                 >
                   <MenuItem value="">
-                    <em>None</em>
+                    <em>-</em>
                   </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  <MenuItem value={10}>Sepuluh</MenuItem>
+                  <MenuItem value={20}>Sebelas</MenuItem>
+                  <MenuItem value={30}>Duabelas</MenuItem>
                 </Select>
               </FormControl>
               <FormControl required className={classes.formControl}>
@@ -203,11 +203,12 @@ class SideBar extends Component {
                   className={classes.selectEmptyTwo}
                 >
                   <MenuItem value="">
-                    <em>None</em>
+                    <em>-</em>
                   </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  <MenuItem value={10}>Rekayasa Perangkat Lunak</MenuItem>
+                  <MenuItem value={20}>Multimedia</MenuItem>
+                  <MenuItem value={30}>Perawatan Sosial</MenuItem>
+                  <MenuItem value={40}>Caregiver</MenuItem>
                 </Select>
               </FormControl>
 
