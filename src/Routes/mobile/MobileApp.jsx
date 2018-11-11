@@ -65,6 +65,11 @@ const OrderEdit = Loadable({
   loading: loading
 });
 
+const History = Loadable({
+  loader: () => import("../../Views/Mobile/Containers/History/HistoryContainer"),
+  loading: loading
+});
+
 const DetailHistory = Loadable({
   loader: () => import("../../Views/Mobile/Containers/OrderDetail/DetailHistory"),
   loading: loading
@@ -160,6 +165,7 @@ class MobileApp extends Component {
               <Route exact path="/orderdetail/:id/update" component={OrderDetail} />
               <Route exact path="/account" render={() => <AccountContainer updateLogout={this.logout} />} />
               <Route exact path="/account/reset_password" component={ResetPassword} />
+              <Route exact path="/history" component={History} />
               
               <Route
                 exact

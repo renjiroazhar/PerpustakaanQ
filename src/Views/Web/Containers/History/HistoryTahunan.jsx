@@ -1,33 +1,107 @@
 import React, { Component } from "react";
 import {
-    Icon,
     Table,
+    Select
 } from "antd";
-import { List } from "antd-mobile";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
-import { Redirect } from "react-router-dom";
+import axios from "axios";
 
-class HistoryTahunan extends Component {
+const Option = Select.Option;
+
+class YearHistory extends Component {
+    rootSubmenuKeys = ["sub1", "sub2", "sub4"];
 
     state = {
+        openKeys: ["sub1"],
+        data: [],
+        history: 0,
+        totalEstimasiSemua: 0,
+        totalEstimasiPerbulan: [],
+        namaTahun: 0,
         loading: false,
-    }
-
-    handleChangesOptionTahun = e => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-        this.setState({
-            tahun: e.target.value,
-            namaTahun: e.target.value
-        });
-        console.log(this.state);
-        this.getDataTahunan(e.target.value);
+        salah: false,
+        filteredInfo: null,
+        sortedInfo: null
     };
+
+    getDataTahunan = (tahunan) => {
+        axios
+            .get(
+                `https://purchasing-stagging.herokuapp.com/api/Orders?filter={"include":"people","where":{"and":[{"createdAt":{"gt":"${tahunan}-1-1"}},{"createdAt":{"lt":"${tahunan}-12-31"}}],"status":"1"}}`
+            )
+            .then(res => {
+                this.setState({
+                    data: res.data,
+
+                });
+                console.log(res.data);
+                let temp = 0;
+                this.state.data.map(key => temp += key.totalHarga)
+                this.setState({
+                    totalEstimasiSemua: temp,
+                    loading: true
+                });
+            });
+    };
+
+    getDataTahunSekarang = () => {
+        var today = new Date();
+        let todayYear = today.getFullYear();
+        axios
+            .get(
+                `https://purchasing-stagging.herokuapp.com/api/Orders?filter={"include":"people","where":{"and":[{"createdAt":{"gt":"${todayYear}-1-1"}},{"createdAt":{"lt":"${todayYear}-12-31"}}],"status":"1"}}`
+            )
+            .then(res => {
+                this.setState({
+                    data: res.data,
+
+                });
+                console.log(res.data);
+                let temp = 0;
+                this.state.data.map(key => temp += key.totalHarga);
+                this.setState({
+                    totalEstimasiSemua: temp,
+                    namaTahun: todayYear
+                });
+            });
+    };
+
+    deleteData = _id => {
+        axios
+            .delete(`https://purchasing-stagging.herokuapp.com/api/Orders/${_id}`)
+            .then(res => {
+                this.getData();
+            });
+    };
+
+    onOpenChange = openKeys => {
+        const latestOpenKey = openKeys.find(
+            key => this.state.openKeys.indexOf(key) === -1
+        );
+        if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+            this.setState({ openKeys });
+        } else {
+            this.setState({
+                openKeys: latestOpenKey ? [latestOpenKey] : []
+            });
+        }
+    };
+
+    handleChangesOptionHistory = value => {
+
+        this.setState({ history: value, namaTahun: value });
+        console.log(this.state);
+        this.getDataTahunan(value);
+    };
+
+    componentDidMount() {
+        this.getDataTahunan();
+        this.getDataTahunSekarang();
+    }
 
     render() {
 
+        let { sortedInfo } = this.state;
+        sortedInfo = sortedInfo || {};
         const columns = [
             {
                 title: "No",
@@ -94,56 +168,44 @@ class HistoryTahunan extends Component {
 
         return (
             <div>
-                <form>
-                    <h4 style={{ margin: "0px 10px 0px 10px" }}>Pilih Tahun</h4>
-                    <List>
-                        <Select
-                            value={this.state.tahun}
-                            onChange={this.handleChangesOptionTahun}
-                            inputProps={{
-                                name: "tahun",
-                                id: "age-simple"
-                            }}
-                            style={{ width: "100%" }}
-                            name="tahun"
-                        >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            <MenuItem value={0}>- Tahun -</MenuItem>
-                            <MenuItem value={2018}>2018</MenuItem>
-                            <MenuItem value={2019}>2019</MenuItem>
-                            <MenuItem value={2020}>2020</MenuItem>
-                            <MenuItem value={2021}>2021</MenuItem>
-                            <MenuItem value={2022}>2022</MenuItem>
-                            <MenuItem value={2023}>2023</MenuItem>
-                            <MenuItem value={2024}>2024</MenuItem>
-                            <MenuItem value={2025}>2025</MenuItem>
-                            <MenuItem value={2026}>2026</MenuItem>
-                            <MenuItem value={2027}>2027</MenuItem>
-                            <MenuItem value={2028}>2028</MenuItem>
-                            <MenuItem value={2029}>2029</MenuItem>
-                        </Select>
-                    </List>
-                    <br />
-                </form>
-                <div style={{ marginTop: "10px" }}>
-                    {this.state.loading ? (
-                        <Table
-                            columns={columns}
-                            dataSource={this.state.orderDetail}
-                            scroll={{ x: 1500 }}
-                        />
-                    ) : (
-                            <h1 style={{ textAlign: "center" }}>
-                                Loading <Icon type="loading" theme="outlined" />
-                            </h1>
-                        )}
-                    {this.state.link ? <Redirect to="/" /> : ""}
-                </div>
+                <Select
+                    name="history"
+                    defaultValue=""
+                    value={this.state.history}
+                    onChange={this.handleChangesOptionHistory}
+                    style={{ width: "100%" }}
+                >
+                    <Option value={0}>
+                        <em>-Silakan Tentukan Tahun-</em>
+                    </Option>
+                    <Option value={2017}>2017</Option>
+                    <Option value={2018}>2018</Option>
+                    <Option value={2019}>2019</Option>
+                    <Option value={2020}>2020</Option>
+                    <Option value={2021}>2021</Option>
+                    <Option value={2022}>2022</Option>
+                    <Option value={2023}>2023</Option>
+                    <Option value={2024}>2024</Option>
+                    <Option value={2025}>2025</Option>
+                    <Option value={2026}>2026</Option>
+                    <Option value={2027}>2027</Option>
+                    <Option value={2028}>2028</Option>
+                    <Option value="">Etc...</Option>
+                </Select>
+                <br />
+                <br />
+                <Table
+                    columns={columns}
+                    dataSource={this.state.data}
+                    onChange={onChange}
+                />
             </div>
         );
     }
 }
 
-export default HistoryTahunan;
+export default YearHistory;
+
+function onChange(pagination, filters, sorter) {
+    console.log("params", pagination, filters, sorter);
+}
