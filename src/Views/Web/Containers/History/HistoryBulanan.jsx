@@ -3,8 +3,10 @@ import {
     Table,
     Col,
     Select,
-    Input
+    Input,
+    Icon
 } from "antd";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 
 const InputGroup = Input.Group;
@@ -325,15 +327,23 @@ class HistoryBulanan extends Component {
                         </Select>
                     </Col>
                 </InputGroup>
-                <br />
-                <br />
-                <br />
-                <Table
-                    columns={columns}
-                    dataSource={this.state.data}
-                    onChange={onChange}
-                />
-            </div>
+
+                <div style={{ marginTop: "10px" }}>
+                    {this.state.loading ? (
+                        <Table
+                            columns={columns}
+                            dataSource={this.state.data}
+                            onChange={onChange}
+                            scroll={{ x: 1500 }}
+                        />
+                    ) : (
+                            <h1 style={{ textAlign: "center" }}>
+                                Loading <Icon type="loading" theme="outlined" />
+                            </h1>
+                        )}
+                    {this.state.link ? <Redirect to="/" /> : ""}
+                </div>
+            </div >
         );
     }
 }

@@ -139,88 +139,71 @@ class HomeContainer extends Component {
 
     const columns = [
       {
-        title: "Kode Order",
-        dataIndex: "orderCode",
-        key: "orderCode",
-        filters: [
-          {
-            text: "Gudang",
-            value: "Gudang"
-          },
-          {
-            text: "Gudang Ikan",
-            value: "Gudang Ikan"
-          },
-          {
-            text: "Kebersihan",
-            value: "Kebersihan"
-          },
-          {
-            text: "Outbond",
-            value: "Outbond"
-          },
-          {
-            text: "Pertamanan",
-            value: "Pertamanan"
-          },
-          {
-            text: "Rekreasi",
-            value: "Rekreasi"
-          },
-          {
-            text: "Restoran",
-            value: "Restoran"
-          },
-          {
-            text: "Technical Support",
-            value: "Technical Support"
-          },
-          {
-            text: "Security",
-            value: "Security"
-          }
-        ],
-        filterMultiple: true,
-        // specify the condition of filtering result
-        // here is that finding the name started with `value`
-        onFilter: (value, record) => record.orderCode.indexOf(value) === 0,
-        sorter: (a, b) => a.orderCode.length - b.orderCode.length
+        title: "No",
+        width: 52,
+        dataIndex: "no",
+        key: "no",
+        fixed: "left"
       },
       {
-        title: "Pemesan",
-        dataIndex: "people.name",
-        defaultSortOrder: "descend",
-        sorter: (a, b) => a.name.length - b.name.length,
+        title: "Nama siswa",
+        width: 125,
+        dataIndex: "student",
+        key: "student",
+        fixed: "left"
       },
       {
-        title: "Total",
-        dataIndex: "totalHarga",
-        render: (text, record) => {
-          let totalharga = record.totalHarga;
-          var formated_numtotalharga = Number(totalharga).toLocaleString("in-ID", {
-            style: "currency",
-            currency: "IDR"
-          });
-
-          return (formated_numtotalharga)
-        },
-        sorter: (a, b) => a.totalHarga - b.totalHarga,
-        sortOrder: sortedInfo.columnKey === "totalHarga" && sortedInfo.order
+        title: "Nama Buku",
+        width: 125,
+        dataIndex: "bookname",
+        key: "bookname",
+        fixed: "left"
       },
       {
-        title: "Catatan",
-        dataIndex: "note"
+        title: "No Buku",
+        dataIndex: "booknumber",
+        key: "booknumber"
       },
       {
-        key: "createAt",
-        defaultSortOrder: "descend",
-        sorter: (a, b) => a.createAt - b.createAt,
-        sortOrder: sortedInfo.columnKey === "createAt" && sortedInfo.order
+        title: "Penerbit",
+        dataIndex: "publisher",
+        key: "publisher"
+      },
+      {
+        title: "Jumlah Buku",
+        dataIndex: "count",
+        key: "count"
+      },
+      {
+        title: "NIS",
+        dataIndex: "nis",
+        key: "nis"
+      },
+      {
+        title: "Kelas",
+        dataIndex: "class",
+        key: "class"
+      },
+      {
+        title: "Jurusan",
+        dataIndex: "vocation",
+        key: "vocation"
+      },
+      {
+        title: "Tanggal Pinjam",
+        dataIndex: "dateOfLoan",
+        key: "dateOfLoan"
+      },
+      {
+        title: "Tanggal Kembali",
+        dataIndex: "dateOfReturn",
+        key: "dateOfReturn"
       },
       {
         title: "Status",
         dataIndex: "status",
         key: "status",
+        fixed: "right",
         render: (text, record) => {
           if (record.status === purchased || record.status === 1) {
             return (
@@ -325,6 +308,7 @@ class HomeContainer extends Component {
         title: "Action",
         dataIndex: "action",
         key: "action",
+        fixed: "right",
         render: (text, record) => (
           <span>
             <Popconfirm
@@ -403,6 +387,7 @@ class HomeContainer extends Component {
       {
         dataIndex: "edit",
         key: "edit",
+        fixed: "right",
         render: (text, record) => (
           <span>
             <Link
@@ -472,6 +457,7 @@ class HomeContainer extends Component {
             columns={columns}
             dataSource={this.state.data}
             onChange={this.handleChange}
+            scroll={{ x: 1500 }}
           />
         ) : (
             <h1 style={{ textAlign: "center" }}>
