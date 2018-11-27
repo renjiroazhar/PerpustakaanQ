@@ -33,12 +33,6 @@ export default class HistoryBulanan extends Component {
           data: res.data
         });
         console.log(res.data);
-        let temp = 0;
-        this.state.data.map(key => (temp += key.totalHarga));
-        this.setState({
-          totalEstimasiSemua: temp,
-          loading: true
-        });
       });
   };
 
@@ -72,13 +66,6 @@ export default class HistoryBulanan extends Component {
           data: res.data
         });
         console.log(res.data);
-        let temp = 0;
-        this.state.data.map(key => (temp += key.totalHarga));
-        this.setState({
-          totalEstimasiSemua: temp,
-          namaBulan: todayMonthName,
-          namaTahun: todayYear
-        });
       });
   };
 
@@ -173,11 +160,6 @@ export default class HistoryBulanan extends Component {
   }
 
   render() {
-    let estimasiSemua = this.state.totalEstimasiSemua;
-    var formattednum_estimasi = Number(estimasiSemua).toLocaleString("in-ID", {
-      style: "currency",
-      currency: "IDR"
-    });
     return (
       <div>
         <br />
@@ -217,14 +199,6 @@ export default class HistoryBulanan extends Component {
         {this.state.data.map(key => {
           //state.namaobj.map(param => {})
           if (key.status === 0) {
-            let totalharga = key.totalHarga;
-            var formattednum_totalharga = Number(totalharga).toLocaleString(
-              "in-ID",
-              {
-                style: "currency",
-                currency: "IDR"
-              }
-            );
             return (
               <div>
                 <List className="my-list">
@@ -233,11 +207,7 @@ export default class HistoryBulanan extends Component {
                       pathname: `/orderdetail/${key.id}/myorderdetail`
                     }}
                   >
-                    <Item
-                      extra={`${formattednum_totalharga}`}
-                      arrow="horizontal"
-                      multipleLine
-                    >
+                    <Item arrow="horizontal" multipleLine>
                       <Badge status="default" />
                       {key.orderCode}{" "}
                     </Item>
@@ -246,14 +216,6 @@ export default class HistoryBulanan extends Component {
               </div>
             );
           } else if (key.status === 1) {
-            let totalharga = key.totalHarga;
-            var formattednum_totalharga = Number(totalharga).toLocaleString(
-              "in-ID",
-              {
-                style: "currency",
-                currency: "IDR"
-              }
-            );
             return (
               <div>
                 <List className="my-list">
@@ -262,11 +224,7 @@ export default class HistoryBulanan extends Component {
                       pathname: `/orderdetail/${key.id}/detailpurchased`
                     }}
                   >
-                    <Item
-                      extra={`${formattednum_totalharga}`}
-                      arrow="horizontal"
-                      multipleLine
-                    >
+                    <Item arrow="horizontal" multipleLine>
                       <p>{key.orderCode}</p>
                       <Brief>{key.people.name}</Brief>
                       <Badge status="success" text="Purchased" />
@@ -276,14 +234,6 @@ export default class HistoryBulanan extends Component {
               </div>
             );
           } else if (key.status === 2) {
-            let totalharga = key.totalHarga;
-            var formattednum_totalharga = Number(totalharga).toLocaleString(
-              "in-ID",
-              {
-                style: "currency",
-                currency: "IDR"
-              }
-            );
             return (
               <div>
                 <List className="my-list">
@@ -292,11 +242,7 @@ export default class HistoryBulanan extends Component {
                       pathname: `/orderdetail/${key.id}/myorderdetail`
                     }}
                   >
-                    <Item
-                      extra={`${formattednum_totalharga}`}
-                      arrow="horizontal"
-                      multipleLine
-                    >
+                    <Item arrow="horizontal" multipleLine>
                       <p>{key.orderCode} </p>
                       <Brief>{key.people.name}</Brief>
                       <Badge status="processing" text="waiting" />
@@ -306,14 +252,6 @@ export default class HistoryBulanan extends Component {
               </div>
             );
           } else if (key.status === 3) {
-            let totalharga = key.totalHarga;
-            var formattednum_totalharga = Number(totalharga).toLocaleString(
-              "in-ID",
-              {
-                style: "currency",
-                currency: "IDR"
-              }
-            );
             return (
               <div>
                 <List className="my-list">
@@ -322,11 +260,7 @@ export default class HistoryBulanan extends Component {
                       pathname: `/orderdetail/${key.id}/myorderdetail`
                     }}
                   >
-                    <Item
-                      extra={`${formattednum_totalharga}`}
-                      arrow="horizontal"
-                      multipleLine
-                    >
+                    <Item arrow="horizontal" multipleLine>
                       <p>{key.orderCode} </p>
                       <Brief>{key.people.name}</Brief>
                       <Badge status="success" text="ACC1" />
@@ -336,14 +270,6 @@ export default class HistoryBulanan extends Component {
               </div>
             );
           } else if (key.status === 4) {
-            let totalharga = key.totalHarga;
-            var formattednum_totalharga = Number(totalharga).toLocaleString(
-              "in-ID",
-              {
-                style: "currency",
-                currency: "IDR"
-              }
-            );
             return (
               <div>
                 <List className="my-list">
@@ -352,11 +278,7 @@ export default class HistoryBulanan extends Component {
                       pathname: `/orderdetail/${key.id}/myorderdetail`
                     }}
                   >
-                    <Item
-                      extra={`${formattednum_totalharga}`}
-                      arrow="horizontal"
-                      multipleLine
-                    >
+                    <Item arrow="horizontal" multipleLine>
                       <p>{key.orderCode} </p>
                       <Brief>{key.people.name}</Brief>
                       <Badge status="warning" text="pending" />
@@ -366,14 +288,6 @@ export default class HistoryBulanan extends Component {
               </div>
             );
           } else if (key.status === 5) {
-            let totalharga = key.totalHarga;
-            var formattednum_totalharga = Number(totalharga).toLocaleString(
-              "in-ID",
-              {
-                style: "currency",
-                currency: "IDR"
-              }
-            );
             return (
               <div>
                 <List className="my-list">
@@ -382,11 +296,7 @@ export default class HistoryBulanan extends Component {
                       pathname: `/orderdetail/${key.id}/detailrejected`
                     }}
                   >
-                    <Item
-                      extra={`${formattednum_totalharga}`}
-                      arrow="horizontal"
-                      multipleLine
-                    >
+                    <Item arrow="horizontal" multipleLine>
                       <p>{key.orderCode} </p>
                       <Brief>{key.people.name}</Brief>
                       <Badge status="error" text="Rejected" />

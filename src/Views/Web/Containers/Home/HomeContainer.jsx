@@ -54,7 +54,7 @@ class HomeContainer extends Component {
   getDataHome = () => {
     axios
       .get(
-        `https://purchasing-stagging.herokuapp.com/api/Orders?filter={"include":"people","where":{"status":{"neq":1}}}`
+        `http://localhost:8000/api/Items?filter={"include":"borrow","where":{"status":{"neq":1}}}`
       )
       .then(res => {
         this.setState({
@@ -70,7 +70,27 @@ class HomeContainer extends Component {
   };
 
   //Ganti Status 1. Purchased , 2. Waiting , 3. ACC1 , 4. Pending , 5. Rejected
+  statusRejected = id => {
+    axios
+      .patch(`http://localhost:8000/api/Items/${id}`, {
+        status: 2
+      })
+      .then(res => {
+        this.getDataHome();
+      })
+      .catch(err => alert(` Error O' `));
+  };
 
+  statusReturned = id => {
+    axios
+      .patch(`http://localhost:8000/api/Items/${id}`, {
+        status: 1
+      })
+      .then(res => {
+        this.getDataHome();
+      })
+      .catch(err => alert(` Error O' `));
+  };
 
   handleChange = (pagination, filters, sorter) => {
     console.log("Various parameters", pagination, filters, sorter);
@@ -80,75 +100,27 @@ class HomeContainer extends Component {
     });
   };
 
-  setTotalHargaTertinggi = () => {
-    this.setState({
-      sortedInfo: {
-        order: "descend",
-        columnKey: "totalHarga"
-      }
-    });
-  };
-
-  clearAll = () => {
-    this.setState({
-      filteredInfo: null,
-      sortedInfo: null,
-    });
-  }
-
-  setTotalHargaTermurah = () => {
-    this.setState({
-      sortedInfo: {
-        order: "ascend",
-        columnKey: "totalHarga"
-      }
-    });
-  };
-
-  setTerlama = () => {
-    this.setState({
-      sortedInfo: {
-        order: "ascend",
-        columnKey: "createAt"
-      }
-    });
-  };
-
-  setTerbaru = () => {
-    this.setState({
-      sortedInfo: {
-        order: "descend",
-        columnKey: "createAt"
-      }
-    });
-  };
-
   componentDidMount() {
     this.getDataHome();
   }
 
   render() {
-    const purchased = 1;
-    const waiting = 2;
-    const acc1 = 3;
-    const pending = 4;
-    const rejected = 5;
-
-    let { sortedInfo, } = this.state;
-    sortedInfo = sortedInfo || {};
+    const returned = 1;
+    const rejected = 2;
+    const penalty = 3;
 
     const columns = [
       {
-        title: "No",
-        width: 52,
-        dataIndex: "no",
+        title: "Kode",
+        width: 150,
+        dataIndex: "borrow.borrowCode",
         key: "no",
         fixed: "left"
       },
       {
         title: "Nama siswa",
         width: 125,
-        dataIndex: "student",
+        dataIndex: "borrow.student",
         key: "student",
         fixed: "left"
       },
@@ -160,9 +132,9 @@ class HomeContainer extends Component {
         fixed: "left"
       },
       {
-        title: "No Buku",
-        dataIndex: "booknumber",
-        key: "booknumber"
+        title: "Kode Buku",
+        dataIndex: "bookcode",
+        key: "bookcode"
       },
       {
         title: "Penerbit",
@@ -176,36 +148,31 @@ class HomeContainer extends Component {
       },
       {
         title: "NIS",
-        dataIndex: "nis",
+        dataIndex: "borrow.nis",
         key: "nis"
       },
       {
         title: "Kelas",
-        dataIndex: "class",
+        dataIndex: "borrow.class",
         key: "class"
       },
       {
-        title: "Jurusan",
-        dataIndex: "vocation",
-        key: "vocation"
-      },
-      {
         title: "Tanggal Pinjam",
-        dataIndex: "dateOfLoan",
+        dataIndex: "borrow.dateOfLoan",
         key: "dateOfLoan"
       },
       {
         title: "Tanggal Kembali",
-        dataIndex: "dateOfReturn",
+        dataIndex: "borrow.dateOfReturn",
         key: "dateOfReturn"
       },
       {
         title: "Status",
-        dataIndex: "status",
+        dataIndex: "borrow.status",
         key: "status",
         fixed: "right",
         render: (text, record) => {
-          if (record.status === purchased || record.status === 1) {
+          if (record.status === returned || record.status === 1) {
             return (
               <Button
                 style={{
@@ -218,58 +185,10 @@ class HomeContainer extends Component {
                 type="primary"
                 size="small"
               >
-                Purchased
+                Returned
               </Button>
-            );
-          } else if (record.status === waiting || record.status === 2) {
-            return (
-              <Button
-                style={{
-                  borderColor: "#766ce1",
-                  borderRadius: "3px",
-                  borderWidth: "2px",
-                  backgroundColor: "white",
-                  color: "black"
-                }}
-                type="primary"
-                size="small"
-              >
-                Waiting
-              </Button>
-            );
-          } else if (record.status === acc1 || record.status === 3) {
-            return (
-              <Button
-                style={{
-                  borderColor: "#00AE69",
-                  borderRadius: "3px",
-                  borderWidth: "2px",
-                  backgroundColor: "white",
-                  color: "black"
-                }}
-                type="primary"
-                size="small"
-              >
-                ACC1
-              </Button>
-            );
-          } else if (record.status === pending || record.status === 4) {
-            return (
-              <Button
-                style={{
-                  borderColor: "#FEBB01",
-                  borderRadius: "3px",
-                  borderWidth: "2px",
-                  backgroundColor: "white",
-                  color: "black"
-                }}
-                type="primary"
-                size="small"
-              >
-                Pending
-              </Button>
-            );
-          } else if (record.status === rejected || record.status === 5) {
+            ); 
+          } else if (record.status === rejected || record.status === 2) {
             return (
               <Button
                 style={{
@@ -282,10 +201,27 @@ class HomeContainer extends Component {
                 type="primary"
                 size="small"
               >
-                Rejected
+                Dibatalkan
               </Button>
             );
-          } else {
+          } else if (record.status === penalty || record.status === 3) {
+            return (
+              <Button
+                style={{
+                  borderColor: "#f0555a",
+                  borderRadius: "3px",
+                  borderWidth: "2px",
+                  backgroundColor: "white",
+                  color: "black"
+                }}
+                type="primary"
+                size="small"
+              >
+                Denda
+              </Button>
+            );
+          }
+           else {
             return (
               <Button
                 style={{
@@ -335,35 +271,12 @@ class HomeContainer extends Component {
               </Button>
 
             </Popconfirm>
+            
             <Divider type="vertical" />
             <Popconfirm
               title="Anda yakin?"
               onConfirm={() => {
-                this.statusPending(record.id);
-              }}
-
-              okText="Yes"
-              cancelText="No"
-            >
-              <Button
-
-                style={{
-                  backgroundColor: "#FEBB01",
-                  borderColor: "transparent",
-                  borderRadius: "3px"
-                }}
-                type="primary"
-                size="small"
-              >
-                <Icon type="clock-circle" theme="twoTone" />
-              </Button>
-
-            </Popconfirm>
-            <Divider type="vertical" />
-            <Popconfirm
-              title="Anda yakin?"
-              onConfirm={() => {
-                this.statusAcc1Purchased(record.id);
+                this.statusReturned(record.id);
               }}
               onCancel={this.cancel}
               okText="Yes"

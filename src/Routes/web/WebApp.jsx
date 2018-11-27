@@ -64,6 +64,12 @@ const Users = Loadable({
   loading: loading
 });
 
+const AddOrderContainer = Loadable({
+  loader: () => import("../../Views/Web/Containers/AddOrder"),
+  loading: loading
+});
+
+
 const PageNotFound = Loadable({
   loader: () => import("../pagenotfound"),
   loading: loading
@@ -269,14 +275,15 @@ export default class WebApp extends Component {
             >
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route exact path="/account" component={Account} />
-              <Route exact path="/borrow_history/monthly" component={HistoryBulanan} />
-              <Route exact path="/borrow_history/yearly" component={HistoryTahunan} />
-              <Route exact path="/orderdetail/:id" component={DetailOrder} />
-              <Route exact path="/orderdetail/update/:id" component={OrderEdit} />
-              <Route exact path="/orderdetail/:id/update" component={OrderDetailForEdit} />
-              <Route exact path="/orderdetail/update/addnewbarang/:id" component={TambahBarang} />
-              <Route exact path="/users" render={() => { return <Users />; }} />
+              <Route exact path="/pinjam" component={AddOrderContainer} />
+              <Route path="/account" component={Account} />
+              <Route path="/borrow_history/monthly" component={HistoryBulanan} />
+              <Route path="/borrow_history/yearly" component={HistoryTahunan} />
+              <Route path="/orderdetail/:id" component={DetailOrder} />
+              <Route path="/orderdetail/update/:id" component={OrderEdit} />
+              <Route path="/orderdetail/:id/update" component={OrderDetailForEdit} />
+              <Route path="/orderdetail/update/addnewbarang/:id" component={TambahBarang} />
+              <Route path="/users" render={() => { return <Users />; }} />
               <Route component={PageNotFound} />
               </Switch>
             </div>

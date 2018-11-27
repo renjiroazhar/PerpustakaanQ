@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 
-
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -34,12 +33,7 @@ export default class HistoryTahunan extends Component {
           dataTahun: res.data
         });
         console.log(res.data);
-        let temp = 0;
-        this.state.dataTahun.map(key => (temp += key.totalHarga));
-        this.setState({
-          totalEstimasiSemua: temp,
-          loading: true
-        });
+        
       });
   };
 
@@ -55,12 +49,7 @@ export default class HistoryTahunan extends Component {
           dataTahun: res.data
         });
         console.log(res.data);
-        let temp = 0;
-        this.state.dataTahun.map(key => (temp += key.totalHarga));
-        this.setState({
-          totalEstimasiSemua: temp,
-          namaTahun: todayYear
-        });
+        
       });
   };
 
@@ -82,11 +71,7 @@ export default class HistoryTahunan extends Component {
   }
 
   render() {
-    let estimasiSemua = this.state.totalEstimasiSemua;
-    var formattednum_estimasi = Number(estimasiSemua).toLocaleString("in-ID", {
-      style: "currency",
-      currency: "IDR"
-    });
+
     return (
       <div>
         <br />
@@ -127,27 +112,15 @@ export default class HistoryTahunan extends Component {
         {this.state.dataTahun.map(key => {
           //state.namaobj.map(param => {})
           if (key.status === 0) {
-            let totalharga = key.totalHarga;
-            var formattednum_totalharga = Number(
-              totalharga
-            ).toLocaleString("in-ID", {
-              style: "currency",
-              currency: "IDR"
-            });
             return (
               <div>
                 <List className="my-list">
                   <Link
                     to={{
-                      pathname: `/orderdetail/${key.id}/myorderdetail`,
-
+                      pathname: `/orderdetail/${key.id}/myorderdetail`
                     }}
                   >
-                    <Item
-                      extra={`${formattednum_totalharga}`}
-                      arrow="horizontal"
-                      multipleLine
-                    >
+                    <Item arrow="horizontal" multipleLine>
                       <Badge status="default" />
                       {key.orderCode} <Brief>{key.people.name}</Brief>
                     </Item>
@@ -156,27 +129,15 @@ export default class HistoryTahunan extends Component {
               </div>
             );
           } else if (key.status === 1) {
-            let totalharga = key.totalHarga;
-            var formattednum_totalharga = Number(
-              totalharga
-            ).toLocaleString("in-ID", {
-              style: "currency",
-              currency: "IDR"
-            });
             return (
               <div>
                 <List className="my-list">
                   <Link
                     to={{
-                      pathname: `/orderdetail/${key.id}/detailpurchased`,
-
+                      pathname: `/orderdetail/${key.id}/detailpurchased`
                     }}
                   >
-                    <Item
-                      extra={`${formattednum_totalharga}`}
-                      arrow="horizontal"
-                      multipleLine
-                    >
+                    <Item arrow="horizontal" multipleLine>
                       <p>{key.orderCode}</p>
                       <Brief>{key.people.name}</Brief>
                       <Badge status="success" text="Purchased" />
@@ -186,27 +147,15 @@ export default class HistoryTahunan extends Component {
               </div>
             );
           } else if (key.status === 2) {
-            let totalharga = key.totalHarga;
-            var formattednum_totalharga = Number(
-              totalharga
-            ).toLocaleString("in-ID", {
-              style: "currency",
-              currency: "IDR"
-            });
             return (
               <div>
                 <List className="my-list">
                   <Link
                     to={{
-                      pathname: `/orderdetail/${key.id}/myorderdetail`,
-
+                      pathname: `/orderdetail/${key.id}/myorderdetail`
                     }}
                   >
-                    <Item
-                      extra={`${formattednum_totalharga}`}
-                      arrow="horizontal"
-                      multipleLine
-                    >
+                    <Item arrow="horizontal" multipleLine>
                       <p>{key.orderCode} </p>
                       <Brief>{key.people.name}</Brief>
                       <Badge status="processing" text="waiting" />
@@ -216,27 +165,15 @@ export default class HistoryTahunan extends Component {
               </div>
             );
           } else if (key.status === 3) {
-            let totalharga = key.totalHarga;
-            var formattednum_totalharga = Number(
-              totalharga
-            ).toLocaleString("in-ID", {
-              style: "currency",
-              currency: "IDR"
-            });
             return (
               <div>
                 <List className="my-list">
                   <Link
                     to={{
-                      pathname: `/orderdetail/${key.id}/myorderdetail`,
-
+                      pathname: `/orderdetail/${key.id}/myorderdetail`
                     }}
                   >
-                    <Item
-                      extra={`${formattednum_totalharga}`}
-                      arrow="horizontal"
-                      multipleLine
-                    >
+                    <Item arrow="horizontal" multipleLine>
                       <p>{key.orderCode} </p>
                       <Brief>{key.people.name}</Brief>
                       <Badge status="success" text="ACC1" />
@@ -246,27 +183,15 @@ export default class HistoryTahunan extends Component {
               </div>
             );
           } else if (key.status === 4) {
-            let totalharga = key.totalHarga;
-            var formattednum_totalharga = Number(
-              totalharga
-            ).toLocaleString("in-ID", {
-              style: "currency",
-              currency: "IDR"
-            });
             return (
               <div>
                 <List className="my-list">
                   <Link
                     to={{
-                      pathname: `/orderdetail/${key.id}/myorderdetail`,
-
+                      pathname: `/orderdetail/${key.id}/myorderdetail`
                     }}
                   >
-                    <Item
-                      extra={`${formattednum_totalharga}`}
-                      arrow="horizontal"
-                      multipleLine
-                    >
+                    <Item arrow="horizontal" multipleLine>
                       <p>{key.orderCode} </p>
                       <Brief>{key.people.name}</Brief>
                       <Badge status="warning" text="pending" />
@@ -276,27 +201,15 @@ export default class HistoryTahunan extends Component {
               </div>
             );
           } else if (key.status === 5) {
-            let totalharga = key.totalHarga;
-            var formattednum_totalharga = Number(
-              totalharga
-            ).toLocaleString("in-ID", {
-              style: "currency",
-              currency: "IDR"
-            });
             return (
               <div>
                 <List className="my-list">
                   <Link
                     to={{
-                      pathname: `/orderdetail/${key.id}/detailrejected`,
-
+                      pathname: `/orderdetail/${key.id}/detailrejected`
                     }}
                   >
-                    <Item
-                      extra={`${formattednum_totalharga}`}
-                      arrow="horizontal"
-                      multipleLine
-                    >
+                    <Item arrow="horizontal" multipleLine>
                       <p>{key.orderCode} </p>
                       <Brief>{key.people.name}</Brief>
                       <Badge status="error" text="Rejected" />

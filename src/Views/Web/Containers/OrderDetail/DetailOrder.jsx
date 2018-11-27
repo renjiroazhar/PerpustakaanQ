@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  Icon,
-  Divider,
-  Button,
-  Table,
-  Input,
-  Badge
-} from "antd";
+import { Icon, Divider, Button, Table, Input, Badge } from "antd";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import "./style.css";
@@ -17,50 +10,14 @@ const InputGroup = Input.Group;
 class DetailOrder extends Component {
   state = {
     dataSource: [], // Check here to configure the default column
-    loading: false,
-    status: 0,
-    orderCode: "",
-    note: "",
-    id: "",
-    divisiId: "",
-    bagianId: "",
-
-    dataAll: [],
-    bagian: "",
-    divisi: "",
-
-    name: "",
-    merk: "",
-    spec: "",
-    lastPurchaser: "",
-    store: "",
-    address: "",
-    telephone: "",
-    web: "",
-    description: "",
-    lastPrice: 0,
-    total: 0,
-    count: 0,
-    unitPrice: 0,
-    purchasePrice: 0,
-    link: false,
-    orderId: "",
     data: [],
-    orderDetail: [],
-    key: 0,
-    totalSemua: 0,
-    enableEdit: false,
-
-    category: "",
-    totalHarga: 0
+    orderDetail: []
   };
 
   getDataById = () => {
     axios
       .get(
-        `https://purchasing-stagging.herokuapp.com/api/Orders/${
-          this.props.match.params.id
-        }/items`
+        `http://localhost:8000/api/Items/${this.props.match.params.id}?filter={"include":"borrow"}`
       )
       .then(res => {
         var datas = res.data;
@@ -72,31 +29,9 @@ class DetailOrder extends Component {
       });
   };
 
-  getDataOrderId = () => {
-    axios
-      .get(
-        `https://purchasing-stagging.herokuapp.com/api/Orders/${
-          this.props.match.params.id
-        }/?filter={"include":"people"}`
-      )
-      .then(res => {
-        var datas = res.data;
-        console.log(res, ">>>>ini res id");
-        this.setState({
-          category: datas.category,
-          note: datas.note,
-          divisiId: datas.divisiId,
-          bagianId: datas.bagianId,
-          orderCode: datas.orderCode,
-          totalHarga: datas.totalHarga,
-          namaPembeli : datas.people.name,
-        });
-      });
-  };
-
   gantiData = _id => {
     axios
-      .patch(`https://purchasing-stagging.herokuapp.com/api/Orders/${_id}`, {
+      .patch(`http://localhost:8000/api/Items/${_id}`, {
         note: this.state.note,
         category: this.state.category
       })
@@ -109,26 +44,12 @@ class DetailOrder extends Component {
   };
 
   deleteData = _id => {
-    axios
-      .delete(`https://purchasing-stagging.herokuapp.com/api/Orders/${_id}`)
-      .then(res => {
-        this.setState({
-          link: true
-        });
-        this.getDataById();
+    axios.delete(`http://localhost:8000/api/Items/${_id}`).then(res => {
+      this.setState({
+        link: true
       });
-  };
-
-  deleteDataItem = _id => {
-    axios
-      .delete(`https://purchasing-stagging.herokuapp.com/api/Items/${_id}`)
-      .then(res => {
-        this.getDataById();
-        this.getDataOrderId();
-        this.setState({
-          loading: true
-        });
-      });
+      this.getDataById();
+    });
   };
 
   handleChange = e => {
@@ -161,9 +82,6 @@ class DetailOrder extends Component {
 
   componentDidMount() {
     this.getDataById();
-    this.getDataOrderId();
-    console.log(this.state.orderDetail);
-    console.log(this.state.orderCode);
   }
 
   Inputs = props => {
@@ -182,10 +100,13 @@ class DetailOrder extends Component {
 
   render() {
     let totalSemuaHarga = this.state.totalHarga;
-    var formattednum_totalSemua = Number(totalSemuaHarga).toLocaleString("in-ID", {
-      style: "currency",
-      currency: "IDR"
-    });
+    var formattednum_totalSemua = Number(totalSemuaHarga).toLocaleString(
+      "in-ID",
+      {
+        style: "currency",
+        currency: "IDR"
+      }
+    );
 
     const columns = [
       {
@@ -268,9 +189,7 @@ class DetailOrder extends Component {
               type="primary"
               size="small"
             >
-              
-                <Icon type="delete" theme="outlined" />
-              
+              <Icon type="delete" theme="outlined" />
             </Button>
             <Divider type="vertical" />
 
@@ -316,22 +235,22 @@ class DetailOrder extends Component {
                 style={{ background: "#f7f7f7", padding: "35px" }}
                 size="large"
               >
-               <h5
-            align="left"
-            style={{ marginBottom: "10px", marginTop: "20px" }}
-          >
-            Nama Pembeli
-          </h5>
-          <Input
-            name="namaPembeli"
-            disabled
-            value={this.state.namaPembeli}
-            placeholder="Nama Pembeli"
-            style={{ width: "100%" }}
-          />
-          <br />
-          <br />
-                
+                <h5
+                  align="left"
+                  style={{ marginBottom: "10px", marginTop: "20px" }}
+                >
+                  Nama Pembeli
+                </h5>
+                <Input
+                  name="namaPembeli"
+                  disabled
+                  value={this.state.namaPembeli}
+                  placeholder="Nama Pembeli"
+                  style={{ width: "100%" }}
+                />
+                <br />
+                <br />
+
                 <h5
                   align="left"
                   style={{ marginBottom: "10px", marginTop: "20px" }}
@@ -347,17 +266,17 @@ class DetailOrder extends Component {
                   placeholder="Catatan"
                   style={{ color: "rgba(0, 0, 0, .25);" }}
                 />
-                 <br />
-              <br />
-              <h5
-                align="left"
-                style={{ marginBottom: "10px", marginTop: "20px" }}
-              >
-                Status
-              </h5>
-              <h3 type="primary" size="small">
-          <Badge status="success" /> Purchased
-          </h3>
+                <br />
+                <br />
+                <h5
+                  align="left"
+                  style={{ marginBottom: "10px", marginTop: "20px" }}
+                >
+                  Status
+                </h5>
+                <h3 type="primary" size="small">
+                  <Badge status="success" /> Purchased
+                </h3>
               </InputGroup>
             </fieldset>
           </form>
@@ -365,11 +284,12 @@ class DetailOrder extends Component {
 
         <div style={{ marginTop: "10px" }}>
           {this.state.loading ? (
-            <Table
-              columns={columns}
-              dataSource={this.state.orderDetail}
-              scroll={{ x: 1500 }}
-            />
+            // <Table
+            //   columns={columns}
+            //   dataSource={this.state.orderDetail}
+            //   scroll={{ x: 1500 }}
+            // />
+            ""
           ) : (
             <h1 style={{ textAlign: "center" }}>
               Loading <Icon type="loading" theme="outlined" />

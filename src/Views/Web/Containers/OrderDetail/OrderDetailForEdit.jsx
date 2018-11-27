@@ -68,7 +68,7 @@ class OrderDetailForEdit extends Component {
   getDataById = () => {
     axios
       .get(
-        `https://purchasing-stagging.herokuapp.com/api/Orders/${
+        `http://localhost:8000/api/Borrows/${
           this.props.match.params.id
         }/items`
       )
@@ -85,30 +85,20 @@ class OrderDetailForEdit extends Component {
   getDataOrderId = () => {
     axios
       .get(
-        `https://purchasing-stagging.herokuapp.com/api/Orders/${
+        `http://localhost:8000/api/Borrows/${
           this.props.match.params.id
-        }/?filter={"include":"people"}`
+        }/?filter={"include":"items"}`
       )
       .then(res => {
         var datas = res.data;
         console.log(res, ">>>>ini res id");
-        this.setState({
-          category: datas.category,
-          note: datas.note,
-          divisiId: datas.divisiId,
-          bagianId: datas.bagianId,
-          orderCode: datas.orderCode,
-          totalHarga: datas.totalHarga,
-          namaPembeli: datas.people.name,
-          dataOrderId: res.data
-        });
         console.log(this.state.dataOrderId.id);
       });
   };
 
   gantiData = _id => {
     axios
-      .patch(`https://purchasing-stagging.herokuapp.com/api/Orders/${_id}`, {
+      .patch(`http://localhost:8000/api/Borrows/${_id}`, {
         note: this.state.note,
         category: this.state.category
       })
@@ -123,7 +113,7 @@ class OrderDetailForEdit extends Component {
   deleteData = _id => {
     this.deleteAllItem(this.props.match.params.id);
     axios
-      .delete(`https://purchasing-stagging.herokuapp.com/api/Orders/${_id}`)
+      .delete(`http://localhost:8000/api/Borrows/${_id}`)
       .then(res => {
         this.setState({
           link: true
@@ -135,7 +125,7 @@ class OrderDetailForEdit extends Component {
   deleteAllItem = _id => {
     axios
       .delete(
-        `https://purchasing-stagging.herokuapp.com/api/Orders/${_id}/items`
+        `http://localhost:8000/api/Borrows/${_id}/Items`
       )
       .then(res => {
         console.log("berhasil menghapus order");
