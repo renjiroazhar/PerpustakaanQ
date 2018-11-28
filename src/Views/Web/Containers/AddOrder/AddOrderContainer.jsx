@@ -16,7 +16,7 @@ const warning = () => {
 
 const notifikasiAddOrder = type => {
   notification[type]({
-    message: "Transaksi Berhasil",
+    message: "Transaksi Berhasil"
   });
 };
 
@@ -40,16 +40,6 @@ class AddOrderContainer extends Component {
     note: "",
     borrowId: "",
     data: [],
-
-    key: 0,
-    totalSemua: 0,
-    dataAnggaran: [],
-    namaPeminjam: "",
-    dataEstimasi: [],
-    dataOrder: [],
-    placeOrder: false,
-    dataPeminjam: [],
-    tanggalBeliTerakhir: "",
 
     link: false
   };
@@ -377,7 +367,8 @@ class AddOrderContainer extends Component {
               placeholder="Kde Buku"
               type="text"
             />
-          </Col><Col
+          </Col>
+          <Col
             span={6}
             style={{ marginTop: "20px", marginRight: "40px", width: "47%" }}
           >
@@ -400,11 +391,11 @@ class AddOrderContainer extends Component {
               name="note"
               value={this.state.note}
               onChange={this.handleChange}
-              placeholder="Kde Buku"
+              placeholder="Catatan"
               type="text"
             />
           </Col>
-          
+
           <br />
           <br />
         </InputGroup>

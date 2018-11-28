@@ -5,7 +5,7 @@
   "dependencies": {
     "@feathersjs/client": "^3.5.0",
     "@feathersjs/rest-client": "^1.4.0",
-    "@material-ui/core": "^1.1.0",
+    "@material-ui/core": "^3.6.0",
     "@material-ui/icons": "^3.0.1",
     "antd": "^3.5.3",
     "antd-mobile": "^2.1.10",
