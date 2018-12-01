@@ -69,8 +69,8 @@ class HomeContainer extends Component {
     console.log("params", pagination, filters, sorter);
   };
 
-  //Ganti Status 1. Purchased , 2. Waiting , 3. ACC1 , 4. Pending , 5. Rejected
-  statusRejected = id => {
+  //Ganti Status 1. Returned , 2. Penalty 
+  statusPenalty = id => {
     axios
       .patch(`http://localhost:8000/api/Items/${id}`, {
         status: 2
@@ -106,8 +106,7 @@ class HomeContainer extends Component {
 
   render() {
     const returned = 1;
-    const rejected = 2;
-    const penalty = 3;
+    const penalty = 2;
 
     const columns = [
       {
@@ -185,26 +184,10 @@ class HomeContainer extends Component {
                 type="primary"
                 size="small"
               >
-                Returned
-              </Button>
-            ); 
-          } else if (record.status === rejected || record.status === 2) {
-            return (
-              <Button
-                style={{
-                  borderColor: "#f0555a",
-                  borderRadius: "3px",
-                  borderWidth: "2px",
-                  backgroundColor: "white",
-                  color: "black"
-                }}
-                type="primary"
-                size="small"
-              >
-                Dibatalkan
+                Dikembalikan
               </Button>
             );
-          } else if (record.status === penalty || record.status === 3) {
+          } else if (record.status === penalty || record.status === 2) {
             return (
               <Button
                 style={{
@@ -221,7 +204,7 @@ class HomeContainer extends Component {
               </Button>
             );
           }
-           else {
+          else {
             return (
               <Button
                 style={{
@@ -234,7 +217,7 @@ class HomeContainer extends Component {
                 type="primary"
                 size="small"
               >
-                Unprocessed
+                Dipinjam
               </Button>
             );
           }
@@ -250,7 +233,7 @@ class HomeContainer extends Component {
             <Popconfirm
               title="Anda yakin?"
               onConfirm={() => {
-                this.statusRejected(record.id);
+                this.statusPenalty(record.id);
 
               }}
 
@@ -271,7 +254,7 @@ class HomeContainer extends Component {
               </Button>
 
             </Popconfirm>
-            
+
             <Divider type="vertical" />
             <Popconfirm
               title="Anda yakin?"
@@ -284,7 +267,7 @@ class HomeContainer extends Component {
             >
               <Button
                 style={{
-                  backgroundColor: "#00ae69",
+                  backgroundColor: "#ff6600",
                   borderColor: "transparent",
                   borderRadius: "3px"
                 }}
@@ -320,7 +303,7 @@ class HomeContainer extends Component {
             >
               <Button
                 style={{
-                  backgroundColor: "#0088aaff",
+                  backgroundColor: "#ff6600",
                   borderColor: "transparent",
                   borderRadius: "3px",
                   color: "#fff"

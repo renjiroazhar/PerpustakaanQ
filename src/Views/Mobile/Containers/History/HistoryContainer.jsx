@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Navbar from "../Home/Navbar";
+import Navbar from "../../Components/Navbar";
 import { Tabs } from "antd-mobile";
 import { StickyContainer, Sticky } from "react-sticky";
 import { Icon } from "antd";
@@ -49,7 +49,7 @@ class HistoryContainer extends Component {
         <StickyContainer>
           <Tabs tabs={tabs} initalPage={"t2"} renderTabBar={renderTabBar}>
             <div>
-            <MonthlyContainer />
+              <MonthlyContainer />
             </div>
             <div>
               <YearlyContainer />

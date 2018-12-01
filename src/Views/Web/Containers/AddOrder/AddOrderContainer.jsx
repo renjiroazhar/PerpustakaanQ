@@ -16,7 +16,7 @@ const warning = () => {
 
 const notifikasiAddOrder = type => {
   notification[type]({
-    message: "Transaksi Berhasil"
+    message: "Transaksi Berhasil",
   });
 };
 
@@ -40,6 +40,16 @@ class AddOrderContainer extends Component {
     note: "",
     borrowId: "",
     data: [],
+
+    key: 0,
+    totalSemua: 0,
+    dataAnggaran: [],
+    namaPeminjam: "",
+    dataEstimasi: [],
+    dataOrder: [],
+    placeOrder: false,
+    dataPeminjam: [],
+    tanggalBeliTerakhir: "",
 
     link: false
   };
@@ -367,8 +377,7 @@ class AddOrderContainer extends Component {
               placeholder="Kde Buku"
               type="text"
             />
-          </Col>
-          <Col
+          </Col><Col
             span={6}
             style={{ marginTop: "20px", marginRight: "40px", width: "47%" }}
           >
@@ -391,7 +400,7 @@ class AddOrderContainer extends Component {
               name="note"
               value={this.state.note}
               onChange={this.handleChange}
-              placeholder="Catatan"
+              placeholder="Kde Buku"
               type="text"
             />
           </Col>
@@ -402,7 +411,7 @@ class AddOrderContainer extends Component {
         <div style={{ textAlign: "right" }}>
           <Button
             style={{
-              backgroundColor: "#00ae69",
+              backgroundColor: "#ff6600",
               width: "250px",
               height: "45px",
               borderColor: "transparent",
@@ -416,7 +425,7 @@ class AddOrderContainer extends Component {
               this.pushData();
             }}
           >
-            TAMBAH BUKU
+            Tambahkan Buku
           </Button>
         </div>
         <br />
@@ -431,7 +440,7 @@ class AddOrderContainer extends Component {
             <div style={{ textAlign: "right" }}>
               <Button
                 style={{
-                  backgroundColor: "#00ae69",
+                  backgroundColor: "#ff6600",
                   width: "250px",
                   height: "45px",
                   borderColor: "transparent",
@@ -444,31 +453,31 @@ class AddOrderContainer extends Component {
                   this.kirimData();
                 }}
               >
-                SELESAI
+                Pinjam Buku
               </Button>
             </div>
           ) : (
-            <div style={{ textAlign: "right" }}>
-              <Button
-                disabled
-                style={{
-                  backgroundColor: "#A5A5A5",
-                  width: "250px",
-                  height: "45px",
-                  borderColor: "transparent",
-                  fontWeight: "bold",
-                  fontSize: "13px"
-                }}
-                type="primary"
-                size="large"
-                onClick={() => {
-                  this.kirimData();
-                }}
-              >
-                PLACE ORDER
+              <div style={{ textAlign: "right" }}>
+                <Button
+                  disabled
+                  style={{
+                    backgroundColor: "#A5A5A5",
+                    width: "250px",
+                    height: "45px",
+                    borderColor: "transparent",
+                    fontWeight: "bold",
+                    fontSize: "13px"
+                  }}
+                  type="primary"
+                  size="large"
+                  onClick={() => {
+                    this.kirimData();
+                  }}
+                >
+                  Belum Ada Buku
               </Button>
-            </div>
-          )}
+              </div>
+            )}
         </div>
         <br />
         {this.state.link ? <Redirect to="/" /> : ""}

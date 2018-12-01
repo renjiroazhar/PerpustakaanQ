@@ -35,7 +35,7 @@ class TambahBarang extends Component {
     telephone: "",
     web: "",
     description: "",
-    
+
     lastPrice: 0,
     total: 0,
     count: 0,
@@ -49,7 +49,7 @@ class TambahBarang extends Component {
     link: false
   };
 
-  
+
   kirimDataItem = _id => {
     var datas = this.state.data;
     for (var index = 0; index < datas.length; index++) {
@@ -95,7 +95,7 @@ class TambahBarang extends Component {
             orderId: "",
             totalSemua: 0,
             data: [],
-            link : true
+            link: true
           });
         });
     }
@@ -123,7 +123,7 @@ class TambahBarang extends Component {
       total: this.state.total,
       merk: this.state.merk,
       spec: this.state.spec,
-     
+
       store: this.state.store,
       address: this.state.address,
       telephone: this.state.telephone,
@@ -383,7 +383,7 @@ class TambahBarang extends Component {
             </h5>
             <Input
               style={{ width: "200px" }}
-              
+
               name="unitPrice"
               type="number"
               value={this.state.unitPrice}
@@ -431,14 +431,14 @@ class TambahBarang extends Component {
               onChange={this.handleChange}
               placeholder="Total Harga"
               type="number"
-              
+
             />
           </Col>
 
           <Col span={1} style={{ marginTop: "20px", width: "10%" }}>
             <Button
               style={{
-                backgroundColor: "#00ae69",
+                backgroundColor: "#0088aaff",
                 width: "250px",
                 height: "45px",
                 borderColor: "transparent",
@@ -452,7 +452,7 @@ class TambahBarang extends Component {
                 this.pushData();
               }}
             >
-              SUBMIT
+              Submit
             </Button>
           </Col>
         </InputGroup>
@@ -473,14 +473,14 @@ class TambahBarang extends Component {
             </Col>
             <Col span={4}>
               <h2 style={{ color: "#00ae69" }}>{formattednum_totalSemua}</h2>
-              <br/>
+              <br />
             </Col>
-            </Row>
+          </Row>
 
-            <Row>
-              <Link to={`/orderdetail/${this.props.match.params.id}/update`}>
+          <Row>
+            <Link to={`/orderdetail/${this.props.match.params.id}/update`}>
               <Button
-               
+
                 style={{
                   backgroundColor: "#f0555a",
                   width: "200px",
@@ -488,40 +488,40 @@ class TambahBarang extends Component {
                   borderColor: "transparent",
                   fontWeight: "bold",
                   fontSize: "13px",
-                  float : "left"
+                  float: "left"
                 }}
                 type="primary"
                 size="large"
               >
-                BATAL
+                Batal
               </Button>
-              </Link>
+            </Link>
 
-           
-              <Button
-                style={{
-                  backgroundColor: "#00ae69",
-                  width: "250px",
-                  height: "45px",
-                  borderColor: "transparent",
-                  fontWeight: "bold",
-                  fontSize: "13px",
-                  marginLeft: "255px",
-                  float : "right"
-                }}
-                type="primary"
-                size="large"
-                onClick={() => {
-                 this.kirimDataItem();                
-                }}
-              >
-                TAMBAH BARANG
+
+            <Button
+              style={{
+                backgroundColor: "#0088aaff",
+                width: "250px",
+                height: "45px",
+                borderColor: "transparent",
+                fontWeight: "bold",
+                fontSize: "13px",
+                marginLeft: "255px",
+                float: "right"
+              }}
+              type="primary"
+              size="large"
+              onClick={() => {
+                this.kirimDataItem();
+              }}
+            >
+              Tambah Barang
               </Button>
-              {this.state.link ? <Redirect to={`/orderdetail/${this.props.match.params.id}/update`} /> : ""}
-            </Row>
+            {this.state.link ? <Redirect to={`/orderdetail/${this.props.match.params.id}/update`} /> : ""}
+          </Row>
 
         </div>
-           <br />
+        <br />
       </div>
     );
   }

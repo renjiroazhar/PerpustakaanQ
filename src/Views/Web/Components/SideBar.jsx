@@ -53,7 +53,7 @@ class SideBar extends Component {
         <Sider
           style={{
             background: "#f7f7f7",
-            height: "100%"
+            height: "100%",
           }}
         >
           {!this.state.collapsed && (
@@ -75,7 +75,7 @@ class SideBar extends Component {
             <Button
               style={{
                 margin: 16,
-                backgroundColor: "#00ae69",
+                backgroundColor: "#0088aaff",
                 width: "80%",
                 borderColor: "transparent",
                 borderRadius: "3px"

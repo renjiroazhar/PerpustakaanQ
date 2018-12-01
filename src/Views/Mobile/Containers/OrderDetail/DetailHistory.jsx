@@ -73,7 +73,7 @@ class DetailHistory extends Component {
     enableEdit: false,
 
     category: "",
-    
+
 
     expanded: null,
     totalHarga: 0,
@@ -242,10 +242,10 @@ class DetailHistory extends Component {
               />
             </List>
             <List>
-            <InputLabel htmlFor="demo-controlled-open-select">
+              <InputLabel htmlFor="demo-controlled-open-select">
                 Status
               </InputLabel>
-              <h3 style={{color: "#00ae69"}}>Purchased</h3>
+              <h3 style={{ color: "#00ae69" }}>Purchased</h3>
             </List>
             <h4 style={{ textAlign: "center" }}>
               Total Harga :{" "}
@@ -304,7 +304,7 @@ class DetailHistory extends Component {
                               />
                               <ListItemSecondaryAction>
 
-                                <h2 style={{ color: "#00ae69" }}>
+                                <h2 style={{ color: "#ff6600" }}>
                                   <Icon type="edit" theme="outlined" />
                                 </h2>
 

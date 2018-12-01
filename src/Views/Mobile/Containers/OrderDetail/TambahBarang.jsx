@@ -203,7 +203,7 @@ class TambahBarang extends Component {
             padding: "25px 0px 25px 0px"
           }}
         >
-          <p style={{ marginTop: "20px" }}>TAMBAH BARANG</p>
+          <p style={{ marginTop: "20px" }}>Tambah Barang</p>
         </NavBar>
 
         <Card
@@ -403,13 +403,13 @@ class TambahBarang extends Component {
             inline
             style={{
               borderRadius: "50px",
-              backgroundColor: "#00ae69",
+              backgroundColor: "#ff6600",
               color: "#fff",
               width: "90%",
               margin: "20px 0px 60px 0px"
             }}
           >
-            TAMBAH BARANG
+            Tambah Barang
         </Button>
           {this.state.link ? <Redirect to={`/orderdetail/${this.props.match.params.id}/update`} /> : ""}
         </div>
@@ -419,4 +419,3 @@ class TambahBarang extends Component {
 }
 
 export default TambahBarang;
-

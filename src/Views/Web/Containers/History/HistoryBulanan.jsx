@@ -69,7 +69,7 @@ class HistoryBulanan extends Component {
           data: res.data
         });
         console.log(res);
-        
+
       });
   };
 
@@ -194,8 +194,7 @@ class HistoryBulanan extends Component {
 
   render() {
     const returned = 1;
-    const rejected = 2;
-    const penalty = 3;
+    const penalty = 2;
 
     let { sortedInfo } = this.state;
     sortedInfo = sortedInfo || {};
@@ -267,7 +266,7 @@ class HistoryBulanan extends Component {
             return (
               <Button
                 style={{
-                  borderColor: "#00AE69",
+                  borderColor: "#00ae69",
                   borderRadius: "3px",
                   borderWidth: "2px",
                   backgroundColor: "white",
@@ -276,26 +275,10 @@ class HistoryBulanan extends Component {
                 type="primary"
                 size="small"
               >
-               Returned
+                Dikembalikan
               </Button>
             );
-          } else if (record.status === rejected || record.status === 2) {
-            return (
-              <Button
-                style={{
-                  borderColor: "#f0555a",
-                  borderRadius: "3px",
-                  borderWidth: "2px",
-                  backgroundColor: "white",
-                  color: "black"
-                }}
-                type="primary"
-                size="small"
-              >
-                Dibatalkan
-              </Button>
-            );
-          } else if (record.status === penalty || record.status === 3) {
+          } else if (record.status === penalty || record.status === 2) {
             return (
               <Button
                 style={{
@@ -315,7 +298,7 @@ class HistoryBulanan extends Component {
             return (
               <Button
                 style={{
-                  borderColor: "#bababd",
+                  borderColor: "#ff6600",
                   borderRadius: "3px",
                   borderWidth: "2px",
                   backgroundColor: "white",
@@ -324,7 +307,7 @@ class HistoryBulanan extends Component {
                 type="primary"
                 size="small"
               >
-                Unprocessed
+                Dipinjam
               </Button>
             );
           }
@@ -354,7 +337,7 @@ class HistoryBulanan extends Component {
             >
               <Button
                 style={{
-                  backgroundColor: "#0088aaff",
+                  backgroundColor: "#ff6600",
                   borderColor: "transparent",
                   borderRadius: "3px",
                   color: "#fff"
@@ -444,11 +427,11 @@ class HistoryBulanan extends Component {
               scroll={{ x: 1500 }}
             />
           ) : (
-            <h1 style={{ textAlign: "center" }}>
-              Loading <Icon type="loading" theme="outlined" />
-            </h1>
-          )}
-         
+              <h1 style={{ textAlign: "center" }}>
+                Loading <Icon type="loading" theme="outlined" />
+              </h1>
+            )}
+
         </div>
       </div>
     );

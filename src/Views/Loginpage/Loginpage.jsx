@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -58,7 +58,7 @@ class Loginpage extends Component {
     error: false,
     email: "",
     password: "",
-    role : 0
+    role: 0
   };
 
   saveDataUser = () => {
@@ -71,30 +71,30 @@ class Loginpage extends Component {
   login = () => {
     const { email, password } = this.state;
     axios.post(`http://localhost:8000/api/People/login`,
-    {
-      email : email,
-      password : password
-    }).then(res => {
-      this.saveDataUser();
-      sessionStorage.setItem('accessToken', res.data.id);
-      this.props.updateLogin();
-      console.log(res);
+      {
+        email: email,
+        password: password
+      }).then(res => {
+        this.saveDataUser();
+        sessionStorage.setItem('accessToken', res.data.id);
+        this.props.updateLogin();
+        console.log(res);
 
-      if(res.status === 401) {
-        return(alert("Error Auth"));
-      }
-    })
+        if (res.status === 401) {
+          return (alert("Error Auth"));
+        }
+      })
 
-    if(this.state.email === 'admin' && this.state.password === "admin"){
+    if (this.state.email === 'admin' && this.state.password === "admin") {
       this.saveDataUser();
       this.props.updateLogin();
-    } 
+    }
   };
 
   handleKeyPress = (e) => {
-    if(e.key === "Enter"){
+    if (e.key === "Enter") {
       this.login();
-    } 
+    }
   }
 
   handleChange = e => {
@@ -111,7 +111,7 @@ class Loginpage extends Component {
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Avatar className={classes.avatar}>
-              <img src={LogoBuku} width="40px" alt=""/>
+              <img src={LogoBuku} width="40px" alt="" />
             </Avatar>
             <img height="25px" width="200px" src={logoPerpus} alt="PerpustakaanQ Logo" style={{ margin: '5px 0 10px 0' }} />
             <form className={classes.form}>
@@ -126,9 +126,9 @@ class Loginpage extends Component {
                   type="password"
                   id="password"
                   autoComplete="current-password"
-                  value={this.state.password} 
+                  value={this.state.password}
                   onChange={this.handleChange}
-                  onKeyPress={this.handleChange}
+                  onKeyPress={this.handleKeyPress}
                 />
               </FormControl>
               <FormControlLabel
@@ -140,19 +140,19 @@ class Loginpage extends Component {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                onClick={()=>{this.login()}}
+                onClick={() => { this.login() }}
               >
                 Masuk
               </Button>
             </form>
-          <Typography>
-  
-          </Typography>
+            <Typography>
+
+            </Typography>
           </Paper>
         </main>
       </React.Fragment>
     );
-}
+  }
 
 }
 

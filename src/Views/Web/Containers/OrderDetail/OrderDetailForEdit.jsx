@@ -42,14 +42,14 @@ class OrderDetailForEdit extends Component {
     telephone: "",
     web: "",
     description: "",
-    
+
     lastPrice: 0,
     total: 0,
     count: 0,
     unitPrice: 0,
     purchasePrice: 0,
-    
-    
+
+
     link: false,
     orderId: "",
     data: [],
@@ -60,7 +60,7 @@ class OrderDetailForEdit extends Component {
     enableEdit: false,
 
     category: "",
-    
+
     totalHarga: 0,
     namaPembeli: ""
   };
@@ -69,7 +69,7 @@ class OrderDetailForEdit extends Component {
     axios
       .get(
         `http://localhost:8000/api/Borrows/${
-          this.props.match.params.id
+        this.props.match.params.id
         }/items`
       )
       .then(res => {
@@ -86,7 +86,7 @@ class OrderDetailForEdit extends Component {
     axios
       .get(
         `http://localhost:8000/api/Borrows/${
-          this.props.match.params.id
+        this.props.match.params.id
         }/?filter={"include":"items"}`
       )
       .then(res => {
@@ -196,7 +196,7 @@ class OrderDetailForEdit extends Component {
       style: "currency",
       currency: "IDR"
     });
-    
+
     const columns = [
       {
         title: "Nama Barang",
@@ -286,9 +286,9 @@ class OrderDetailForEdit extends Component {
                 type="primary"
                 size="small"
               >
-                
-                  <Icon type="delete" theme="outlined" />
-                
+
+                <Icon type="delete" theme="outlined" />
+
               </Button>
             </Popconfirm>
             <Divider type="vertical" />
@@ -325,7 +325,7 @@ class OrderDetailForEdit extends Component {
       button = (
         <div>
           <h3 type="primary" size="small">
-          <Badge status="success" /> Purchased
+            <Badge status="success" /> Purchased
           </h3>
         </div>
       );
@@ -333,7 +333,7 @@ class OrderDetailForEdit extends Component {
       button = (
         <div>
           <h3 type="primary" size="small">
-          <Badge status="processing" /> Waiting
+            <Badge status="processing" /> Waiting
           </h3>
         </div>
       );
@@ -342,7 +342,7 @@ class OrderDetailForEdit extends Component {
         <div>
           {" "}
           <h3 type="primary" size="small">
-          <Badge status="success" /> ACC1
+            <Badge status="success" /> ACC1
           </h3>
         </div>
       );
@@ -350,7 +350,7 @@ class OrderDetailForEdit extends Component {
       button = (
         <div>
           <h3 type="primary" size="small">
-          <Badge status="warning" /> Pending
+            <Badge status="warning" /> Pending
           </h3>
         </div>
       );
@@ -358,15 +358,15 @@ class OrderDetailForEdit extends Component {
       button = (
         <div>
           <h3 type="primary" size="small">
-          <Badge status="error" /> Rejected
+            <Badge status="error" /> Rejected
           </h3>
         </div>
       );
-    } else if(this.state.dataOrderId.status === 0) {
+    } else if (this.state.dataOrderId.status === 0) {
       button = (
         <div>
           <h3 type="primary" size="small">
-          <Badge status="default" /> Unprocessed
+            <Badge status="default" /> Unprocessed
           </h3>
         </div>
       );
@@ -377,14 +377,6 @@ class OrderDetailForEdit extends Component {
         <div>
           <h1 style={{ marginLeft: "15px" }}>
             Detail Order :{" "}
-            <TextField
-              id="standard-name"
-              label="Total Harga"
-              name="totalHarga"
-              value={formattednum_totalSemua}
-              margin="normal"
-              style={{ color: "#00ae69" }}
-            />{" "}
           </h1>
 
           <Row>
@@ -400,7 +392,7 @@ class OrderDetailForEdit extends Component {
                   to={{
                     pathname: `/orderdetail/update/addnewbarang/${
                       this.state.dataOrderId.id
-                    }`,
+                      }`,
                     state: {
                       orderId: this.state.dataOrderId.id,
                       orderCode: this.state.orderCode
@@ -491,7 +483,7 @@ class OrderDetailForEdit extends Component {
                 placeholder="Nama Pembeli"
                 style={{ width: "100%" }}
               />
-              <br/>
+              <br />
               <br />
               <h5
                 align="left"
@@ -517,7 +509,7 @@ class OrderDetailForEdit extends Component {
               <br />
               <Button
                 style={{
-                  backgroundColor: "#00ae69",
+                  backgroundColor: "#0088aaff",
                   width: "250px",
                   height: "45px",
                   borderColor: "transparent",
@@ -531,80 +523,80 @@ class OrderDetailForEdit extends Component {
                   this.gantiData(this.props.match.params.id);
                 }}
               >
-                SIMPAN PERUBAHAN
+                Simpan Perubahan
               </Button>
             </InputGroup>
           </div>
         ) : (
-          <div>
-            <Row>
-              <Button
-                style={{
-                  backgroundColor: "#0088aaff",
-                  borderColor: "transparent",
-                  borderRadius: "3px",
-                  float: "right"
-                }}
-                type="primary"
-                size="omitted"
-                onClick={() => {
-                  this.setState({ enableEdit: true });
-                }}
-              >
-                Edit <Icon type="form" theme="outlined" />
-              </Button>
-            </Row>
-            <form>
-              <fieldset disabled>
-                <InputGroup
-                  style={{ background: "#f7f7f7", padding: "35px" }}
-                  size="large"
+            <div>
+              <Row>
+                <Button
+                  style={{
+                    backgroundColor: "#0088aaff",
+                    borderColor: "transparent",
+                    borderRadius: "3px",
+                    float: "right"
+                  }}
+                  type="primary"
+                  size="omitted"
+                  onClick={() => {
+                    this.setState({ enableEdit: true });
+                  }}
                 >
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
+                  Edit <Icon type="form" theme="outlined" />
+                </Button>
+              </Row>
+              <form>
+                <fieldset disabled>
+                  <InputGroup
+                    style={{ background: "#f7f7f7", padding: "35px" }}
+                    size="large"
                   >
-                    Nama Pembeli
+                    <h5
+                      align="left"
+                      style={{ marginBottom: "10px", marginTop: "20px" }}
+                    >
+                      Nama Pembeli
                   </h5>
-                  <Input
-                    name="namaPembeli"
-                    disabled
-                    value={this.state.namaPembeli}
-                    placeholder="Nama Pembeli"
-                    style={{ width: "100%" }}
-                  />
-                  <br />
-                  <br />
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
-                  >
-                    Catatan
+                    <Input
+                      name="namaPembeli"
+                      disabled
+                      value={this.state.namaPembeli}
+                      placeholder="Nama Pembeli"
+                      style={{ width: "100%" }}
+                    />
+                    <br />
+                    <br />
+                    <h5
+                      align="left"
+                      style={{ marginBottom: "10px", marginTop: "20px" }}
+                    >
+                      Catatan
                   </h5>
-                  <TextArea
-                    disabled
-                    name="note"
-                    value={this.state.note}
-                    onChange={this.handleChange}
-                    className
-                    placeholder="Catatan"
-                    style={{ color: "rgba(0, 0, 0, .25);" }}
-                  />
-                  <br />
-                  <br />
-                  <h5
-                align="left"
-                style={{ marginBottom: "10px", marginTop: "20px" }}
-              >
-                Status
+                    <TextArea
+                      disabled
+                      name="note"
+                      value={this.state.note}
+                      onChange={this.handleChange}
+                      className
+                      placeholder="Catatan"
+                      style={{ color: "rgba(0, 0, 0, .25);" }}
+                    />
+                    <br />
+                    <br />
+                    <h5
+                      align="left"
+                      style={{ marginBottom: "10px", marginTop: "20px" }}
+                    >
+                      Status
               </h5>
-              {button}
-              <br/>
-                </InputGroup>
-              </fieldset>
-            </form>
-          </div>
-        )}
+                    {button}
+                    <br />
+                  </InputGroup>
+                </fieldset>
+              </form>
+            </div>
+          )}
 
         <div style={{ marginTop: "10px" }}>
           {this.state.loading ? (
@@ -614,10 +606,10 @@ class OrderDetailForEdit extends Component {
               scroll={{ x: 1500 }}
             />
           ) : (
-            <h1 style={{ textAlign: "center" }}>
-              Loading <Icon type="loading" theme="outlined" />
-            </h1>
-          )}
+              <h1 style={{ textAlign: "center" }}>
+                Loading <Icon type="loading" theme="outlined" />
+              </h1>
+            )}
           {this.state.link ? <Redirect to="/" /> : ""}
         </div>
       </div>

@@ -108,7 +108,7 @@ export default class ResetPassword extends Component {
             padding: "25px 0px 25px 0px"
           }}
         >
-          <p style={{ color: "#fff", marginTop: "17px" }}>GANTI KATA SANDI</p>
+          <p style={{ color: "#fff", marginTop: "17px" }}>Ganti Kata Sandi</p>
         </NavBar>
 
         <div style={{ margin: "15px" }}>
@@ -174,7 +174,7 @@ export default class ResetPassword extends Component {
               this.editData(userId);
             }}
           >
-            RESET PASSWORD
+            Reset Password
         </Button>
           {this.state.link ? (<Redirect to="/account" />) : ("")}
         </div>

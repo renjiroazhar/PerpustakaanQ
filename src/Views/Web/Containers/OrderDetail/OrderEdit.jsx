@@ -32,7 +32,7 @@ class OrderEdit extends Component {
     telephone: "",
     web: "",
     description: "",
-   
+
     lastPrice: 0,
     total: 0,
     count: 0,
@@ -50,7 +50,7 @@ class OrderEdit extends Component {
     axios
       .get(
         `https://purchasing-stagging.herokuapp.com/api/Items/${
-          this.props.match.params.id
+        this.props.match.params.id
         }`
       )
       .then(res => {
@@ -73,7 +73,7 @@ class OrderEdit extends Component {
           lastPrice: datas.lastPrice,
           purchasePrice: datas.purchasePrice,
           status: datas.status,
-          data : res.data
+          data: res.data
         });
       });
   };
@@ -279,7 +279,7 @@ class OrderEdit extends Component {
             </h5>
             <Input
               style={{ width: "200px" }}
-              
+
               name="unitPrice"
               value={this.state.unitPrice}
               onChange={this.handleChange}
@@ -347,26 +347,26 @@ class OrderEdit extends Component {
 
           <Row>
             <Link to={`/orderdetail/${this.state.data.orderId}/update`}>
-            <Button
-              style={{
-                backgroundColor: "#f0555a",
-                width: "200px",
-                height: "45px",
-                borderColor: "transparent",
-                fontWeight: "bold",
-                fontSize: "13px",
-                float: "left"
-              }}
-              type="primary"
-              size="large"
-            >
-              BATAL
+              <Button
+                style={{
+                  backgroundColor: "#f0555a",
+                  width: "200px",
+                  height: "45px",
+                  borderColor: "transparent",
+                  fontWeight: "bold",
+                  fontSize: "13px",
+                  float: "left"
+                }}
+                type="primary"
+                size="large"
+              >
+                Batal
             </Button>
             </Link>
 
             <Button
               style={{
-                backgroundColor: "#00ae69",
+                backgroundColor: "#0088aaff",
                 width: "250px",
                 height: "45px",
                 borderColor: "transparent",
@@ -379,10 +379,10 @@ class OrderEdit extends Component {
               size="large"
               onClick={() => {
                 this.editData(this.props.match.params.id);
-                
+
               }}
             >
-              SIMPAN PERUBAHAN
+              Simpan Perubahan
             </Button>
           </Row>
         </div>

@@ -357,104 +357,11 @@ class AddOrderContainer extends Component {
             height: "60px"
           }}
         >
-          <p style={{ marginTop: "20px" }}>INPUT PURCHASING</p>
+          <p style={{ marginTop: "20px" }}>Pinjam Buku</p>
         </NavBar>
 
         <div style={{ margin: "15px" }}>
-          <p style={{ textAlign: "div" }}>Masukkan Detail Order</p>
-          <Card
-            style={{ background: "#fff", padding: "35px", borderRadius: "0px" }}
-          >
-            <List style={{ marginBottom: "35px" }}>
-              <InputLabel htmlFor="demo-controlled-open-select">
-                Nama
-              </InputLabel>
-              <TextField
-                id="standard-name"
-
-                name="namaPembeli"
-                width="100%"
-                style={{ width: "100%" }}
-                value={this.state.namaPembeli}
-
-                margin="normal"
-              />
-            </List>
-            <List style={{ marginBottom: "35px" }}>
-              <InputLabel htmlFor="demo-controlled-open-select">
-                Jabatan
-              </InputLabel>
-              <TextField
-                id="standard-name"
-
-                name="role"
-                width="100%"
-                style={{ width: "100%" }}
-                value={this.state.role}
-
-                margin="normal"
-              />
-            </List>
-            <List style={{ marginBottom: "35px" }}>
-              <InputLabel htmlFor="demo-controlled-open-select">
-                Divisi
-              </InputLabel>
-              <Select
-                open={this.state.open}
-                onClose={this.handleClose}
-                onOpen={this.handleOpen}
-                value={this.state.divisiId}
-                onChange={this.handleChange}
-                inputProps={{
-                  name: "divisiId",
-                  id: "demo-controlled-open-select"
-                }}
-                style={{ width: "100%" }}
-                name="divisiId"
-              >
-                <MenuItem value="">
-                  <em>- Divisi -</em>
-                </MenuItem>
-                <MenuItem value="Gudang">Gudang</MenuItem>
-                <MenuItem value="Gudang Ikan">Gudang Ikan</MenuItem>
-                <MenuItem value="Kebersihan">Kebersihan</MenuItem>
-                <MenuItem value="Outbound">Outbound</MenuItem>
-                <MenuItem value="Pertamanan">Pertamanan</MenuItem>
-                <MenuItem value="Rekreasi">Rekreasi</MenuItem>
-                <MenuItem value="Restoran">Restoran</MenuItem>
-                <MenuItem value="Technical Support">Technical Support</MenuItem>
-                <MenuItem value="Security">Security</MenuItem>
-              </Select>
-            </List>
-
-            <List>
-              <InputLabel htmlFor="demo-controlled-open-select">
-                Bagian
-              </InputLabel>
-              <Select
-                open={this.state.open}
-                onClose={this.handleClose}
-                onOpen={this.handleOpen}
-                value={this.state.bagianId}
-                onChange={this.handleChange}
-                inputProps={{
-                  name: "bagianId",
-                  id: "demo-controlled-open-select"
-                }}
-                style={{ width: "100%" }}
-                name="bagianId"
-              >
-                <MenuItem value="">
-                  <em>- Bagian -</em>
-                </MenuItem>
-                <MenuItem value="Administrasi">Administrasi</MenuItem>
-                <MenuItem value="Front Office">Front Office</MenuItem>
-                <MenuItem value="Keuangan">Keuangan</MenuItem>
-                <MenuItem value="Operasional">Operasional</MenuItem>
-                <MenuItem value="PPP">PPP</MenuItem>
-              </Select>
-            </List>
-          </Card>
+          <p style={{ textAlign: "div" }}>Masukkan Detail</p>
         </div>
 
         <Card
@@ -465,6 +372,18 @@ class AddOrderContainer extends Component {
             margin: "15px"
           }}
         >
+          <List>
+            <TextField
+              id="standard-name"
+              label="Nama Barang"
+              name="name"
+              width="100%"
+              style={{ width: "100%" }}
+              value={this.state.name}
+              onChange={this.handleChange}
+              margin="normal"
+            />
+          </List>
           <List>
             <InputLabel htmlFor="demo-controlled-open-select">
               Kategori
@@ -483,32 +402,23 @@ class AddOrderContainer extends Component {
               name="category"
             >
               <MenuItem value="">
-                <em>- Kategori -</em>
+                <em>- Kelas -</em>
               </MenuItem>
-              <MenuItem value="Elektronik">Elektronik</MenuItem>
-              <MenuItem value="Jasa/Tenaga borong">Jasa/Tenaga borong</MenuItem>
-              <MenuItem value="Material Bangunan">Material Bangunan</MenuItem>
-              <MenuItem value="Obat-obatan">Obat-obatan</MenuItem>
-              <MenuItem value="Pakan ternak">Pakan ternak</MenuItem>
-              <MenuItem value="Peralatan kerja">Peralatan kerja</MenuItem>
-              <MenuItem value="Perlengkapan satwa">Perlengkapan satwa</MenuItem>
-              <MenuItem value="Sparepart">Sparepart</MenuItem>
-              <MenuItem value="Service/Inventaris">Service/Inventaris</MenuItem>
-              <MenuItem value="Lain-lain">Lain-lain</MenuItem>
+              <MenuItem value="XI-RPL-1">XI-RPL-1</MenuItem>
+              <MenuItem value="XI-RPL-2">XI-RPL-2</MenuItem>
+              <MenuItem value="XI-RPL-3">XI-RPL-3</MenuItem>
+              <MenuItem value="XI-MM-1">XI-MM-1</MenuItem>
+              <MenuItem value="XI-MM-2">XI-MM-2</MenuItem>
+              <MenuItem value="XI-MM-3">XI-MM-3</MenuItem>
+              <MenuItem value="XI-TKJ-1">XI-TKJ-1</MenuItem>
+              <MenuItem value="XI-TKJ-2">XI-TKJ-2</MenuItem>
+              <MenuItem value="XI-TKJ-3">XI-TKJ-3</MenuItem>
+              <MenuItem value="XI-PS-1">XI-PS-1</MenuItem>
+              <MenuItem value="XI-PS-2">XI-PS-2</MenuItem>
+              <MenuItem value="XI-PS-3">XI-PS-3</MenuItem>
             </Select>
           </List>
-          <List>
-            <TextField
-              id="standard-name"
-              label="Nama Barang"
-              name="name"
-              width="100%"
-              style={{ width: "100%" }}
-              value={this.state.name}
-              onChange={this.handleChange}
-              margin="normal"
-            />
-          </List>
+
           <List>
             <TextField
               id="standard-name"
@@ -644,7 +554,7 @@ class AddOrderContainer extends Component {
           </List>
         </Card>
 
-        <div>
+        <center>
           <Button
             onClick={() => {
               this.pushData();
@@ -652,15 +562,15 @@ class AddOrderContainer extends Component {
             inline
             style={{
               borderRadius: "50px",
-              backgroundColor: "#00ae69",
+              backgroundColor: "#ff6600",
               color: "#fff",
-              width: "320px",
+              width: "80%",
               margin: "20px"
             }}
           >
-            TAMBAH BARANG
+            Tambahkan Buku
           </Button>
-        </div>
+        </center>
 
         {this.state.data.map(key => {
           return (
@@ -677,7 +587,7 @@ class AddOrderContainer extends Component {
         })}
 
         {this.state.buttonEnable ? (
-          <div style={{ textAlign: 'div' }}>
+          <center>
             <Button
               onClick={() => {
                 this.kirimData();
@@ -685,19 +595,19 @@ class AddOrderContainer extends Component {
               inline
               style={{
                 borderRadius: "50px",
-                backgroundColor: "#00ae69",
+                backgroundColor: "#ff6600",
                 color: "#fff",
-                width: "90%",
+                width: "80%",
                 margin: "20px",
-                marginBottom: "50px"
+                marginBottom: "70px"
               }}
             >
-              MASUKKAN BARANG
+              Pinjam Buku
           </Button>
             {this.state.link ? <Redirect to="/my_order" /> : ""}
-          </div>
+          </center>
         ) : (
-            <div style={{ textAlign: 'center' }}>
+            <center>
               <Button
                 inline
                 disabled
@@ -705,14 +615,14 @@ class AddOrderContainer extends Component {
                   borderRadius: "50px",
                   backgroundColor: "#A5A5A5",
                   color: "#fff",
-                  width: "90%",
+                  width: "80%",
                   margin: "20px",
-                  marginBottom: "50px"
+                  marginBottom: "70px"
                 }}
               >
-                PLACE ORDER
+                Belum Ada Buku
         </Button>
-            </div>)
+            </center>)
         }
 
       </div>

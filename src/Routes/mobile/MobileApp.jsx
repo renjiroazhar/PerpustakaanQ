@@ -30,33 +30,13 @@ const OrderDetail = Loadable({
   loading: loading
 });
 
-const DetailACC1 = Loadable({
-  loader: () => import("../../Views/Mobile/Containers/OrderDetail/DetailACC1"),
-  loading: loading
-});
-
 const DetailPending = Loadable({
   loader: () => import("../../Views/Mobile/Containers/OrderDetail/DetailPending"),
   loading: loading
 });
 
-const DetailWaiting = Loadable({
-  loader: () => import("../../Views/Mobile/Containers/OrderDetail/DetailWaiting"),
-  loading: loading
-});
-
-const DetailRejected = Loadable({
-  loader: () => import("../../Views/Mobile/Containers/OrderDetail/DetailRejected"),
-  loading: loading
-});
-
 const DetailPurchased = Loadable({
   loader: () => import("../../Views/Mobile/Containers/OrderDetail/DetailPurchased"),
-  loading: loading
-});
-
-const MyOrderDetail = Loadable({
-  loader: () => import("../../Views/Mobile/Containers/OrderDetail/MyOrderDetail"),
   loading: loading
 });
 
@@ -72,11 +52,6 @@ const History = Loadable({
 
 const DetailHistory = Loadable({
   loader: () => import("../../Views/Mobile/Containers/OrderDetail/DetailHistory"),
-  loading: loading
-});
-
-const DetailMyOrder = Loadable({
-  loader: () => import("../../Views/Mobile/Containers/OrderDetail/DetailMyOrder"),
   loading: loading
 });
 
@@ -109,7 +84,7 @@ class MobileApp extends Component {
     count: 0,
     unitPrice: 0,
     purchasePrice: 0,
-    
+
     id: "",
     orderId: "",
     loading: false,
@@ -166,7 +141,7 @@ class MobileApp extends Component {
               <Route exact path="/account" render={() => <AccountContainer updateLogout={this.logout} />} />
               <Route exact path="/account/reset_password" component={ResetPassword} />
               <Route exact path="/history" component={History} />
-              
+
               <Route
                 exact
                 path="/orderdetail/update/:id"
@@ -174,17 +149,12 @@ class MobileApp extends Component {
               />
 
               <Route
-                
+
                 path="orderdetail/:id/update"
                 component={OrderDetail}
               />
-
-              <Route path="/orderdetail/:id/detailrejected" component={DetailRejected} />
-              <Route path="/orderdetail/:id/detailwaiting" component={DetailWaiting} />
               <Route path="/orderdetail/:id/detailpending" component={DetailPending} />
-              <Route path="/orderdetail/:id/detailacc1" component={DetailACC1} />
               <Route path="/orderdetail/:id/detailpurchased" component={DetailPurchased} />
-              <Route path="/orderdetail/:id/myorderdetail" component={MyOrderDetail} />
 
               <Route
                 exact
@@ -196,12 +166,6 @@ class MobileApp extends Component {
                 exact
                 path="/history/detail/:id/"
                 component={DetailHistory}
-              />
-
-              <Route
-                exact
-                path="/myorder/detail/:id"
-                component={DetailMyOrder}
               />
             </Switch>
           )}

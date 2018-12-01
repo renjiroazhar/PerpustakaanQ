@@ -1,173 +1,87 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Navbar from "../../Components/Navbar";
+import { Tabs } from "antd-mobile";
+import { StickyContainer, Sticky } from "react-sticky";
+import Button from "@material-ui/core/Button";
+import Add from "@material-ui/icons/Add";
 import {
-  WhiteSpace,
-  List,
-  PullToRefresh
-} from "antd-mobile";
-import { StickyContainer } from "react-sticky";
-import { Link } from "react-router-dom";
-import Navbar from "./Navbar";
-import { Icon, Badge } from "antd";
-import axios from "axios";
+  withStyles,
+} from "@material-ui/core/styles";
+import Denda from './Denda/DendaContainer';
+import Dipinjam from './Dipinjam/DipinjamContainer';
+import { Link } from 'react-router-dom';
 
-const Item = List.Item;
-const Brief = Item.Brief;
+function renderTabBar(props) {
+  return (
+    <Sticky>
+      {({ style }) => (
+        <div style={{ ...style, zIndex: 1 }}>
+          <Tabs.DefaultTabBar {...props} />
+        </div>
+      )}
+    </Sticky>
+  );
+}
+const tabs = [
+  { title: "Dipinjam" },
+  { title: "Denda" }
+];
+
+const styles = theme => ({
+  absolute: {
+    color: "#ff6600",
+    backgroundColor: "#ff6600",
+    position: 'fixed',
+    right: '0px',
+    bottom: '0px',
+    marginBottom: '80px',
+    marginRight: '24px',
+    "&:hover": {
+      backgroundColor: "#ff6600",
+    }
+  },
+  iconchat: {
+    color: "#fff",
+  },
+});
 
 class HomeContainer extends Component {
   state = {
     openKeys: ["sub1"],
-    status: 0,
     data: [],
-    name: "",
-    merk: "",
-    spec: "",
-    lastPurchaser: "",
-    store: "",
-    address: "",
-    telephone: "",
-    web: "",
-    description: "",
-    note: "",
-    lastPrice: 0,
-    total: 0,
-    count: 0,
-    unitPrice: 0,
-    purchasePrice: 0,
-
-    id: "",
-    orderId: "",
-    loading: false,
-    totalHarga: 0,
-    anggaran: [],
-    totalAnggaran: 0,
-
-    dataAll: [],
-    dataPurchased: [],
-    dataWaiting: [],
-    dataACC1: [],
-    dataPending: [],
-    dataRejected: [],
-    dataUnprocessed: [],
-    dataEstimasi: [],
-    refreshing: false,
-    down: true,
-    height: document.documentElement.clientHeight
+    loading: false
   };
-
-  getDataAllStatus = () => {
-    axios
-      .get(
-        `https://purchasing-stagging.herokuapp.com/api/Orders?filter={"include":"people"}`
-      )
-      .then(res => {
-        this.setState({
-          dataAll: res.data,
-          loading: true
-        });
-        console.log(res);
-      });
-  };
-
-  getDataUnprocessed = () => {
-    axios
-      .get(
-        `https://purchasing-stagging.herokuapp.com/api/Orders?filter={"include":"people","where":{"status":0}}`
-      )
-      .then(res => {
-        this.setState({
-          dataUnprocessed: res.data,
-          loading: true
-        });
-        console.log(res);
-      });
-  };
-
-  deleteData = _id => {
-    axios
-      .get(`https://purchasing-stagging.herokuapp.com/api/Orders/${_id}`)
-      .then(res => {
-        this.getData();
-        console.log(res);
-      });
-  };
-
-  componentDidMount() {
-    this.getDataUnprocessed();
-  }
 
   render() {
+    const { classes } = this.props;
     return (
-
       <div>
-        <Navbar style={{ position: "content" }} />
-        <PullToRefresh
-          damping={60}
-          ref={el => (this.ptr = el)}
-          style={{
-            height: this.state.height,
-            overflow: "auto"
-          }}
-          indicator={this.state.dataAll ? {} : { deactivate: "Refresh" }}
-          direction={this.state.dataAll ? "down" : "up"}
-          refreshing={this.state.refreshing}
-          onRefresh={() => {
-            this.setState({ refreshing: true });
-            setTimeout(() => {
-              this.setState({ refreshing: false });
-            }, 1000);
-            this.getDataUnprocessed();
-          }}
-        >
-          <WhiteSpace style={{ backgroundColor: "#872ef5" }} size="xs" />
-          <StickyContainer>
+        <Navbar />
+        <StickyContainer>
+          <Tabs tabs={tabs} initalPage={"t2"} renderTabBar={renderTabBar}>
             <div>
-              {this.state.loading ? (
-                this.state.dataUnprocessed.map(key => {
-                  let totalharga = key.totalHarga;
-                  var formattednum_totalharga = Number(
-                    totalharga
-                  ).toLocaleString("in-ID", {
-                    style: "currency",
-                    currency: "IDR"
-                  });
-                  return (
-                    <List className="my-list">
-                      <Link
-                        to={{
-                          pathname: `/orderdetail/${key.id}/update`
-                        }}
-                      >
-                        <Item
-                          extra={`${formattednum_totalharga}`}
-                          arrow="horizontal"
-                          multipleLine
-                        >
-                          <p>
-                            <Badge status="default" />
-                            {key.orderCode}
-                          </p>
-                          <Brief>{key.people.name}</Brief>
-                        </Item>
-                      </Link>
-                    </List>
-                  );
-                })
-              ) : (
-                  <h1 style={{ textAlign: "center" }}>
-                    Loading <Icon type="loading" theme="outlined" />
-                  </h1>
-                )}
+              <Dipinjam />
             </div>
-          </StickyContainer>
-          <WhiteSpace />
-        </PullToRefresh>
-        <br />
-        <br />
-        <br />
-        <br />
+            <div>
+              <Denda />
+            </div>
+          </Tabs>
+        </StickyContainer>
+        <div>
+          <Link to="/add_order">
+            <Button variant="fab" className={classes.absolute}>
+              <Add className={classes.iconchat} />
+            </Button>
+          </Link>
+        </div>
       </div>
     );
   }
 }
 
-export default HomeContainer;
+HomeContainer.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(HomeContainer);

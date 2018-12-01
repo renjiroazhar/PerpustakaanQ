@@ -1,91 +1,55 @@
 import React, { Component } from "react";
-import { Input } from "antd";
+import { Icon, Divider, Button, Table, Input, Badge } from "antd";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import "./style.css";
-import Fab from "@material-ui/core/Fab";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import CancelIcon from "@material-ui/icons/Cancel";
+import TextField from "@material-ui/core/TextField";
 
 const { TextArea } = Input;
 const InputGroup = Input.Group;
 class DetailOrder extends Component {
   state = {
+    dataSource: [], // Check here to configure the default column
     data: [],
-    kode: "",
-    student: "",
-    nis: 0,
-    bookname: "",
-    bookcode: "",
-    class: "",
-    count: 0,
-    publicationYear: 0,
-    publisher: "",
-    edit: false
+    orderDetail: []
   };
 
   getDataById = () => {
     axios
       .get(
-        `http://localhost:8000/api/Items/${
-          this.props.match.params.id
-        }?filter={"include":"borrow"}`
+        `http://localhost:8000/api/Items/${this.props.match.params.id}?filter={"include":"borrow"}`
       )
       .then(res => {
         var datas = res.data;
-        const kode = datas.borrow.borrowCode;
-        const student = datas.borrow.student;
-        const kelas = datas.borrow.class;
-        const nis = datas.borrow.nis;
-        const bookname = datas.bookname;
-        const bookcode = datas.bookcode;
-        const publisher = datas.publisher;
-        const publicationYear = datas.publicationYear;
-        const count = datas.count;
-
-        console.log(datas);
+        console.log(res, ">>>>ini res id");
         this.setState({
-          data: datas,
-          kode: kode,
-          student: student,
-          class: kelas,
-          nis: nis,
-          bookname: bookname,
-          bookcode: bookcode,
-          publisher: publisher,
-          publicationYear: publicationYear,
-          count: count
+          orderDetail: datas,
+          loading: true
         });
       });
   };
 
-  gantiData = () => {
+  gantiData = _id => {
     axios
-      .patch(`http://localhost:8000/api/Items/${this.props.match.params.id}`, {
-        bookname : this.state.bookname,
-        bookcode : this.state.bookcode,
-        publisher : this.state.publisher,
-        publicationYear : this.state.publicationYear,
-        count : this.state.count
+      .patch(`http://localhost:8000/api/Items/${_id}`, {
+        note: this.state.note,
+        category: this.state.category
       })
       .then(res => {
         this.setState({
-          edit: false
+          enableEdit: false
         });
       })
       .catch(err => console.log(err.response.data));
   };
 
-  deleteData = () => {
-    axios
-      .delete(`http://localhost:8000/api/Items/${this.props.match.params.id}`)
-      .then(res => {
-        this.setState({
-          link: true
-        });
-        this.getDataById();
+  deleteData = _id => {
+    axios.delete(`http://localhost:8000/api/Items/${_id}`).then(res => {
+      this.setState({
+        link: true
       });
+      this.getDataById();
+    });
   };
 
   handleChange = e => {
@@ -116,14 +80,6 @@ class DetailOrder extends Component {
     this.setState({ bagianId: value });
   };
 
-  handleEdit = () => {
-    this.setState({ edit: true });
-  };
-
-  handleBatalEdit = () => {
-    this.setState({ edit: false });
-  };
-
   componentDidMount() {
     this.getDataById();
   }
@@ -143,356 +99,196 @@ class DetailOrder extends Component {
   };
 
   render() {
+    let totalSemuaHarga = this.state.totalHarga;
+    var formattednum_totalSemua = Number(totalSemuaHarga).toLocaleString(
+      "in-ID",
+      {
+        style: "currency",
+        currency: "IDR"
+      }
+    );
+
+    const columns = [
+      {
+        title: "Nama Barang",
+        width: 125,
+        dataIndex: "name",
+        key: "name",
+        fixed: "left"
+      },
+      {
+        title: "Merk",
+        dataIndex: "merk",
+        key: "merk"
+      },
+      {
+        title: "Spesifikasi",
+        dataIndex: "spec",
+        key: "spec"
+      },
+      {
+        title: "Toko",
+        dataIndex: "store",
+        key: "store"
+      },
+      {
+        title: "Alamat Toko",
+        dataIndex: "address",
+        key: "address"
+      },
+      {
+        title: "Catatan",
+        dataIndex: "note",
+        key: "note"
+      },
+      {
+        title: "Harga Satuan",
+        dataIndex: "unitPrice",
+        key: "unitPrice"
+      },
+      {
+        title: "Jumlah",
+        dataIndex: "count",
+        key: "count"
+      },
+      {
+        title: "Total Harga Item",
+        dataIndex: "total",
+        key: "total"
+      },
+      {
+        title: "Telepon",
+        dataIndex: "telephone",
+        key: "telephone"
+      },
+      {
+        title: "Deskripsi",
+        dataIndex: "description",
+        key: "description"
+      },
+      {
+        title: "Website",
+        dataIndex: "web",
+        key: "web"
+      },
+      {
+        title: "Action",
+        dataIndex: "action",
+        key: "action",
+        width: "150px",
+        fixed: "right",
+        render: (text, record) => (
+          <span>
+            <Button
+              disabled
+              style={{
+                backgroundColor: "#A5A5A5",
+                borderColor: "transparent",
+                borderRadius: "3px"
+              }}
+              type="primary"
+              size="small"
+            >
+              <Icon type="delete" theme="outlined" />
+            </Button>
+            <Divider type="vertical" />
+
+            <Button
+              disabled
+              style={{
+                backgroundColor: "#A5A5A5",
+                borderColor: "transparent",
+                borderRadius: "3px"
+              }}
+              type="primary"
+              size="small"
+            >
+              <Icon type="edit" theme="outlined" />
+            </Button>
+
+            <Divider type="vertical" />
+          </span>
+        )
+      }
+    ];
+
     return (
       <div>
         <div>
-          <h1 style={{ marginLeft: "15px" }}>Detail Peminjaman :</h1>
+          <h1 style={{ marginLeft: "15px" }}>
+            Detail Peminjaman :{" "}
+          </h1>
         </div>
 
         <div>
-          {this.state.edit ? (
-            <div style={{ float: "left" }}>
-              <Fab
-                variant="extended"
-                aria-label=""
-                style={{ backgroundColor: "red", color: "white" }}
-                onClick={this.handleBatalEdit}
+          <form>
+            <fieldset disabled>
+              <InputGroup
+                style={{ background: "#f7f7f7", padding: "35px" }}
+                size="large"
               >
-                <CancelIcon />
-                Batal Mengedit
-              </Fab>
-            </div>
-          ) : (
-            <Fab onClick={this.handleEdit} variant="extended" aria-label="">
-              <EditIcon />
-              Edit Data Peminjaman
-            </Fab>
-          )}
-          <div style={{ float: "right" }}>
-            <Fab
-              variant="extended"
-              aria-label=""
-              style={{ backgroundColor: "red", color: "white" }}
-              onClick={this.deleteData}
-            >
-              <DeleteIcon />
-              Hapus Data Peminjaman
-            </Fab>
-          </div>
+                <h5
+                  align="left"
+                  style={{ marginBottom: "10px", marginTop: "20px" }}
+                >
+                  Nama Pembeli
+                </h5>
+                <Input
+                  name="namaPembeli"
+                  disabled
+                  value={this.state.namaPembeli}
+                  placeholder="Nama Pembeli"
+                  style={{ width: "100%" }}
+                />
+                <br />
+                <br />
+
+                <h5
+                  align="left"
+                  style={{ marginBottom: "10px", marginTop: "20px" }}
+                >
+                  Catatan
+                </h5>
+                <TextArea
+                  disabled
+                  name="note"
+                  value={this.state.note}
+                  onChange={this.handleChange}
+                  className
+                  placeholder="Catatan"
+                  style={{ color: "rgba(0, 0, 0, .25);" }}
+                />
+                <br />
+                <br />
+                <h5
+                  align="left"
+                  style={{ marginBottom: "10px", marginTop: "20px" }}
+                >
+                  Status
+                </h5>
+                <h3 type="primary" size="small">
+                  <Badge status="success" /> Purchased
+                </h3>
+              </InputGroup>
+            </fieldset>
+          </form>
         </div>
-        <br />
-        <br />
-        <br />
 
-        {this.state.edit ? (
-          <div>
-            <form>
-              <fieldset>
-                <InputGroup
-                  style={{ background: "#f7f7f7", padding: "35px" }}
-                  size="large"
-                >
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
-                  >
-                    Kode Peminjaman
-                  </h5>
-                  <Input
-                    disabled
-                    name="kode"
-                    value={this.state.kode}
-                    placeholder="Kode Peminjaman"
-                    style={{ width: "100%" }}
-                  />
-                  <br />
-                  <br />
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
-                  >
-                    Nama Peminjam
-                  </h5>
-                  <Input
-                    disabled
-                    name="student"
-                    value={this.state.student}
-                    placeholder="Nama Peminjam"
-                    style={{ width: "100%" }}
-                  />
-                  <br />
-                  <br />
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
-                  >
-                    NIS
-                  </h5>
-                  <Input
-                    disabled
-                    name="nis"
-                    value={this.state.nis}
-                    placeholder="NIS"
-                    style={{ width: "100%" }}
-                  />
-                  <br />
-                  <br />
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
-                  >
-                    Kelas
-                  </h5>
-                  <Input
-                    disabled
-                    name="class"
-                    value={this.state.class}
-                    placeholder="Judul Buku"
-                    style={{ width: "100%" }}
-                  />
-                  <br />
-                  <br />
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
-                  >
-                    Judul Buku
-                  </h5>
-                  <Input
-                    name="bookname"
-                    value={this.state.bookname}
-                    placeholder="Judul Buku"
-                    style={{ width: "100%" }}
-                    onChange={this.handleChange}
-                  
-                  />
-                  <br />
-                  <br />
-
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
-                  >
-                    Kode Buku
-                  </h5>
-                  <TextArea
-                    name="bookcode"
-                    value={this.state.bookcode}
-                    onChange={this.handleChange}
-                    className
-                    placeholder="Catatan"
-                    style={{ color: "rgba(0, 0, 0, .25);" }}
-                  />
-                  <br />
-                  <br />
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
-                  >
-                    Penerbit
-                  </h5>
-                  <Input
-                    name="publisher"
-                    value={this.state.publisher}
-                    placeholder="Penerbit"
-                    style={{ width: "100%" }}
-                    onChange={this.handleChange}
-                  
-                  />
-                  <br />
-                  <br />
-
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
-                  >
-                    Tahun Penerbitan
-                  </h5>
-                  <TextArea
-                    name="publicationYear"
-                    value={this.state.publicationYear}
-                    onChange={this.handleChange}
-                    className
-                    placeholder="Tahun Penerbitan"
-                    style={{ color: "rgba(0, 0, 0, .25);" }}
-                  />
-                  <br />
-                  <br />
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
-                  >
-                    Jumlah Buku Yang Dipinjam
-                  </h5>
-                  <Input
-                    name="count"
-                    value={this.state.count}
-                    placeholder="Jumlah Buku"
-                    style={{ width: "100%" }}
-                    onChange={this.handleChange}
-                  
-                  />
-                 
-                </InputGroup>
-              </fieldset>
-            </form>
-            <div style={{textAlign: 'center'}}>
-            <Fab onClick={this.gantiData} variant="extended" aria-label="" color="primary">
-              Simpan Perubahan
-            </Fab>
-            </div>
-          </div>
-        ) : (
-          <div>
-            <form>
-              <fieldset disabled>
-                <InputGroup
-                  style={{ background: "#f7f7f7", padding: "35px" }}
-                  size="large"
-                >
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
-                  >
-                    Kode Peminjaman
-                  </h5>
-                  <Input
-                    name="kode"
-                    value={this.state.kode}
-                    placeholder="Kode Peminjaman"
-                    style={{ width: "100%" }}
-                  />
-                  <br />
-                  <br />
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
-                  >
-                    Nama Peminjam
-                  </h5>
-                  <Input
-                    name="student"
-                    value={this.state.student}
-                    placeholder="Nama Peminjam"
-                    style={{ width: "100%" }}
-                  />
-                  <br />
-                  <br />
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
-                  >
-                    NIS
-                  </h5>
-                  <Input
-                    name="nis"
-                    value={this.state.nis}
-                    placeholder="NIS"
-                    style={{ width: "100%" }}
-                  />
-                  <br />
-                  <br />
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
-                  >
-                    Kelas
-                  </h5>
-                  <Input
-                    name="class"
-                    value={this.state.class}
-                    placeholder="Judul Buku"
-                    style={{ width: "100%" }}
-                  />
-                  <br />
-                  <br />
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
-                  >
-                    Judul Buku
-                  </h5>
-                  <Input
-                    name="bookname"
-                    disabled
-                    value={this.state.bookname}
-                    placeholder="Judul Buku"
-                    style={{ width: "100%" }}
-                  />
-                  <br />
-                  <br />
-
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
-                  >
-                    Kode Buku
-                  </h5>
-                  <TextArea
-                    disabled
-                    name="bookcode"
-                    value={this.state.bookcode}
-                    onChange={this.handleChange}
-                    className
-                    placeholder="Catatan"
-                    style={{ color: "rgba(0, 0, 0, .25);" }}
-                  />
-                  <br />
-                  <br />
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
-                  >
-                    Penerbit
-                  </h5>
-                  <Input
-                    name="publisher"
-                    disabled
-                    value={this.state.publisher}
-                    placeholder="Penerbit"
-                    style={{ width: "100%" }}
-                  />
-                  <br />
-                  <br />
-
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
-                  >
-                    Tahun Penerbitan
-                  </h5>
-                  <TextArea
-                    disabled
-                    name="publicationYear"
-                    value={this.state.publicationYear}
-                    onChange={this.handleChange}
-                    className
-                    placeholder="Tahun Penerbitan"
-                    style={{ color: "rgba(0, 0, 0, .25);" }}
-                  />
-                  <br />
-                  <br />
-                  <h5
-                    align="left"
-                    style={{ marginBottom: "10px", marginTop: "20px" }}
-                  >
-                    Jumlah Buku Yang Dipinjam
-                  </h5>
-                  <Input
-                    name="count"
-                    disabled
-                    value={this.state.count}
-                    placeholder="Jumlah Buku"
-                    style={{ width: "100%" }}
-                  />
-
-                </InputGroup>
-              </fieldset>
-            </form>
-          </div>
-        )}
-
-        {this.state.link ? <Redirect to="/" /> : ""}
+        <div style={{ marginTop: "10px" }}>
+          {this.state.loading ? (
+            // <Table
+            //   columns={columns}
+            //   dataSource={this.state.orderDetail}
+            //   scroll={{ x: 1500 }}
+            // />
+            ""
+          ) : (
+              <h1 style={{ textAlign: "center" }}>
+                Loading <Icon type="loading" theme="outlined" />
+              </h1>
+            )}
+          {this.state.link ? <Redirect to="/" /> : ""}
+        </div>
       </div>
     );
   }

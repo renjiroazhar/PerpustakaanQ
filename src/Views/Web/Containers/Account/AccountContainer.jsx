@@ -164,7 +164,7 @@ class AccountContainer extends React.Component {
                   height: "50px",
                   marginTop: "30px",
                   marginLeft: "680px",
-                  backgroundColor: "#00ae69",
+                  backgroundColor: "#0088aaff",
                   fontWeight: "bold",
                   color: "white"
                 }}
@@ -173,7 +173,7 @@ class AccountContainer extends React.Component {
                   this.handleSubmit();
                 }}
               >
-                RESET PASSWORD
+                Reset Password
               </Button>
             </FormItem>
           </Form>

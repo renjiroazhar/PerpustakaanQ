@@ -158,7 +158,7 @@ class OrderEdit extends Component {
             padding: "25px 0px 25px 0px"
           }}
         >
-          <p style={{ marginTop: "20px" }}>EDIT ITEM</p>
+          <p style={{ marginTop: "20px" }}>Perbarui Detil</p>
         </NavBar>
 
  
@@ -359,13 +359,13 @@ class OrderEdit extends Component {
           inline
           style={{
             borderRadius: "50px",
-            backgroundColor: "#00ae69",
+            backgroundColor: "#ff6600",
             color: "#fff",
             width: "320px",
             margin: "20px 15px 60px 25px"
           }}
         >
-          SIMPAN PERUBAHAN
+          Simpan Perubahan
         </Button>
         {this.state.link ? <Redirect to={`/orderdetail/${this.state.data.orderId}/update`}/> : ""}
       </div>

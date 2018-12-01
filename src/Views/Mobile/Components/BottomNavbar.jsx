@@ -31,9 +31,9 @@ class BottomNavbar extends React.Component {
 
     return (
       <BottomNavigation value={value} onChange={this.handleChange} className={classes.root}>
-        <BottomNavigationAction label="Home" value="home" icon={<HomeIcon />} component={Link} to="/" />
-        <BottomNavigationAction label="History" value="history" icon={<RestoreIcon />} component={Link} to="/history" />
-        <BottomNavigationAction label="Account" value="account" icon={<AccountIcon />} component={Link} to="/account" />
+        <BottomNavigationAction showLabel label="Home" value="home" icon={<HomeIcon />} component={Link} to="/" />
+        <BottomNavigationAction showLabel label="History" value="history" icon={<RestoreIcon />} component={Link} to="/history" />
+        <BottomNavigationAction showLabel label="Account" value="account" icon={<AccountIcon />} component={Link} to="/account" />
       </BottomNavigation>
     );
   }

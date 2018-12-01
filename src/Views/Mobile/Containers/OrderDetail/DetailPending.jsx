@@ -84,7 +84,7 @@ class DetailPending extends Component {
     axios
       .get(
         `https://purchasing-stagging.herokuapp.com/api/Orders/${
-          this.props.match.params.id
+        this.props.match.params.id
         }/items`
       )
       .then(res => {
@@ -101,7 +101,7 @@ class DetailPending extends Component {
     axios
       .get(
         `https://purchasing-stagging.herokuapp.com/api/Orders/${
-          this.props.match.params.id
+        this.props.match.params.id
         }`
       )
       .then(res => {
@@ -264,7 +264,7 @@ class DetailPending extends Component {
                 to={{
                   pathname: `/orderdetail/update/addnewbarang/${
                     this.props.match.params.id
-                  }`,
+                    }`,
                   state: {
                     orderId: this.state.id,
                     orderCode: this.state.orderCode
@@ -387,14 +387,14 @@ class DetailPending extends Component {
                       inline
                       style={{
                         borderRadius: "50px",
-                        backgroundColor: "#00ae69",
+                        backgroundColor: "#ff6600",
                         color: "#fff",
                         width: "100px",
                         textAlign: "center",
                         float: "left"
                       }}
                     >
-                      SIMPAN
+                      Simpan
                     </Button>
                     <Button
                       onClick={() => {
@@ -411,7 +411,7 @@ class DetailPending extends Component {
                         float: "right"
                       }}
                     >
-                      BATAL
+                      Batal
                     </Button>
                   </div>
                 </Card>
@@ -429,100 +429,100 @@ class DetailPending extends Component {
                 </List> */}
               </div>
             ) : (
-              <div>
-                <Card
-                  style={{
-                    background: "#fff",
-                    padding: "35px",
-                    borderRadius: "0px",
-                    margin: "15px 15px 10px 15px"
-                  }}
-                >
-                  <List>
-                    <InputLabel htmlFor="demo-controlled-open-select">
-                      Kategori
+                <div>
+                  <Card
+                    style={{
+                      background: "#fff",
+                      padding: "35px",
+                      borderRadius: "0px",
+                      margin: "15px 15px 10px 15px"
+                    }}
+                  >
+                    <List>
+                      <InputLabel htmlFor="demo-controlled-open-select">
+                        Kategori
                     </InputLabel>
-                    <Select
-                      disabled
-                      open={this.state.open}
-                      onClose={this.handleClose}
-                      onOpen={this.handleOpen}
-                      value={this.state.category}
-                      onChange={this.handleChange}
-                      inputProps={{
-                        name: "category",
-                        id: "demo-controlled-open-select"
-                      }}
-                      style={{ width: "100%" }}
-                      name="category"
-                    >
-                      <MenuItem value="" disabled>
-                        <em>- Kategori -</em>
+                      <Select
+                        disabled
+                        open={this.state.open}
+                        onClose={this.handleClose}
+                        onOpen={this.handleOpen}
+                        value={this.state.category}
+                        onChange={this.handleChange}
+                        inputProps={{
+                          name: "category",
+                          id: "demo-controlled-open-select"
+                        }}
+                        style={{ width: "100%" }}
+                        name="category"
+                      >
+                        <MenuItem value="" disabled>
+                          <em>- Kategori -</em>
+                        </MenuItem>
+                        <MenuItem value="Elektronik">Elektronik</MenuItem>
+                        <MenuItem value="Jasa/Tenaga borong">
+                          Jasa/Tenaga borong
                       </MenuItem>
-                      <MenuItem value="Elektronik">Elektronik</MenuItem>
-                      <MenuItem value="Jasa/Tenaga borong">
-                        Jasa/Tenaga borong
+                        <MenuItem value="Material Bangunan">
+                          Material Bangunan
                       </MenuItem>
-                      <MenuItem value="Material Bangunan">
-                        Material Bangunan
+                        <MenuItem value="Obat-obatan">Obat-obatan</MenuItem>
+                        <MenuItem value="Pakan ternak">Pakan ternak</MenuItem>
+                        <MenuItem value="Peralatan kerja">
+                          Peralatan kerja
                       </MenuItem>
-                      <MenuItem value="Obat-obatan">Obat-obatan</MenuItem>
-                      <MenuItem value="Pakan ternak">Pakan ternak</MenuItem>
-                      <MenuItem value="Peralatan kerja">
-                        Peralatan kerja
+                        <MenuItem value="Perlengkapan satwa">
+                          Perlengkapan satwa
                       </MenuItem>
-                      <MenuItem value="Perlengkapan satwa">
-                        Perlengkapan satwa
+                        <MenuItem value="Sparepart">Sparepart</MenuItem>
+                        <MenuItem value="Service/Inventaris">
+                          Service/Inventaris
                       </MenuItem>
-                      <MenuItem value="Sparepart">Sparepart</MenuItem>
-                      <MenuItem value="Service/Inventaris">
-                        Service/Inventaris
-                      </MenuItem>
-                      <MenuItem value="Lain-lain">Lain-lain</MenuItem>
-                    </Select>
-                  </List>
-                  <List>
-                    <TextField
-                      disabled
-                      id="standard-name"
-                      label="Catatan"
-                      name="note"
-                      width="100%"
-                      style={{ width: "100%" }}
-                      value={this.state.note}
-                      onChange={this.handleChange}
-                      margin="normal"
-                    />
-                  </List>
-                  <List>
-                    <InputLabel htmlFor="demo-controlled-open-select">
-                      Status
+                        <MenuItem value="Lain-lain">Lain-lain</MenuItem>
+                      </Select>
+                    </List>
+                    <List>
+                      <TextField
+                        disabled
+                        id="standard-name"
+                        label="Catatan"
+                        name="note"
+                        width="100%"
+                        style={{ width: "100%" }}
+                        value={this.state.note}
+                        onChange={this.handleChange}
+                        margin="normal"
+                      />
+                    </List>
+                    <List>
+                      <InputLabel htmlFor="demo-controlled-open-select">
+                        Status
                     </InputLabel>
-                    <h3 style={{ color: "#FEBB01" }}>Pending</h3>
-                  </List>
-                  <h4 style={{ textAlign: "center" }}>
-                    Total Harga :{" "}
-                    <TextField
-                      id="standard-name"
-                      name="totalHarga"
-                      value={this.state.totalHarga}
-                      margin="normal"
-                    />{" "}
-                  </h4>
-                  <h3>
-                    <Icon
-                      type="delete"
-                      theme="outlined"
-                      style={{ textAlign: "center", color: "#f0555a" }}
-                      onClick={() => {
-                        this.deleteData(this.props.match.params.id);
-                      }}
-                    />{" "}
-                    Hapus Order
+                      <h3 style={{ color: "#FEBB01" }}>Pending</h3>
+                    </List>
+                    <h4 style={{ textAlign: "center" }}>
+                      Total Harga :{" "}
+                      <TextField
+                        id="standard-name"
+                        name="totalHarga"
+                        value={this.state.totalHarga}
+                        margin="normal"
+                      />{" "}
+                    </h4>
+                    <h3>
+                      <Icon
+                        type="delete"
+                        theme="outlined"
+                        style={{ textAlign: "center", color: "#f0555a" }}
+                        onClick={() => {
+                          this.deleteData(this.props.match.params.id);
+                        }}
+                      />{" "}
+                      Hapus Order
                   </h3>
-                </Card>
-                <br />
-                {/* <List>
+                  </Card>
+                  <br />
+                  {/* <List>
                   <TextField
                     disabled
                     id="standard-name"
@@ -535,8 +535,8 @@ class DetailPending extends Component {
                   />
                 </List>
                  */}
-              </div>
-            )}
+                </div>
+              )}
           </div>
 
           <div>
@@ -590,7 +590,7 @@ class DetailPending extends Component {
                                       }
                                     }}
                                   >
-                                    <h2 style={{ color: "#00ae69" }}>
+                                    <h2 style={{ color: "#ff6600" }}>
                                       <Icon type="edit" theme="outlined" />
                                     </h2>
                                   </Link>
@@ -669,10 +669,10 @@ class DetailPending extends Component {
                 );
               })
             ) : (
-              <h1 style={{ textAlign: "center" }}>
-                Loading <Icon type="loading" theme="outlined" />
-              </h1>
-            )}
+                <h1 style={{ textAlign: "center" }}>
+                  Loading <Icon type="loading" theme="outlined" />
+                </h1>
+              )}
           </div>
           <div style={{ margin: "20px 15px 100px 15px" }}>
             <Button
@@ -706,7 +706,7 @@ class DetailPending extends Component {
               style={{
                 float: "right",
                 width: "200px",
-                backgroundColor: "#00ae69",
+                backgroundColor: "#ff6600",
                 borderRadius: "25px"
               }}
               onClick={() => {
@@ -744,7 +744,7 @@ class DetailPending extends Component {
                 to={{
                   pathname: `/orderdetail/update/addnewbarang/${
                     this.props.match.params.id
-                  }`,
+                    }`,
                   state: {
                     orderId: this.state.id,
                     orderCode: this.state.orderCode
@@ -760,7 +760,7 @@ class DetailPending extends Component {
               padding: "25px 0px 25px 0px"
             }}
           >
-            <p style={{ marginTop: "20px" }}>ORDER DETAIL</p>
+            <p style={{ marginTop: "20px" }}>Order Detail</p>
           </NavBar>
 
           <div style={{ textAlign: "center", margin: "20px" }}>
@@ -867,14 +867,14 @@ class DetailPending extends Component {
                       inline
                       style={{
                         borderRadius: "50px",
-                        backgroundColor: "#00ae69",
+                        backgroundColor: "#ff6600",
                         color: "#fff",
                         width: "100px",
                         textAlign: "center",
                         float: "left"
                       }}
                     >
-                      SIMPAN
+                      Simpan
                     </Button>
                     <Button
                       onClick={() => {
@@ -891,7 +891,7 @@ class DetailPending extends Component {
                         float: "right"
                       }}
                     >
-                      BATAL
+                      Batal
                     </Button>
                   </div>
                 </Card>
@@ -909,100 +909,100 @@ class DetailPending extends Component {
                 </List> */}
               </div>
             ) : (
-              <div>
-                <Card
-                  style={{
-                    background: "#fff",
-                    padding: "35px",
-                    borderRadius: "0px",
-                    margin: "15px 15px 10px 15px"
-                  }}
-                >
-                  <List>
-                    <InputLabel htmlFor="demo-controlled-open-select">
-                      Kategori
+                <div>
+                  <Card
+                    style={{
+                      background: "#fff",
+                      padding: "35px",
+                      borderRadius: "0px",
+                      margin: "15px 15px 10px 15px"
+                    }}
+                  >
+                    <List>
+                      <InputLabel htmlFor="demo-controlled-open-select">
+                        Kategori
                     </InputLabel>
-                    <Select
-                      disabled
-                      open={this.state.open}
-                      onClose={this.handleClose}
-                      onOpen={this.handleOpen}
-                      value={this.state.category}
-                      onChange={this.handleChange}
-                      inputProps={{
-                        name: "category",
-                        id: "demo-controlled-open-select"
-                      }}
-                      style={{ width: "100%" }}
-                      name="category"
-                    >
-                      <MenuItem value="" disabled>
-                        <em>- Kategori -</em>
+                      <Select
+                        disabled
+                        open={this.state.open}
+                        onClose={this.handleClose}
+                        onOpen={this.handleOpen}
+                        value={this.state.category}
+                        onChange={this.handleChange}
+                        inputProps={{
+                          name: "category",
+                          id: "demo-controlled-open-select"
+                        }}
+                        style={{ width: "100%" }}
+                        name="category"
+                      >
+                        <MenuItem value="" disabled>
+                          <em>- Kategori -</em>
+                        </MenuItem>
+                        <MenuItem value="Elektronik">Elektronik</MenuItem>
+                        <MenuItem value="Jasa/Tenaga borong">
+                          Jasa/Tenaga borong
                       </MenuItem>
-                      <MenuItem value="Elektronik">Elektronik</MenuItem>
-                      <MenuItem value="Jasa/Tenaga borong">
-                        Jasa/Tenaga borong
+                        <MenuItem value="Material Bangunan">
+                          Material Bangunan
                       </MenuItem>
-                      <MenuItem value="Material Bangunan">
-                        Material Bangunan
+                        <MenuItem value="Obat-obatan">Obat-obatan</MenuItem>
+                        <MenuItem value="Pakan ternak">Pakan ternak</MenuItem>
+                        <MenuItem value="Peralatan kerja">
+                          Peralatan kerja
                       </MenuItem>
-                      <MenuItem value="Obat-obatan">Obat-obatan</MenuItem>
-                      <MenuItem value="Pakan ternak">Pakan ternak</MenuItem>
-                      <MenuItem value="Peralatan kerja">
-                        Peralatan kerja
+                        <MenuItem value="Perlengkapan satwa">
+                          Perlengkapan satwa
                       </MenuItem>
-                      <MenuItem value="Perlengkapan satwa">
-                        Perlengkapan satwa
+                        <MenuItem value="Sparepart">Sparepart</MenuItem>
+                        <MenuItem value="Service/Inventaris">
+                          Service/Inventaris
                       </MenuItem>
-                      <MenuItem value="Sparepart">Sparepart</MenuItem>
-                      <MenuItem value="Service/Inventaris">
-                        Service/Inventaris
-                      </MenuItem>
-                      <MenuItem value="Lain-lain">Lain-lain</MenuItem>
-                    </Select>
-                  </List>
-                  <List>
-                    <TextField
-                      disabled
-                      id="standard-name"
-                      label="Catatan"
-                      name="note"
-                      width="100%"
-                      style={{ width: "100%" }}
-                      value={this.state.note}
-                      onChange={this.handleChange}
-                      margin="normal"
-                    />
-                  </List>
-                  <List>
-                    <InputLabel htmlFor="demo-controlled-open-select">
-                      Status
+                        <MenuItem value="Lain-lain">Lain-lain</MenuItem>
+                      </Select>
+                    </List>
+                    <List>
+                      <TextField
+                        disabled
+                        id="standard-name"
+                        label="Catatan"
+                        name="note"
+                        width="100%"
+                        style={{ width: "100%" }}
+                        value={this.state.note}
+                        onChange={this.handleChange}
+                        margin="normal"
+                      />
+                    </List>
+                    <List>
+                      <InputLabel htmlFor="demo-controlled-open-select">
+                        Status
                     </InputLabel>
-                    <h3 style={{ color: "#FEBB01" }}>Pending</h3>
-                  </List>
-                  <h4 style={{ textAlign: "center" }}>
-                    Total Harga :{" "}
-                    <TextField
-                      id="standard-name"
-                      name="totalHarga"
-                      value={this.state.totalHarga}
-                      margin="normal"
-                    />{" "}
-                  </h4>
-                  <h3>
-                    <Icon
-                      type="delete"
-                      theme="outlined"
-                      style={{ textAlign: "center", color: "#f0555a" }}
-                      onClick={() => {
-                        this.deleteData(this.props.match.params.id);
-                      }}
-                    />{" "}
-                    Hapus Order
+                      <h3 style={{ color: "#FEBB01" }}>Pending</h3>
+                    </List>
+                    <h4 style={{ textAlign: "center" }}>
+                      Total Harga :{" "}
+                      <TextField
+                        id="standard-name"
+                        name="totalHarga"
+                        value={this.state.totalHarga}
+                        margin="normal"
+                      />{" "}
+                    </h4>
+                    <h3>
+                      <Icon
+                        type="delete"
+                        theme="outlined"
+                        style={{ textAlign: "center", color: "#f0555a" }}
+                        onClick={() => {
+                          this.deleteData(this.props.match.params.id);
+                        }}
+                      />{" "}
+                      Hapus Order
                   </h3>
-                </Card>
-                <br />
-                {/* <List>
+                  </Card>
+                  <br />
+                  {/* <List>
                   <TextField
                     disabled
                     id="standard-name"
@@ -1015,8 +1015,8 @@ class DetailPending extends Component {
                   />
                 </List>
                  */}
-              </div>
-            )}
+                </div>
+              )}
           </div>
 
           <div>
@@ -1070,7 +1070,7 @@ class DetailPending extends Component {
                                       }
                                     }}
                                   >
-                                    <h2 style={{ color: "#00ae69" }}>
+                                    <h2 style={{ color: "#ff6600" }}>
                                       <Icon type="edit" theme="outlined" />
                                     </h2>
                                   </Link>
@@ -1149,10 +1149,10 @@ class DetailPending extends Component {
                 );
               })
             ) : (
-              <h1 style={{ textAlign: "center" }}>
-                Loading <Icon type="loading" theme="outlined" />
-              </h1>
-            )}
+                <h1 style={{ textAlign: "center" }}>
+                  Loading <Icon type="loading" theme="outlined" />
+                </h1>
+              )}
           </div>
           <div style={{ margin: "20px 15px 100px 15px" }}>
             <Button
@@ -1187,7 +1187,7 @@ class DetailPending extends Component {
               style={{
                 float: "right",
                 width: "130px",
-                backgroundColor: "#00ae69",
+                backgroundColor: "#ff6600",
                 borderRadius: "25px"
               }}
               onClick={() => {

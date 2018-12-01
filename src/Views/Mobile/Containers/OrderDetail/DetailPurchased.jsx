@@ -73,7 +73,7 @@ class DetailPurchased extends Component {
     enableEdit: false,
 
     category: "",
-   
+
 
     expanded: null,
     totalHarga: 0,
@@ -158,235 +158,241 @@ class DetailPurchased extends Component {
         <NavBar
           mode="dark"
           leftContent={[
-            <Link to="/" style={{ color: "#ffffff" }}>
+            <Link to="/history" style={{ color: "#ffffff" }}>
               Back
             </Link>
           ]}
 
           onClick={() => console.log("")}
           style={{
-            backgroundColor: "#872ef5",
-            padding: "25px 0px 25px 0px"
+            backgroundColor: "#0088aaff",
+            padding: "25px 0px 25px 0px",
+            width: "100%",
+            position: "fixed",
+            top: 0,
+            zIndex: 100,
           }}
         >
           <p style={{ marginTop: "20px" }}>ORDER DETAIL</p>
         </NavBar>
 
-        <div style={{ textAlign: "center", margin: "20px" }}>
-          <h1>Aplikasi Kasir</h1>
-          <p>{this.state.dataOrderId.orderCode}</p>
-        </div>
+        <div style={{ marginTop: "80px", }}>
+          <div style={{ textAlign: "center", margin: "20px" }}>
+            <h1>Aplikasi Kasir</h1>
+            <p>{this.state.dataOrderId.orderCode}</p>
+          </div>
 
 
-        <div>
-          <Card
-            style={{
-              background: "#fff",
-              padding: "35px",
-              borderRadius: "0px",
-              margin: "15px 15px 10px 15px"
-            }}
-          >
-            <List>
-              <InputLabel htmlFor="demo-controlled-open-select">
-                Kategori
+          <div>
+            <Card
+              style={{
+                background: "#fff",
+                padding: "35px",
+                borderRadius: "0px",
+                margin: "15px 15px 10px 15px"
+              }}
+            >
+              <List>
+                <InputLabel htmlFor="demo-controlled-open-select">
+                  Kategori
                   </InputLabel>
-              <Select
-                disabled
-                open={this.state.open}
-                onClose={this.handleClose}
-                onOpen={this.handleOpen}
-                value={this.state.category}
-                onChange={this.handleChange}
-                inputProps={{
-                  name: "category",
-                  id: "demo-controlled-open-select"
-                }}
-                style={{ width: "100%" }}
-                name="category"
-              >
-                <MenuItem value="" disabled>
-                  <em>- Kategori -</em>
-                </MenuItem>
-                <MenuItem value="Elektronik">Elektronik</MenuItem>
-                <MenuItem value="Jasa/Tenaga borong">
-                  Jasa/Tenaga borong
+                <Select
+                  disabled
+                  open={this.state.open}
+                  onClose={this.handleClose}
+                  onOpen={this.handleOpen}
+                  value={this.state.category}
+                  onChange={this.handleChange}
+                  inputProps={{
+                    name: "category",
+                    id: "demo-controlled-open-select"
+                  }}
+                  style={{ width: "100%" }}
+                  name="category"
+                >
+                  <MenuItem value="" disabled>
+                    <em>- Kategori -</em>
+                  </MenuItem>
+                  <MenuItem value="Elektronik">Elektronik</MenuItem>
+                  <MenuItem value="Jasa/Tenaga borong">
+                    Jasa/Tenaga borong
                     </MenuItem>
-                <MenuItem value="Material Bangunan">
-                  Material Bangunan
+                  <MenuItem value="Material Bangunan">
+                    Material Bangunan
                     </MenuItem>
-                <MenuItem value="Obat-obatan">Obat-obatan</MenuItem>
-                <MenuItem value="Pakan ternak">Pakan ternak</MenuItem>
-                <MenuItem value="Peralatan kerja">Peralatan kerja</MenuItem>
-                <MenuItem value="Perlengkapan satwa">
-                  Perlengkapan satwa
+                  <MenuItem value="Obat-obatan">Obat-obatan</MenuItem>
+                  <MenuItem value="Pakan ternak">Pakan ternak</MenuItem>
+                  <MenuItem value="Peralatan kerja">Peralatan kerja</MenuItem>
+                  <MenuItem value="Perlengkapan satwa">
+                    Perlengkapan satwa
                     </MenuItem>
-                <MenuItem value="Sparepart">Sparepart</MenuItem>
-                <MenuItem value="Service/Inventaris">
-                  Service/Inventaris
+                  <MenuItem value="Sparepart">Sparepart</MenuItem>
+                  <MenuItem value="Service/Inventaris">
+                    Service/Inventaris
                     </MenuItem>
-                <MenuItem value="Lain-lain">Lain-lain</MenuItem>
-              </Select>
-            </List>
-            <List>
-              <TextField
-                disabled
-                id="standard-name"
-                label="Catatan"
-                name="note"
-                width="100%"
-                style={{ width: "100%" }}
-                value={this.state.note}
-                onChange={this.handleChange}
-                margin="normal"
-              />
-            </List>
-            <List>
-            <InputLabel htmlFor="demo-controlled-open-select">
-                Status
+                  <MenuItem value="Lain-lain">Lain-lain</MenuItem>
+                </Select>
+              </List>
+              <List>
+                <TextField
+                  disabled
+                  id="standard-name"
+                  label="Catatan"
+                  name="note"
+                  width="100%"
+                  style={{ width: "100%" }}
+                  value={this.state.note}
+                  onChange={this.handleChange}
+                  margin="normal"
+                />
+              </List>
+              <List>
+                <InputLabel htmlFor="demo-controlled-open-select">
+                  Status
               </InputLabel>
-              <h3 style={{color: "#00ae69"}}>Purchased</h3>
-            </List>
-            <h4 style={{ textAlign: "center" }}>
-              Total Harga :{" "}
-              <TextField
-                id="standard-name"
-                name="totalHarga"
-                value={this.state.totalHarga}
-                margin="normal"
-              />{" "}
-            </h4>
-          </Card>
-          <br />
-        </div>
+                <h3 style={{ color: "#00ae69" }}>Purchased</h3>
+              </List>
+              <h4 style={{ textAlign: "center" }}>
+                Total Harga :{" "}
+                <TextField
+                  id="standard-name"
+                  name="totalHarga"
+                  value={this.state.totalHarga}
+                  margin="normal"
+                />{" "}
+              </h4>
+            </Card>
+            <br />
+          </div>
 
 
 
-        <div>
-          <h3 style={{ textAlign: "center", marginBottom: "15px" }}>
-            Detail Barang
+          <div>
+            <h3 style={{ textAlign: "center", marginBottom: "15px" }}>
+              Detail Barang
           </h3>
-          {this.state.loading ? (
-            this.state.orderDetail.map(key => {
-              return (
-                <div style={{ marginBottom: "5px" }}>
-                  <ExpansionPanel
-                    expanded={expanded === key.id}
-                    onChange={this.handleChangeTable(key.id)}
-                  >
-                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                      <Typography className={classes.heading}>
-                        <h3>{key.name}</h3>
-                      </Typography>
-                      <Typography
-                        style={{ float: "right" }}
-                        className={classes.secondaryHeading}
-                      >
-                        {`Rp. ${key.total}`}
-                      </Typography>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                      <Grid item xs={12} md={6}>
-                        <div>
-                          <List>
-                            <ListItem>
-                              <ListItemText
-                                primary={
-                                  <h2 style={{ color: "#f0555a" }}>
-                                    <Icon
-                                      disabled
-                                      type="delete"
-                                      theme="outlined"
+            {this.state.loading ? (
+              this.state.orderDetail.map(key => {
+                return (
+                  <div style={{ marginBottom: "5px" }}>
+                    <ExpansionPanel
+                      expanded={expanded === key.id}
+                      onChange={this.handleChangeTable(key.id)}
+                    >
+                      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography className={classes.heading}>
+                          <h3>{key.name}</h3>
+                        </Typography>
+                        <Typography
+                          style={{ float: "right" }}
+                          className={classes.secondaryHeading}
+                        >
+                          {`Rp. ${key.total}`}
+                        </Typography>
+                      </ExpansionPanelSummary>
+                      <ExpansionPanelDetails>
+                        <Grid item xs={12} md={6}>
+                          <div>
+                            <List>
+                              <ListItem>
+                                <ListItemText
+                                  primary={
+                                    <h2 style={{ color: "#f0555a" }}>
+                                      <Icon
+                                        disabled
+                                        type="delete"
+                                        theme="outlined"
 
-                                    />
+                                      />
+                                    </h2>
+                                  }
+                                />
+                                <ListItemSecondaryAction>
+
+                                  <h2 style={{ color: "#ff6600" }}>
+                                    <Icon type="edit" theme="outlined" />
                                   </h2>
-                                }
-                              />
-                              <ListItemSecondaryAction>
 
-                                <h2 style={{ color: "#00ae69" }}>
-                                  <Icon type="edit" theme="outlined" />
-                                </h2>
-
-                              </ListItemSecondaryAction>
-                            </ListItem>
-                          </List>
-                          <List>
-                            <ListItem>
-                              <ListItemText primary="Merk" />
-                              <ListItemSecondaryAction>
-                                <h3>{key.merk}</h3>
-                              </ListItemSecondaryAction>
-                            </ListItem>
-                          </List>
-                          <List>
-                            <ListItem>
-                              <ListItemText primary="Spesifikasi" />
-                              <ListItemSecondaryAction>
-                                <h3>{key.spec}</h3>
-                              </ListItemSecondaryAction>
-                            </ListItem>
-                          </List>
-                          <List>
-                            <ListItem>
-                              <ListItemText primary="Merk" />
-                              <ListItemSecondaryAction>
-                                <h3>{key.merk}</h3>
-                              </ListItemSecondaryAction>
-                            </ListItem>
-                          </List>
-                          <List>
-                            <ListItem>
-                              <ListItemText primary="Nama Toko" />
-                              <ListItemSecondaryAction>
-                                <h3>{key.store}</h3>
-                              </ListItemSecondaryAction>
-                            </ListItem>
-                          </List>
-                          <List>
-                            <ListItem>
-                              <ListItemText primary="No.Telephone" />
-                              <ListItemSecondaryAction>
-                                <h3>{key.telephone}</h3>
-                              </ListItemSecondaryAction>
-                            </ListItem>
-                          </List>
-                          <List>
-                            <ListItem>
-                              <ListItemText primary="Harga" />
-                              <ListItemSecondaryAction>
-                                <h3>{key.unitPrice}</h3>
-                              </ListItemSecondaryAction>
-                            </ListItem>
-                          </List>
-                          <List>
-                            <ListItem>
-                              <ListItemText primary="Jumlah" />
-                              <ListItemSecondaryAction>
-                                <h3>{key.count}</h3>
-                              </ListItemSecondaryAction>
-                            </ListItem>
-                          </List>
-                          <List>
-                            <ListItem>
-                              <ListItemText primary="Total" />
-                              <ListItemSecondaryAction>
-                                <h3>{key.total}</h3>
-                              </ListItemSecondaryAction>
-                            </ListItem>
-                          </List>
-                        </div>
-                      </Grid>
-                    </ExpansionPanelDetails>
-                  </ExpansionPanel>
-                </div>
-              );
-            })
-          ) : (
-              <h1 style={{ textAlign: "center" }}>
-                Loading <Icon type="loading" theme="outlined" />
-              </h1>
-            )}
+                                </ListItemSecondaryAction>
+                              </ListItem>
+                            </List>
+                            <List>
+                              <ListItem>
+                                <ListItemText primary="Merk" />
+                                <ListItemSecondaryAction>
+                                  <h3>{key.merk}</h3>
+                                </ListItemSecondaryAction>
+                              </ListItem>
+                            </List>
+                            <List>
+                              <ListItem>
+                                <ListItemText primary="Spesifikasi" />
+                                <ListItemSecondaryAction>
+                                  <h3>{key.spec}</h3>
+                                </ListItemSecondaryAction>
+                              </ListItem>
+                            </List>
+                            <List>
+                              <ListItem>
+                                <ListItemText primary="Merk" />
+                                <ListItemSecondaryAction>
+                                  <h3>{key.merk}</h3>
+                                </ListItemSecondaryAction>
+                              </ListItem>
+                            </List>
+                            <List>
+                              <ListItem>
+                                <ListItemText primary="Nama Toko" />
+                                <ListItemSecondaryAction>
+                                  <h3>{key.store}</h3>
+                                </ListItemSecondaryAction>
+                              </ListItem>
+                            </List>
+                            <List>
+                              <ListItem>
+                                <ListItemText primary="No.Telephone" />
+                                <ListItemSecondaryAction>
+                                  <h3>{key.telephone}</h3>
+                                </ListItemSecondaryAction>
+                              </ListItem>
+                            </List>
+                            <List>
+                              <ListItem>
+                                <ListItemText primary="Harga" />
+                                <ListItemSecondaryAction>
+                                  <h3>{key.unitPrice}</h3>
+                                </ListItemSecondaryAction>
+                              </ListItem>
+                            </List>
+                            <List>
+                              <ListItem>
+                                <ListItemText primary="Jumlah" />
+                                <ListItemSecondaryAction>
+                                  <h3>{key.count}</h3>
+                                </ListItemSecondaryAction>
+                              </ListItem>
+                            </List>
+                            <List>
+                              <ListItem>
+                                <ListItemText primary="Total" />
+                                <ListItemSecondaryAction>
+                                  <h3>{key.total}</h3>
+                                </ListItemSecondaryAction>
+                              </ListItem>
+                            </List>
+                          </div>
+                        </Grid>
+                      </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                  </div>
+                );
+              })
+            ) : (
+                <h1 style={{ textAlign: "center" }}>
+                  Loading <Icon type="loading" theme="outlined" />
+                </h1>
+              )}
+          </div>
         </div>
       </div>
     );

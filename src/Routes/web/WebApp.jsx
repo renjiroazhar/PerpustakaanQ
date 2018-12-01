@@ -59,11 +59,6 @@ const TambahBarang = Loadable({
   loading: loading
 });
 
-const Users = Loadable({
-  loader: () => import("../../Views/Web/Containers/Master/UsersContainer"),
-  loading: loading
-});
-
 const AddOrderContainer = Loadable({
   loader: () => import("../../Views/Web/Containers/AddOrder"),
   loading: loading
@@ -81,11 +76,11 @@ export default class WebApp extends Component {
     this.props.updateLogout();
   };
 
-  
+
   state = {
     searchItem: "",
     data: [],
-    orderData : [],
+    orderData: [],
     visible: false
   };
 
@@ -151,145 +146,144 @@ export default class WebApp extends Component {
     });
   };
 
- 
+
 
   render() {
     let userRole = sessionStorage.getItem("role");
     console.log(userRole);
     return (
       <div>
-      <Layout style={{ background: "#fff", minHeight: "100vh" }}>
-        <SideBar />
-        <Layout>
-          <Header
-            style={{ background: "#fff", paddingLeft: 48, paddingRight: 24 }}
-          >
-            <Row>
-              <Col span={20}>
-                <Search
-                  placeholder="Cari Buku"
-                  name="searchItem"
-                  value={this.state.searchItem}
-                  onChange={this.handleChange}
-                  enterButton={
-                    <Button
-                      onClick={() => {
-                        this.getSearch();
-                      }}
-                      style={{
-                        textAlign: "center",
-                        backgroundColor: "#0088aaff",
-                        width: "100%",
-                        color: "#fff",
-                        borderColor: "transparent",
-                        borderRadius: "3px"
-                      }}
-                    >
-                      Cari
-                    </Button>
-                  }
-                  size="large"
-                  onSearch={value => {
-                    this.getSearch(value);
-                  }}
-                />
-              </Col>
-              <Col span={4}>
-                <Button
-                  style={{
-                    marginLeft: 24,
-                    backgroundColor: "white",
-                    width: "80%",
-                    color: "#f0555a",
-                    borderColor: "#f0555a"
-                  }}
-                  type="primary"
-                  icon="logout"
-                  size="large"
-                  onClick={this.showConfirm}
-                >
-                  Keluar
-                </Button>
-              </Col>
-            </Row>
-          </Header>
-
-          <Modal
-            title="Item List"
-            visible={this.state.visible}
-            onOk={this.handleOk}
-            onCancel={this.handleCancel}
-          >
-            <List
-              itemLayout="horizontal"
-              dataSource={this.state.data}
-              renderItem={item => (
-                <List.Item>
-                  <List.Item.Meta
-                  
-                    title={<Link  to={{
-                      pathname: `/orderdetail/${item.orderId}/update`,
-                      state: {
-                        orderId: item.orderId,
-                        orderCode: item.orderCode,
-                        category: item.category,
-                        status: item.status,
-                        note: item.note,
-                        divisiId: item.divisiId,
-                        bagianId: item.bagianId,
-                        totalHarga: item.totalHarga
-                      }
-                    }}>{item.name}
-                   
-                    </Link>}
-                  description={<Link  to={{
-                    pathname: `/orderdetail/${item.orderId}/update`,
-                    state: {
-                      orderId: item.orderId,
-                      orderCode: item.orderCode,
-                      category: item.category,
-                      status: item.status,
-                      note: item.note,
-                      divisiId: item.divisiId,
-                      bagianId: item.bagianId,
-                      totalHarga: item.totalHarga
-                    }
-                  }}>{`#${item.order.orderCode}`}</Link>}
-                  />
-                {`Rp. ${item.total}`}
-                </List.Item>
-              )}
-            />
-            
-          </Modal>
-
-          <Content style={{ background: "#fff" }}>
-            <div
-              style={{
-                marginLeft: 24,
-                marginRight: 24,
-                padding: 24,
-                background: "#fff",
-                minHeight: 360
-              }}
+        <Layout style={{ background: "#fff", minHeight: "100vh" }}>
+          <SideBar />
+          <Layout>
+            <Header
+              style={{ background: "#fff", paddingLeft: 48, paddingRight: 24 }}
             >
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/pinjam" component={AddOrderContainer} />
-              <Route path="/account" component={Account} />
-              <Route path="/borrow_history/monthly" component={HistoryBulanan} />
-              <Route path="/borrow_history/yearly" component={HistoryTahunan} />
-              <Route path="/orderdetail/:id" component={DetailOrder} />
-              <Route path="/orderdetail/update/:id" component={OrderEdit} />
-              <Route path="/orderdetail/:id/update" component={OrderDetailForEdit} />
-              <Route path="/orderdetail/update/addnewbarang/:id" component={TambahBarang} />
-              <Route path="/users" render={() => { return <Users />; }} />
-              <Route component={PageNotFound} />
-              </Switch>
-            </div>
-          </Content>
+              <Row>
+                <Col span={20}>
+                  <Search
+                    placeholder="Cari Buku"
+                    name="searchItem"
+                    value={this.state.searchItem}
+                    onChange={this.handleChange}
+                    enterButton={
+                      <Button
+                        onClick={() => {
+                          this.getSearch();
+                        }}
+                        style={{
+                          textAlign: "center",
+                          backgroundColor: "#0088aaff",
+                          width: "100%",
+                          color: "#fff",
+                          borderColor: "transparent",
+                          borderRadius: "3px"
+                        }}
+                      >
+                        Cari
+                    </Button>
+                    }
+                    size="large"
+                    onSearch={value => {
+                      this.getSearch(value);
+                    }}
+                  />
+                </Col>
+                <Col span={4}>
+                  <Button
+                    style={{
+                      marginLeft: 24,
+                      backgroundColor: "white",
+                      width: "80%",
+                      color: "#f0555a",
+                      borderColor: "#f0555a"
+                    }}
+                    type="primary"
+                    icon="logout"
+                    size="large"
+                    onClick={this.showConfirm}
+                  >
+                    Keluar
+                </Button>
+                </Col>
+              </Row>
+            </Header>
+
+            <Modal
+              title="Item List"
+              visible={this.state.visible}
+              onOk={this.handleOk}
+              onCancel={this.handleCancel}
+            >
+              <List
+                itemLayout="horizontal"
+                dataSource={this.state.data}
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta
+
+                      title={<Link to={{
+                        pathname: `/orderdetail/${item.orderId}/update`,
+                        state: {
+                          orderId: item.orderId,
+                          orderCode: item.orderCode,
+                          category: item.category,
+                          status: item.status,
+                          note: item.note,
+                          divisiId: item.divisiId,
+                          bagianId: item.bagianId,
+                          totalHarga: item.totalHarga
+                        }
+                      }}>{item.name}
+
+                      </Link>}
+                      description={<Link to={{
+                        pathname: `/orderdetail/${item.orderId}/update`,
+                        state: {
+                          orderId: item.orderId,
+                          orderCode: item.orderCode,
+                          category: item.category,
+                          status: item.status,
+                          note: item.note,
+                          divisiId: item.divisiId,
+                          bagianId: item.bagianId,
+                          totalHarga: item.totalHarga
+                        }
+                      }}>{`#${item.order.orderCode}`}</Link>}
+                    />
+                    {`Rp. ${item.total}`}
+                  </List.Item>
+                )}
+              />
+
+            </Modal>
+
+            <Content style={{ background: "#fff" }}>
+              <div
+                style={{
+                  marginLeft: 24,
+                  marginRight: 24,
+                  padding: 24,
+                  background: "#fff",
+                  minHeight: 360
+                }}
+              >
+                <Switch>
+                  <Route exact path="/" component={Home} />
+                  <Route exact path="/pinjam" component={AddOrderContainer} />
+                  <Route path="/account" component={Account} />
+                  <Route path="/borrow_history/monthly" component={HistoryBulanan} />
+                  <Route path="/borrow_history/yearly" component={HistoryTahunan} />
+                  <Route path="/orderdetail/:id" component={DetailOrder} />
+                  <Route path="/orderdetail/update/:id" component={OrderEdit} />
+                  <Route path="/orderdetail/:id/update" component={OrderDetailForEdit} />
+                  <Route path="/orderdetail/update/addnewbarang/:id" component={TambahBarang} />
+                  <Route component={PageNotFound} />
+                </Switch>
+              </div>
+            </Content>
+          </Layout>
         </Layout>
-      </Layout>
       </div>
     );
   }
