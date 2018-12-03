@@ -160,10 +160,6 @@ class AddOrderContainer extends Component {
     console.log(this.state);
   };
 
-  handleChangesOptionCategory = value => {
-    this.setState({ category: value });
-  };
-
   handleChangesOptionClass = value => {
     this.setState({ class: value });
   };
@@ -356,14 +352,15 @@ class AddOrderContainer extends Component {
             style={{ marginTop: "20px", marginRight: "40px", width: "47%" }}
           >
             <h5 align="left" style={{ marginBottom: "10px" }}>
-              Tahun Penerbitan
+              Tahun Terbit
             </h5>
             <Input
               name="publicationYear"
               value={this.state.publicationYear}
               onChange={this.handleChange}
               required
-              placeholder="Tahun Penerbitan"
+              placeholder="Tahun Terbit"
+              type="number"
             />
           </Col>
           <Col span={6} style={{ marginTop: "20px", width: "47%" }}>
@@ -374,22 +371,22 @@ class AddOrderContainer extends Component {
               name="bookcode"
               value={this.state.bookcode}
               onChange={this.handleChange}
-              placeholder="Kde Buku"
-              type="text"
+              placeholder="Kode Buku"
             />
           </Col><Col
             span={6}
             style={{ marginTop: "20px", marginRight: "40px", width: "47%" }}
           >
             <h5 align="left" style={{ marginBottom: "10px" }}>
-              Jumlah
+              Jumlah Buku
             </h5>
             <Input
               name="count"
               value={this.state.count}
               onChange={this.handleChange}
               required
-              placeholder="Jumlah"
+              placeholder="Jumlah Buku"
+              type="number"
             />
           </Col>
           <Col span={6} style={{ marginTop: "20px", width: "47%" }}>
@@ -400,7 +397,7 @@ class AddOrderContainer extends Component {
               name="note"
               value={this.state.note}
               onChange={this.handleChange}
-              placeholder="Kde Buku"
+              placeholder="Catatan"
               type="text"
             />
           </Col>
@@ -470,9 +467,6 @@ class AddOrderContainer extends Component {
                   }}
                   type="primary"
                   size="large"
-                  onClick={() => {
-                    this.kirimData();
-                  }}
                 >
                   Belum Ada Buku
               </Button>

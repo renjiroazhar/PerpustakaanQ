@@ -5,9 +5,7 @@ import Cancel from "./svg/cancel.svg";
 import { Redirect, Link } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
-import moment from "moment";
 import { message, notification } from "antd";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -46,112 +44,56 @@ const styles = theme => ({
 
 class AddOrderContainer extends Component {
   state = {
-    hasError: false,
-    value: "",
     dataSource: [], // Check here to configure the default column
     loading: false,
+    student: "",
+    nis: 0,
+    class: "",
     status: 0,
-    orderCode: "",
-    category: "",
-    note: "",
-    id: "",
-    divisiId: "",
-    bagianId: "",
-    namaPembeli: "",
+    borrowCode: "",
+    dateOfLoan: "",
+    dateOfReturn: "",
 
-    bagian: "",
-    divisi: "",
-
-    name: "",
-    merk: "",
-    spec: "",
-    lastPurchaser: "",
-    store: "",
-    address: "",
-    telephone: "",
-    web: "",
-    description: "",
-    lastPrice: 0,
-    total: 0,
+    bookName: "",
+    bookcode: "",
+    publisher: "",
+    publicationYear: 0,
     count: 0,
-    unitPrice: 0,
-    purchasePrice: 0,
-    orderId: "",
+    note: "",
+    borrowId: "",
     data: [],
+
     key: 0,
     totalSemua: 0,
-
-    link: false,
-
-    cols: 1,
-    pickerValue: [],
-    asyncValue: [],
-    sValue: ["2013", "?"],
-    visible: false,
-    expanded: null,
-    buttonEnable: false,
-
     dataAnggaran: [],
-
+    namaPeminjam: "",
     dataEstimasi: [],
     dataOrder: [],
     placeOrder: false,
-    dataPembeli: [],
+    dataPeminjam: [],
     tanggalBeliTerakhir: "",
 
-
+    link: false
   };
 
-  getDataOrder = () => {
-    axios
-      .get(
-        `https://purchasing-stagging.herokuapp.com/api/Orders?filter={"include":"people","where":{"status":{"neq":1}}}`
-      )
-      .then(res => {
-        this.setState({
-          dataOrder: res.data,
-
-        });
-        console.log(res.data);
-        let namaPembeli;
-        let hargaTerakhir;
-        let tanggalBeliTerakhiran;
-        this.state.dataOrder.map(key => {
-          return (
-            namaPembeli = key.people.name,
-            hargaTerakhir = key.totalHarga,
-            tanggalBeliTerakhiran = key.createdAt,
-            this.setState({
-              lastPurchaser: namaPembeli,
-              lastPrice: hargaTerakhir,
-              tanggalBeliTerakhir: tanggalBeliTerakhiran
-
-            })
-          )
-        })
-        console.log(hargaTerakhir);
-        console.log(this.state.lastPurchaser);
-      });
-
-  };
   kirimData = () => {
     var date = new Date();
-    var formattedDate = moment(date).format("YYYYMMDD");
-    console.log(formattedDate);
-    var idPeople = sessionStorage.getItem("userId");
+    var tanggal = date.getDay();
+    var bulan = date.getMonth();
+    var tahun = date.getFullYear();
+    const loanDate = `${tahun}-${bulan}-${tanggal}`;
+    const returnDate = `${tahun}-${bulan}-${tanggal + 3}`;
 
     axios
-      .post("https://purchasing-stagging.herokuapp.com/api/Orders", {
-        status: this.state.status,
+      .post("http://localhost:8000/api/Borrows", {
+        status: 0,
+        nis: this.state.nis,
         note: this.state.note,
-        category: this.state.category,
-        divisiId: this.state.divisiId,
-        bagianId: this.state.bagianId,
-        orderCode: `${this.state.divisiId}/${
-          this.state.bagianId
-          }/${formattedDate}`,
-        totalHarga: this.state.totalSemua,
-        peopleId: idPeople
+        student: this.state.student,
+        class: this.state.class,
+        dateOfLoan: loanDate,
+        dateOfReturn: returnDate,
+        borrowCode: `${this.state.nis}/${loanDate}`
       })
       .then(res => {
         this.kirimDataItem(res.data.id);
@@ -161,7 +103,7 @@ class AddOrderContainer extends Component {
         });
         notifikasiAddOrder("success");
       })
-      .catch(err => console.log(err.response.data));
+      .catch(err => console.log(err.response));
   };
 
   kirimDataItem = _id => {
@@ -170,45 +112,22 @@ class AddOrderContainer extends Component {
     for (var index = 0; index < datas.length; index++) {
       console.log(_id);
       axios
-        .post("https://purchasing-stagging.herokuapp.com/api/Items", {
-          name: datas[index].name,
-          merk: datas[index].merk,
-          spec: datas[index].spec,
-          lastPurchaser: this.state.lastPurchaser,
-          store: datas[index].store,
-          address: datas[index].address,
-          telephone: datas[index].telephone,
-          web: datas[index].web,
-          description: datas[index].description,
-          note: datas[index].note,
-          lastPrice: this.state.lastPrice,
-          total: datas[index].total,
+        .post("http://localhost:8000/api/Items", {
+          status: this.state.status,
+          bookname: datas[index].bookName,
+          bookcode: datas[index].bookcode,
+          publisher: datas[index].publisher,
+          publicationYear: datas[index].publicationYear,
           count: datas[index].count,
-          unitPrice: datas[index].unitPrice,
-          purchasePrice: datas[index].purchasePrice,
-          status: datas[index].status,
-          orderId: _id
+          borrowId: _id
         })
         .then(res => {
           this.setState({
-            name: "",
-            merk: "",
-            spec: "",
-            lastPurchaser: "",
-            store: "",
-            address: "",
-            telephone: "",
-            web: "",
-            description: "",
-            note: "",
-            lastPrice: 0,
-            total: 0,
+            bookname: "",
+            bookcode: "",
+            publisher: "",
+            publicationYear: 0,
             count: 0,
-            unitPrice: 0,
-            purchasePrice: 0,
-            status: 0,
-            orderId: "",
-            totalSemua: 0,
             data: []
           });
         });
@@ -229,25 +148,15 @@ class AddOrderContainer extends Component {
 
   pushData = () => {
     const data = {
-      lastPurchaser: this.state.lastPurchaser,
-      name: this.state.name,
-      note: this.state.note,
-      unitPrice: this.state.unitPrice,
+      bookName: this.state.bookName,
+      publisher: this.state.publisher,
+      bookcode: this.state.bookcode,
+      publicationYear: this.state.publicationYear,
       count: this.state.count,
-      total: this.state.total,
-      merk: this.state.merk,
-      spec: this.state.spec,
-      store: this.state.store,
-      address: this.state.address,
-      telephone: this.state.telephone,
-      web: this.state.web,
-      description: this.state.description,
-      lastPrice: this.state.lastPrice,
-      purchasePrice: this.state.purchasePrice,
-      status: this.state.status
+      note: this.state.note
     };
     var array = [...this.state.data];
-    var index = array.findIndex(item => item.name === data.name);
+    var index = array.findIndex(item => item.bookcode === data.bookcode);
     if (array.length > 0) {
       if (index > -1) {
         warning();
@@ -256,82 +165,27 @@ class AddOrderContainer extends Component {
     }
 
     console.log(data);
-    var totalSemua1 = Number(this.state.totalSemua) + Number(data.total);
-    var totalHarga = this.state.count * this.state.unitPrice;
     var newData = this.state.data.concat(data);
     console.log(newData);
 
     this.setState({
       data: newData,
-      totalSemua: totalSemua1,
-      total: totalHarga,
-      buttonEnable: true,
-
+      placeOrder: true
     });
     console.log(this.state.data);
   };
 
-
-  getDataEdit = () => {
-    let userId = sessionStorage.getItem("userId");
-    axios
-      .get(`https://purchasing-stagging.herokuapp.com/api/People/${userId}`)
-      .then(res => {
-        this.setState({
-          role: res.data.role,
-          namaPembeli: res.data.name,
-          username: res.data.username,
-          email: res.data.email,
-          password: res.data.password,
-          emailVerified: res.data.emailVerified
-        });
-        let jabatan;
-
-        if (this.state.role === 1) {
-          jabatan = "Kepala Divisi";
-        } else if (this.state.role === 2) {
-          jabatan = "Kepala Bagian";
-        } else if (this.state.role === 3) {
-          jabatan = "Manager";
-        } else if (this.state.role === 4) {
-          jabatan = "Owner";
-        } else if (this.state.role === 5) {
-          jabatan = "Purchaser";
-        }
-
-        this.setState({
-          role: jabatan
-        });
-      });
-  };
-
   handleChange = e => {
-    if (e.target.name === "unitPrice") {
-      this.setState({
-        total: this.state.count * e.target.value
-      });
-    } else if (e.target.name === "count") {
-      this.setState({
-        total: this.state.unitPrice * e.target.value
-      });
-    }
-
     this.setState({
       [e.target.name]: e.target.value
     });
     console.log(this.state);
   };
 
-  handleChangeTable = panel => (event, expanded) => {
-    this.setState({
-      expanded: expanded ? panel : false
-    });
+  handleChangesOptionClass = value => {
+    this.setState({ class: value });
   };
 
-  componentDidMount() {
-    this.getDataEdit();
-    this.getDataOrder();
-  }
 
   render() {
 
@@ -354,243 +208,192 @@ class AddOrderContainer extends Component {
           style={{
             backgroundColor: "#0088aaff",
             padding: "25px 0px 25px 0px",
-            height: "60px"
+            height: "60px",
+            width: "100%",
+            position: "fixed",
+            top: 0,
+            zIndex: 100,
           }}
         >
           <p style={{ marginTop: "20px" }}>Pinjam Buku</p>
         </NavBar>
 
-        <div style={{ margin: "15px" }}>
-          <p style={{ textAlign: "div" }}>Masukkan Detail</p>
-        </div>
-
-        <Card
-          style={{
-            background: "#fff",
-            padding: "35px",
-            borderRadius: "0px",
-            margin: "15px"
-          }}
-        >
-          <List>
-            <TextField
-              id="standard-name"
-              label="Nama Barang"
-              name="name"
-              width="100%"
-              style={{ width: "100%" }}
-              value={this.state.name}
-              onChange={this.handleChange}
-              margin="normal"
-            />
-          </List>
-          <List>
-            <InputLabel htmlFor="demo-controlled-open-select">
-              Kategori
-            </InputLabel>
-            <Select
-              open={this.state.open}
-              onClose={this.handleClose}
-              onOpen={this.handleOpen}
-              value={this.state.category}
-              onChange={this.handleChange}
-              inputProps={{
-                name: "category",
-                id: "demo-controlled-open-select"
-              }}
-              style={{ width: "100%" }}
-              name="category"
-            >
-              <MenuItem value="">
-                <em>- Kelas -</em>
-              </MenuItem>
-              <MenuItem value="XI-RPL-1">XI-RPL-1</MenuItem>
-              <MenuItem value="XI-RPL-2">XI-RPL-2</MenuItem>
-              <MenuItem value="XI-RPL-3">XI-RPL-3</MenuItem>
-              <MenuItem value="XI-MM-1">XI-MM-1</MenuItem>
-              <MenuItem value="XI-MM-2">XI-MM-2</MenuItem>
-              <MenuItem value="XI-MM-3">XI-MM-3</MenuItem>
-              <MenuItem value="XI-TKJ-1">XI-TKJ-1</MenuItem>
-              <MenuItem value="XI-TKJ-2">XI-TKJ-2</MenuItem>
-              <MenuItem value="XI-TKJ-3">XI-TKJ-3</MenuItem>
-              <MenuItem value="XI-PS-1">XI-PS-1</MenuItem>
-              <MenuItem value="XI-PS-2">XI-PS-2</MenuItem>
-              <MenuItem value="XI-PS-3">XI-PS-3</MenuItem>
-            </Select>
-          </List>
-
-          <List>
-            <TextField
-              id="standard-name"
-              label="Merk"
-              name="merk"
-              width="100%"
-              style={{ width: "100%" }}
-              value={this.state.merk}
-              onChange={this.handleChange}
-              margin="normal"
-            />
-          </List>
-          <List>
-            <TextField
-              id="standard-name"
-              label="Spesifikasi"
-              name="spec"
-              width="100%"
-              style={{ width: "100%" }}
-              value={this.state.spec}
-              onChange={this.handleChange}
-              margin="normal"
-            />
-          </List>
-          <List>
-            <TextField
-              id="standard-name"
-              label="Harga Satuan"
-              name="unitPrice"
-              width="100%"
-              style={{ width: "100%" }}
-              value={this.state.unitPrice}
-              onChange={this.handleChange}
-              margin="normal"
-              type="number"
-            />
-          </List>
-          <List>
-            <TextField
-              id="standard-name"
-              label="Jumlah"
-              name="count"
-              width="100%"
-              style={{ width: "100%" }}
-              value={this.state.count}
-              onChange={this.handleChange}
-              margin="normal"
-              type="number"
-            />
-          </List>
-          <List>
-            <TextField
-              id="standard-name"
-              label="Total"
-              name="total"
-              width="100%"
-              style={{ width: "100%" }}
-              value={this.state.total}
-              onChange={this.handleChange}
-              margin="normal"
-              type="number"
-            />
-          </List>
-        </Card>
-
-        <Card
-          style={{
-            background: "#fff",
-            padding: "35px",
-            borderRadius: "0px",
-            margin: "15px 15px 0px 15px"
-          }}
-        >
-          <List>
-            <TextField
-              id="standard-name"
-              label="Nama Toko"
-              name="store"
-              width="100%"
-              style={{ width: "100%" }}
-              value={this.state.store}
-              onChange={this.handleChange}
-              margin="normal"
-            />
-          </List>
-          <List>
-            <TextField
-              id="standard-name"
-              label="Alamat Toko"
-              name="address"
-              width="100%"
-              style={{ width: "100%" }}
-              value={this.state.address}
-              onChange={this.handleChange}
-              margin="normal"
-            />
-          </List>
-          <List>
-            <TextField
-              id="standard-name"
-              label="No. Telepon"
-              name="telephone"
-              width="100%"
-              style={{ width: "100%" }}
-              value={this.state.telephone}
-              onChange={this.handleChange}
-              margin="normal"
-            />
-          </List>
-          <List>
-            <TextField
-              id="standard-name"
-              label="Website"
-              name="web"
-              width="100%"
-              style={{ width: "100%" }}
-              value={this.state.web}
-              onChange={this.handleChange}
-              margin="normal"
-            />
-          </List>
-          <List>
-            <TextField
-              id="standard-name"
-              label="Catatan"
-              name="note"
-              width="100%"
-              style={{ width: "100%" }}
-              value={this.state.note}
-              onChange={this.handleChange}
-              margin="normal"
-            />
-          </List>
-        </Card>
-
-        <center>
-          <Button
-            onClick={() => {
-              this.pushData();
-            }}
-            inline
+        <div style={{ marginTop: "80px", }}>
+          <Card
             style={{
-              borderRadius: "50px",
-              backgroundColor: "#ff6600",
-              color: "#fff",
-              width: "80%",
-              margin: "20px"
+              background: "#fff",
+              padding: "35px",
+              borderRadius: "0px",
+              margin: "15px",
             }}
           >
-            Tambahkan Buku
-          </Button>
-        </center>
 
-        {this.state.data.map(key => {
-          return (
-            <div style={{ marginBottom: "5px" }}>
-              <List
-                className="my-list"
+            <h4 style={{ textDecorationStyle: "bold" }} align="left">
+              Data Peminjam
+          </h4>
+            <br />
+
+            <List>
+              <TextField
+                required
+                id="standard-name"
+                label="Nama Peminjam"
+                name="student"
+                width="100%"
+                style={{ width: "100%" }}
+                value={this.state.student}
+                onChange={this.handleChange}
+                margin="normal"
+              />
+            </List>
+            <List>
+              <Select
+                open={this.state.calss}
+                onClose={this.handleClose}
+                onOpen={this.handleOpen}
+                value={this.state.class}
+                onChange={this.handleChangeOptionClass}
+                inputProps={{
+                  name: "class",
+                  id: "demo-controlled-open-select"
+                }}
+                style={{ width: "100%" }}
+                name="class"
               >
-                <Item multipleLine extra={`Rp. ${key.total}`}>
-                  <h3>{key.name}</h3>{key.store}<Brief>{`Rp. ${key.unitPrice} x ${key.count}`}</Brief>
-                </Item>
-              </List>
-            </div>
-          );
-        })}
+                <MenuItem value="">
+                  <em>- Kelas -</em>
+                </MenuItem>
+                <MenuItem value="XI-RPL-1">XI-RPL-1</MenuItem>
+                <MenuItem value="XI-RPL-2">XI-RPL-2</MenuItem>
+                <MenuItem value="XI-RPL-3">XI-RPL-3</MenuItem>
+                <MenuItem value="XI-MM-1">XI-MM-1</MenuItem>
+                <MenuItem value="XI-MM-2">XI-MM-2</MenuItem>
+                <MenuItem value="XI-MM-3">XI-MM-3</MenuItem>
+                <MenuItem value="XI-TKJ-1">XI-TKJ-1</MenuItem>
+                <MenuItem value="XI-TKJ-2">XI-TKJ-2</MenuItem>
+                <MenuItem value="XI-TKJ-3">XI-TKJ-3</MenuItem>
+                <MenuItem value="XI-PS-1">XI-PS-1</MenuItem>
+                <MenuItem value="XI-PS-2">XI-PS-2</MenuItem>
+                <MenuItem value="XI-PS-3">XI-PS-3</MenuItem>
+              </Select>
+            </List>
 
-        {this.state.buttonEnable ? (
+            <List>
+              <TextField
+                required
+                id="standard-name"
+                label="NIS"
+                name="nis"
+                width="100%"
+                style={{ width: "100%" }}
+                value={this.state.nis}
+                onChange={this.handleChange}
+                margin="normal"
+              />
+            </List>
+          </Card>
+
+          <Card
+            style={{
+              background: "#fff",
+              padding: "35px",
+              borderRadius: "0px",
+              margin: "15px 15px 0px 15px"
+            }}
+          >
+            <h4 style={{ textDecorationStyle: "bold" }} align="left">
+              Detail Peminjaman
+          </h4>
+            <br />
+
+            <List>
+              <TextField
+                required
+                id="standard-name"
+                label="Judul Buku"
+                name="bookName"
+                width="100%"
+                style={{ width: "100%" }}
+                value={this.state.bookName}
+                onChange={this.handleChange}
+                margin="normal"
+              />
+            </List>
+            <List>
+              <TextField
+                required
+                id="standard-name"
+                label="Penerbit"
+                name="publisher"
+                width="100%"
+                style={{ width: "100%" }}
+                value={this.state.publisher}
+                onChange={this.handleChange}
+                margin="normal"
+              />
+            </List>
+            <List>
+              <TextField
+                required
+                id="standard-name"
+                label="Tahun Terbit"
+                name="publicationYear"
+                width="100%"
+                style={{ width: "100%" }}
+                value={this.state.publicationYear}
+                onChange={this.handleChange}
+                margin="normal"
+                type="number"
+              />
+            </List>
+            <List>
+              <TextField
+                required
+                id="standard-name"
+                label="Kode Buku"
+                name="bookcode"
+                width="100%"
+                style={{ width: "100%" }}
+                value={this.state.bookcode}
+                onChange={this.handleChange}
+                margin="normal"
+                type="text"
+              />
+            </List>
+            <List>
+              <TextField
+                required
+                id="standard-name"
+                label="Jumlah"
+                name="count"
+                width="100%"
+                style={{ width: "100%" }}
+                value={this.state.count}
+                onChange={this.handleChange}
+                margin="normal"
+                type="number"
+              />
+            </List>
+            <List>
+              <TextField
+                required
+                id="standard-name"
+                label="Catatan"
+                name="note"
+                width="100%"
+                style={{ width: "100%" }}
+                value={this.state.note}
+                onChange={this.handleChange}
+                margin="normal"
+                type="textarea"
+              />
+            </List>
+          </Card>
+
           <center>
             <Button
               onClick={() => {
-                this.kirimData();
+                this.pushData();
               }}
               inline
               style={{
@@ -598,34 +401,72 @@ class AddOrderContainer extends Component {
                 backgroundColor: "#ff6600",
                 color: "#fff",
                 width: "80%",
-                margin: "20px",
-                marginBottom: "70px"
+                margin: "20px"
               }}
             >
-              Pinjam Buku
+              Tambahkan Buku
           </Button>
-            {this.state.link ? <Redirect to="/my_order" /> : ""}
           </center>
-        ) : (
-            <center>
-              <Button
-                inline
-                disabled
-                style={{
-                  borderRadius: "50px",
-                  backgroundColor: "#A5A5A5",
-                  color: "#fff",
-                  width: "80%",
-                  margin: "20px",
-                  marginBottom: "70px"
-                }}
-              >
-                Belum Ada Buku
-        </Button>
-            </center>)
-        }
 
-      </div>
+          {
+            this.state.data.map(key => {
+              return (
+                <div style={{ marginBottom: "5px" }}>
+                  <List
+                    className="my-list"
+                  >
+                    <Item multipleLine extra={`Rp. ${key.total}`}>
+                      <h3>{key.name}</h3>{key.store}<Brief>{`Rp. ${key.unitPrice} x ${key.count}`}</Brief>
+                    </Item>
+                  </List>
+                </div>
+              );
+            })
+          }
+
+          {
+            this.state.buttonEnable ? (
+              <center>
+                <Button
+                  onClick={() => {
+                    this.kirimData();
+                  }}
+                  inline
+                  style={{
+                    borderRadius: "50px",
+                    backgroundColor: "#ff6600",
+                    color: "#fff",
+                    width: "80%",
+                    margin: "20px",
+                    marginBottom: "70px"
+                  }}
+                >
+                  Pinjam Buku
+          </Button>
+                {this.state.link ? <Redirect to="/my_order" /> : ""}
+              </center>
+            ) : (
+                <center>
+                  <Button
+                    inline
+                    disabled
+                    style={{
+                      borderRadius: "50px",
+                      backgroundColor: "#A5A5A5",
+                      color: "#fff",
+                      width: "80%",
+                      margin: "20px",
+                      marginBottom: "70px"
+                    }}
+                  >
+                    Belum Ada Buku
+        </Button>
+                </center>)
+          }
+        </div>
+        <br />
+        {this.state.link ? <Redirect to="/" /> : ""}
+      </div >
     );
   }
 }

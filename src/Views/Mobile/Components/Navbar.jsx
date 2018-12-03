@@ -19,7 +19,7 @@ class Navbar extends Component {
   getSearch = value => {
     axios
       .get(
-        `https://purchasing-stagging.herokuapp.com/api/Items?filter={"where":{"name":{"like":"${value}"}},"include":"order"}`
+        `http://localhost:8000/api/Items?filter={"where":{"name":{"like":"${value}"}},"include":"borrow"}`
       )
       .then(res => {
         this.setState({
@@ -67,7 +67,7 @@ class Navbar extends Component {
               this.getSearch(value);
             }}
           />
-         
+
         </NavBar>
       </div>
     );

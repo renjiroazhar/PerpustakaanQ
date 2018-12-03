@@ -15,8 +15,6 @@ export default class HistoryBulanan extends Component {
     data: [],
     dataTahun: [],
     history: "",
-    totalEstimasiSemua: 0,
-    totalEstimasiPerbulan: [],
     namaBulan: "",
     namaTahun: 0,
     tahun: "",
@@ -26,7 +24,7 @@ export default class HistoryBulanan extends Component {
   getDataBulanan = (awaltanggal, akhirtanggal, bulanan, tahunan) => {
     axios
       .get(
-        `https://purchasing-stagging.herokuapp.com/api/Orders?filter={"include":"people","where":{"and":[{"createdAt":{"gt":"${tahunan}-${bulanan}-${awaltanggal}"}},{"createdAt":{"lt":"${tahunan}-${bulanan}-${akhirtanggal}"}}],"status":"1"}}`
+        `http://localhost:8000/api/Items?filter={"include":"borrow","where":{"and":[{"createdAt":{"gt":"${tahunan}-${bulanan}-${awaltanggal}"}},{"createdAt":{"lt":"${tahunan}-${bulanan}-${akhirtanggal}"}}],"status":"1"}}`
       )
       .then(res => {
         this.setState({
@@ -59,7 +57,7 @@ export default class HistoryBulanan extends Component {
     console.log(todayMonthName);
     axios
       .get(
-        `https://purchasing-stagging.herokuapp.com/api/Orders?filter={"include":"people","where":{"and":[{"createdAt":{"gt":"${todayYear}-${todayMonth}-1"}},{"createdAt":{"lt":"${todayYear}-${todayMonth}-31"}}],"status":"1"}}`
+        `http://localhost:8000/api/Items?filter={"include":"borrow","where":{"and":[{"createdAt":{"gt":"${todayYear}-${todayMonth}-1"}},{"createdAt":{"lt":"${todayYear}-${todayMonth}-31"}}],"status":"1"}}`
       )
       .then(res => {
         this.setState({
@@ -227,7 +225,7 @@ export default class HistoryBulanan extends Component {
                     <Item arrow="horizontal" multipleLine>
                       <p>{key.orderCode}</p>
                       <Brief>{key.people.name}</Brief>
-                      <Badge status="success" text="Purchased" />
+                      <Badge status="returned" text="Dikembalikan" />
                     </Item>
                   </Link>
                 </List>
@@ -245,61 +243,7 @@ export default class HistoryBulanan extends Component {
                     <Item arrow="horizontal" multipleLine>
                       <p>{key.orderCode} </p>
                       <Brief>{key.people.name}</Brief>
-                      <Badge status="processing" text="waiting" />
-                    </Item>
-                  </Link>
-                </List>
-              </div>
-            );
-          } else if (key.status === 3) {
-            return (
-              <div>
-                <List className="my-list">
-                  <Link
-                    to={{
-                      pathname: `/orderdetail/${key.id}/myorderdetail`
-                    }}
-                  >
-                    <Item arrow="horizontal" multipleLine>
-                      <p>{key.orderCode} </p>
-                      <Brief>{key.people.name}</Brief>
-                      <Badge status="success" text="ACC1" />
-                    </Item>
-                  </Link>
-                </List>
-              </div>
-            );
-          } else if (key.status === 4) {
-            return (
-              <div>
-                <List className="my-list">
-                  <Link
-                    to={{
-                      pathname: `/orderdetail/${key.id}/myorderdetail`
-                    }}
-                  >
-                    <Item arrow="horizontal" multipleLine>
-                      <p>{key.orderCode} </p>
-                      <Brief>{key.people.name}</Brief>
-                      <Badge status="warning" text="pending" />
-                    </Item>
-                  </Link>
-                </List>
-              </div>
-            );
-          } else if (key.status === 5) {
-            return (
-              <div>
-                <List className="my-list">
-                  <Link
-                    to={{
-                      pathname: `/orderdetail/${key.id}/detailrejected`
-                    }}
-                  >
-                    <Item arrow="horizontal" multipleLine>
-                      <p>{key.orderCode} </p>
-                      <Brief>{key.people.name}</Brief>
-                      <Badge status="error" text="Rejected" />
+                      <Badge status="penalty" text="Denda" />
                     </Item>
                   </Link>
                 </List>

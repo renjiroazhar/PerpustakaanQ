@@ -3,8 +3,8 @@ import Navbar from "../../Components/Navbar";
 import { Tabs } from "antd-mobile";
 import { StickyContainer, Sticky } from "react-sticky";
 import { Icon } from "antd";
-import MonthlyContainer from './HistoryBulanan';
-import YearlyContainer from './HistoryTahunan';
+import HistoryBulanan from './HistoryBulanan';
+import HistoryTahunan from './HistoryTahunan';
 
 function renderTabBar(props) {
   return (
@@ -34,8 +34,6 @@ class HistoryContainer extends Component {
     data: [],
     dataTahun: [],
     history: "",
-    totalEstimasiSemua: 0,
-    totalEstimasiPerbulan: [],
     namaBulan: "",
     namaTahun: 0,
     tahun: "",
@@ -49,10 +47,10 @@ class HistoryContainer extends Component {
         <StickyContainer>
           <Tabs tabs={tabs} initalPage={"t2"} renderTabBar={renderTabBar}>
             <div>
-              <MonthlyContainer />
+              <HistoryBulanan />
             </div>
             <div>
-              <YearlyContainer />
+              <HistoryTahunan />
             </div>
           </Tabs>
         </StickyContainer>
