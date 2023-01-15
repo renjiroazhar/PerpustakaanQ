@@ -2143,7 +2143,8 @@
   "resolved" "https://registry.npmjs.org/@webassemblyjs/ieee754/-/ieee754-1.11.1.tgz"
   "version" "1.11.1"
   dependencies:
-    "@xtuc/ieee754" "^1.2.0"
+    "@types/prop-types" "*"
+    csstype "^2.2.0"
 
 "@webassemblyjs/leb128@1.11.1":
   "integrity" "sha512-BJ2P0hNZ0u+Th1YZXJpzW6miwqQUGcIHT1G/sf72gLVD9DZ5AdYTqPNbHZh6K1M5VmKvFXwGSWZADz+qBWxeRw=="

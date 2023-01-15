@@ -1,27 +1,71 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {
+  Component
+} from 'react';
 import './App.css';
+import {
+  notification
+} from "antd";
+import {
+  isMobile
+} from "react-device-detect";
+import {
+  MobileApp,
+  WebApp
+} from './Routes';
+import Loginpage from './Views/Loginpage';
+
+const openNotificationWithIcon = (type) => {
+  notification[type]({
+    message: 'Login Berhasil',
+    // description: '',
+  });
+};
 
 class App extends Component {
+
+  state = {
+    login: null,
+    hasToken : null
+    // isLoading: true
+  }
+
+  updateLoginState = () => {
+    sessionStorage.setItem('loginState', true)
+    this.setState({
+      login: true
+    })
+    openNotificationWithIcon('success')
+  }
+
+  updateLogoutState = () => {
+    sessionStorage.clear();
+    console.log("Logout...")
+    this.setState({
+      login: false
+    })
+  }
+  
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+  
+    if (!(sessionStorage.getItem('loginState'))) {
+      return <Loginpage updateLogin = {
+        this.updateLoginState
+      }
+      />;
+    }
+
+    if (isMobile) {
+      return <MobileApp updateLogout = {
+        this.updateLogoutState
+      }
+      />;
+    }
+
+    return <WebApp updateLogout = {
+      this.updateLogoutState
+    }
+    />;
+
   }
 }
 
